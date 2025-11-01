@@ -1,0 +1,85 @@
+using Microsoft.AspNetCore.Mvc;
+using Model.DTO.Ventas.PedidoVenta;
+using Service.Venta;
+
+namespace Controller
+{
+    [ApiController]
+    [Route("api/pedidoventa")]
+
+    public class PedidoVentaController : ControllerBase
+    {
+        private readonly PedidoVentaService _data;
+        public PedidoVentaController(PedidoVentaService data)
+        {
+            _data = data;
+        }
+
+        [HttpGet]
+        [Route("lista")]
+        public async Task<ActionResult<List<PedidoVentaListDTO>>> GetList(int page = 1, int pageSize = 10)
+        {
+            var pedidoventa = await _data.PedidoVentaLista(page, pageSize);
+
+            if (pedidoventa == null)
+            {
+                return NotFound();
+            }
+            return Ok(pedidoventa);
+        }
+
+        [HttpGet]
+        [Route("lista/{codcliente}")]
+        public async Task<ActionResult<PedidoVentaListDTO>> GetList(int codcliente)
+        {
+            var pedidoventa = await _data.PedidoVentaLista(codcliente);
+
+            if (pedidoventa == null)
+            {
+                return NotFound();
+            }
+            return Ok(pedidoventa);
+        }
+
+        [HttpPut]
+        [Route("anularpedidoventa/{codpedidov}/{codestado}")]
+        public async Task<ActionResult> PutActualizarEstado(int codpedidov, int codestado)
+        {
+            try
+            {
+                string filasAfectadas = await _data.ActualizarEstadoV2(codpedidov, codestado);
+
+                if (filasAfectadas.StartsWith("OK"))
+                {
+                    return Ok(new { message = filasAfectadas });
+                }
+                else if (filasAfectadas.StartsWith("ERROR"))
+                {
+                    return BadRequest(new { message = filasAfectadas });
+                }
+                else
+                {
+                    return StatusCode(500, new { message = "Respuesta inesperada: " + filasAfectadas });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+
+        [HttpPost("insertar")]
+        public async Task<IActionResult> InsertarPedidoCompra([FromBody] PedidoVentaInsertDTO pedido)
+        {
+            try
+            {
+                int newPedidoVenta = await _data.InsertarPedidoVenta(pedido);
+                return Ok(new { mensaje = "Insertado correctamente", id = newPedidoVenta });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+    }
+}
