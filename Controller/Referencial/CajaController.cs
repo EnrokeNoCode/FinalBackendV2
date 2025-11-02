@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Model.DTO;
 using Service.Referencial;
@@ -39,7 +35,43 @@ namespace Controller.Referencial
                     pageSize = result.PageSize
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
+            {
+                return StatusCode(500, ApiRespuestaDTO.Error(Mensajes.RecuperarMensaje(CodigoMensajes.InternalServerError)));
+            }
+        }
+
+        [HttpPost("apertura")]
+        public async Task<IActionResult> AperturaCaja([FromBody] CajaGestionAperturaDTO request)
+        {
+            try
+            {
+                var result = await cajaServices_.InsertAperturaCaja(request);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ApiRespuestaDTO.Error(Mensajes.RecuperarMensaje(CodigoMensajes.InternalServerError)));
+            }
+        }
+
+        [HttpPut("cierre/{codgestion}")]
+        public async Task<IActionResult> CierreCaja(int codgestion, [FromBody] CajaGestionCierreDTO request)
+        {
+            try
+            {
+                var result = await cajaServices_.UpdateCierreCaja(codgestion, request);
+                return Ok(result);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ApiRespuestaDTO.Error(Mensajes.RecuperarMensaje(CodigoMensajes.InternalServerError)));
             }

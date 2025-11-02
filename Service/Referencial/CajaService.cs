@@ -2,6 +2,8 @@ using Model.DTO;
 using Npgsql;
 using Persistence;
 using Persistence.SQL.Referencial;
+using System.Data;
+using System.Text.Json;
 
 namespace Service.Referencial
 {
@@ -29,7 +31,8 @@ namespace Service.Referencial
                     {
                         totalItems = Convert.ToInt32(await cmdCount.ExecuteScalarAsync());
                     }
-                    catch (Exception ex) { 
+                    catch (Exception ex)
+                    {
                         Console.WriteLine(ex.Message);
                     }
                 }
@@ -39,12 +42,13 @@ namespace Service.Referencial
                 using (var cmd = new NpgsqlCommand(consulta, npgsql))
                 {
                     cmd.Parameters.AddWithValue("codsucursal", codsucursal);
-                    using (var reader = cmd.ExecuteReader())
+                    using (var reader = await cmd.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
                             var cajaGestion = new CajaGestionListDTO
                             {
+                                codcobrador = (int)reader["codcobrador"],
                                 codcaja = (int)reader["codcaja"],
                                 datoscaja = (string)reader["numcaja"] + " - " + (string)reader["descaja"],
                                 estado = (string)reader["estado"],
@@ -68,5 +72,70 @@ namespace Service.Referencial
                 TotalPages = totalPages
             };
         }
+
+        public async Task<object> InsertAperturaCaja(CajaGestionAperturaDTO request)
+        {
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                using (var transaction = await npgsql.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        string sql = _query.InsertApertura();
+
+                        using (var cmd = new NpgsqlCommand(sql, npgsql, transaction))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Parameters.AddWithValue("@codcaja", request.codcaja);
+                            cmd.Parameters.AddWithValue("@codcobrador", request.codcobrador);
+                            cmd.Parameters.AddWithValue("@fechaapertura", request.fechaapertura);
+                            cmd.Parameters.AddWithValue("@montoapertura", request.montoapertura);
+                            cmd.Parameters.AddWithValue("@codterminal", request.codterminal);
+                            var result = await cmd.ExecuteScalarAsync();
+                            await transaction.CommitAsync();
+                            return JsonSerializer.Deserialize<object>(result.ToString());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        throw new Exception("Error al insertar apertura de caja: " + ex.Message, ex);
+                    }
+                }
+            }
+        }
+
+        public async Task<object> UpdateCierreCaja(int codgestion, CajaGestionCierreDTO request)
+        {
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                using (var transaction = await npgsql.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        string sql = _query.UpdateCierre();
+
+                        using (var cmd = new NpgsqlCommand(sql, npgsql, transaction))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Parameters.AddWithValue("@codgestion", codgestion);
+                            cmd.Parameters.AddWithValue("@fechacierre", request.fechacierre);
+                            cmd.Parameters.AddWithValue("@montocierre", request.montocierre);
+                            var result = await cmd.ExecuteScalarAsync();
+                            await transaction.CommitAsync();
+                            return JsonSerializer.Deserialize<object>(result.ToString());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        throw new Exception("Error al actualizar el cierre de caja: " + ex.Message, ex);
+                    }
+                }
+            }
+        }
+
     }
 }

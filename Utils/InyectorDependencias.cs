@@ -1,3 +1,4 @@
+using Api.POS.Persistence.SQL.Referencial;
 using Persistence;
 using Persistence.SQL.Acceso;
 using Persistence.SQL.Compra;
@@ -17,53 +18,76 @@ namespace Utils
         public static IServiceCollection Infraestructura(this IServiceCollection services)
         {
             //Conexion a la BD
-            services.AddSingleton<DBConnector>();
+            services.AddScoped<DBConnector>();
 
             //Acceso
-            services.AddSingleton<UsuarioSQL>();
+            services.AddScoped<UsuarioSQL>();
 
-            services.AddSingleton<UsuarioService>();
+            services.AddScoped<UsuarioService>();
 
             //Referenciales
-            services.AddSingleton<CajaService>();
-            services.AddSingleton<SucursalService>();
-            
-            services.AddSingleton<CajaSQL>();
-            services.AddSingleton<SucursalSQL>();
-            
+            services.AddScoped<CajaService>();
+            services.AddScoped<SucursalService>();
+            services.AddScoped<CobradorService>();
+            services.AddScoped<ClienteService>();
+            services.AddScoped<TerminalService>();
+            services.AddScoped<EstadoMovimientoService>();
+            services.AddScoped<MarcaService>();
+            services.AddScoped<MonedaService>();
+            services.AddScoped<MotivoAjusteService>();
+            services.AddScoped<PartesVehiculoService>();
+            services.AddScoped<TipoComprobanteService>();
+            services.AddScoped<VendedorService>();
+            services.AddScoped<ProductoService>();
+            services.AddScoped<ProveedorService>();
+
+            services.AddScoped<CajaSQL>();
+            services.AddScoped<SucursalSQL>();
+            services.AddScoped<CobradorSQL>();
+            services.AddScoped<ClienteSQL>();
+            services.AddScoped<TerminalSQL>();
+            services.AddScoped<EstadoMovimientoSQL>();
+            services.AddScoped<MarcaSQL>();
+            services.AddScoped<MonedaSQL>();
+            services.AddScoped<MotivoAjusteSQL>();
+            services.AddScoped<PartesVehiculoSQL>();
+            services.AddScoped<TipoComprobanteSQL>();
+            services.AddScoped<VendedorSQL>();
+            services.AddScoped<ProductoSQL>();
+            services.AddScoped<ProveedorSQL>();
 
             //Compras
-            services.AddSingleton<PedidoCompraService>();
-            services.AddSingleton<PresupuestoCompraService>();
-            services.AddSingleton<OrdenCompraService>();
-            services.AddSingleton<NotaCreditoCompraService>();
-            services.AddSingleton<ComprasService>();
-            services.AddSingleton<AjustesService>();
+            services.AddScoped<PedidoCompraService>();
+            services.AddScoped<PresupuestoCompraService>();
+            services.AddScoped<OrdenCompraService>();
+            services.AddScoped<NotaCreditoCompraService>();
+            services.AddScoped<ComprasService>();
+            services.AddScoped<AjustesService>();
             
-            services.AddSingleton<PedidosCompras_sql>();
-            services.AddSingleton<PresupuestoCompras_sql>();
-            services.AddSingleton<OrdenCompra_Sql>();
-            services.AddSingleton<Compras_Sql>();
-            services.AddSingleton<NotaCreditoCompra_Sql>();
-            services.AddSingleton<Ajustes_Sql>();
+            services.AddScoped<PedidosCompras_sql>();
+            services.AddScoped<PresupuestoCompras_sql>();
+            services.AddScoped<OrdenCompra_Sql>();
+            services.AddScoped<Compras_Sql>();
+            services.AddScoped<NotaCreditoCompra_Sql>();
+            services.AddScoped<Ajustes_Sql>();
 
             //Ventas
             services.AddScoped<PedidoVentaService>();
             services.AddScoped<PresupuestoVentaService>();
             services.AddScoped<VentasService>();
-            services.AddSingleton<NotaCreditoVentaService>();
+            services.AddScoped<NotaCreditoVentaService>();
 
-            services.AddSingleton<Ventas_sql>();
-            services.AddSingleton<PedidoVenta_sql>();
-            services.AddSingleton<PresupuestoVenta_sql>();
-            services.AddSingleton<NotaCreditoVenta_Sql>();
+            services.AddScoped<Ventas_sql>();
+            services.AddScoped<PedidoVenta_sql>();
+            services.AddScoped<PresupuestoVenta_sql>();
+            services.AddScoped<NotaCreditoVenta_Sql>();
 
             //Servicios
-            services.AddSingleton<RegistroVehiculoService>();
-            services.AddSingleton<DiagnosticoTecnicoService>();
+            services.AddScoped<RegistroVehiculoService>();
+            services.AddScoped<DiagnosticoTecnicoService>();
 
-            services.AddSingleton<RegistroVehiculo_sql>();
-            services.AddSingleton<DiagnosticoTecnico_sql>();
+            services.AddScoped<RegistroVehiculo_sql>();
+            services.AddScoped<DiagnosticoTecnico_sql>();
 
             return services;
         }

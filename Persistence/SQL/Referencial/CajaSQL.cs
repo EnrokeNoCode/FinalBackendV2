@@ -16,6 +16,7 @@ namespace Persistence.SQL.Referencial
                             WHEN cg.estado = false THEN 'ABIERTO'
                             ELSE 'Sin Gestion'
                         END AS estado,
+                        coalesce (cg.codcobrador,0) as codcobrador,
                         COALESCE(cg.codgestion, 0) AS codgestion,
                         CASE 
                             WHEN cg.estado = TRUE THEN 'Sin Cobrador'                                   
@@ -34,18 +35,12 @@ namespace Persistence.SQL.Referencial
 
         public string InsertApertura()
         {
-            query = @"insert into referential.cajagestion(codgestion,codcaja,codcobrador,fechaapertura,montoapertura,estado,codterminal)
-                        values(@codgestion, @codcaja, @codcobrador, @fechaapertura,@montoapertura, false, @codterminal);";
+            query = @"SELECT referential.fn_apertura_caja(@codcaja, @codcobrador, @fechaapertura, @montoapertura, @codterminal);";
             return query;
         }
         public string UpdateCierre()
         {
-            query = @"update referential.cajagestion
-                        set fechacierre = @fechacierre,
-                            montocierre = @montocierre,
-                            estado = true,
-                            codterminalcierre = @codterminalcierre
-                        where codgestion = @codgestion;";
+            query = @"select referential.fn_cierre_caja(@codgestion, @fechacierre, @montocierre);";
             return query;
         }
     }

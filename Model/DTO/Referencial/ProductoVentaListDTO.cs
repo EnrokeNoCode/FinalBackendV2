@@ -7,7 +7,7 @@ namespace Model.DTO
         public decimal cantidad { get; set; }
         public decimal preciobruto { get; set; }
         public decimal precioneto { get; set; }
-        public string dessucursal { get; set; }
+        public string desiva { get; set; }
         public int codiva { get; set; }
     }
 }
