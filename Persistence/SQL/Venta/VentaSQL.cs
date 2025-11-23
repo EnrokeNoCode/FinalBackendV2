@@ -299,6 +299,11 @@ namespace Persistence.SQL.Venta
                     );";
         }
 
+        public string InsertCobros()
+        {
+            return @"select sales.fn_insert_cobroscontado(@codgestion, @detallesVentas, @detallesFormaPago)";
+        }
+
         public string Update(int option) {
             string sentence = "";
             switch (option) { 
