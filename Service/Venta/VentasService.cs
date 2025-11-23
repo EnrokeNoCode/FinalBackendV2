@@ -71,6 +71,41 @@ namespace Service.Venta
                 TotalPages = totalPages
             };
         }
+
+        public async Task<List<VentaListCobroContadoDTO>> VentaContado(int codcliente)
+        {
+            var lista = new List<VentaListCobroContadoDTO>();
+
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                string consulta = _query.Select(4);
+
+                using (var cmd = new NpgsqlCommand(consulta, npgsql))
+                {
+                    cmd.Parameters.AddWithValue("@codcliente", codcliente);
+
+                    using (var dr = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await dr.ReadAsync())
+                        {
+                            lista.Add(new VentaListCobroContadoDTO
+                            {
+                                codventa = dr.GetInt32(dr.GetOrdinal("codventa")),
+                                codmoneda = dr.GetInt32(dr.GetOrdinal("codmoneda")),
+                                numventa = dr["numventa"]?.ToString(),
+                                totalventa = Convert.ToDecimal(dr["totalventa"]),
+                                nummoneda = dr["nummoneda"]?.ToString(),
+                                cotizacion = Convert.ToDecimal(dr["cotizacion"])
+                            });
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
+
         public async Task<int> InsertarVentas(VentasInsertDTO ventas)
         {
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))

@@ -569,4 +569,27 @@ namespace Persistence.SQL.Compra
 
     }
 
+
 }
+
+
+
+
+/*
+Compras
+
+Nota Remision
+Libro Compras
+
+Ventas
+
+Arqueo de Caja
+Recaudacion a Depositar
+Cobranzas
+Libro Ventas
+
+Servicios
+
+
+ 
+ */

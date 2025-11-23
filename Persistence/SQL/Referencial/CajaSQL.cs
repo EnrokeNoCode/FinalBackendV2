@@ -33,6 +33,20 @@ namespace Persistence.SQL.Referencial
             return query;
         }
 
+        public string SelectGestionCobranza()
+        {
+            query = @"select 
+                    cj.codgestion , cj.fechaapertura , cj.fechacierre ,
+                    c.codcaja , c.numcaja , c.descaja , 
+                    cbr.numcobrador || '- ' || emp.nombre_emp || ', ' || emp.apellido_emp as cobrador
+                    from referential.cajagestion cj
+                    inner join referential.caja c on cj.codcaja = c.codcaja 
+                    inner join referential.cobrador cbr on cj.codcobrador = cbr.codcobrador 
+                    inner join referential.empleado emp on cbr.codempleado = emp.codempleado
+                    where cj.codgestion = @codgestion;";
+            return query;
+        }
+
         public string InsertApertura()
         {
             query = @"SELECT referential.fn_apertura_caja(@codcaja, @codcobrador, @fechaapertura, @montoapertura, @codterminal);";

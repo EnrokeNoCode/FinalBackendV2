@@ -73,6 +73,36 @@ namespace Service.Referencial
             };
         }
 
+        public async Task<CajaGestionCobroDTO> GetGestionCobro(int codgestion)
+        {
+            CajaGestionCobroDTO gestionCobro = null;
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                string consulta = _query.SelectGestionCobranza();
+                using (var cmd = new NpgsqlCommand(consulta, npgsql))
+                {
+                    cmd.Parameters.AddWithValue("@codgestion", codgestion);
+                    using (var dr = await cmd.ExecuteReaderAsync())
+                    {
+                        if (await dr.ReadAsync())
+                        {
+                            gestionCobro = new CajaGestionCobroDTO
+                            {
+                                codgestion = dr.GetInt32(dr.GetOrdinal("codgestion")),
+                                codcaja = dr.GetInt32(dr.GetOrdinal("codcaja")),
+                                numcaja = dr["numcaja"]?.ToString(),
+                                descaja = dr["descaja"]?.ToString(),
+                                cobrador = dr["cobrador"]?.ToString()
+                            };
+                        }
+                    }
+                }
+
+            }
+            return gestionCobro;
+        }
+
         public async Task<object> InsertAperturaCaja(CajaGestionAperturaDTO request)
         {
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))

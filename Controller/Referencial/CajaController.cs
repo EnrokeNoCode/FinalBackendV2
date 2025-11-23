@@ -41,6 +41,25 @@ namespace Controller.Referencial
             }
         }
 
+        [HttpGet("gestioncobro/{codgestion}")]
+        public async Task<ActionResult> GestionCobro(int codgestion)
+        {
+            try
+            {
+                var result = await cajaServices_.GetGestionCobro(codgestion);
+                if (result == null)
+                {
+                    return NotFound("No existe la gestión");
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ApiRespuestaDTO.Error(Mensajes.RecuperarMensaje(CodigoMensajes.InternalServerError)));
+            }
+        }
+
         [HttpPost("apertura")]
         public async Task<IActionResult> AperturaCaja([FromBody] CajaGestionAperturaDTO request)
         {

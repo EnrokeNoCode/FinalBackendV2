@@ -224,8 +224,9 @@ namespace Persistence.SQL.Venta
             string sentence = "";
             switch (option)
             {
-                //para el update estado
+               
                 case 1:
+                    //para el update estado
                     sentence = @"";
                     break;
                 case 2:
@@ -239,6 +240,14 @@ namespace Persistence.SQL.Venta
                                 inner join referential.tipocomprobante tc on v.codtipocomprobante = tc.codtipocomprobante
                                 inner join referential.moneda m on v.codmoneda = m.codmoneda 
                                 where v.codcliente = @codcliente and v.codestmov != 4 order by v.fechaventa;";
+                    break;
+                case 4:
+                    // para las cobranzas
+                    sentence = @"select v.codventa, v.numventa, TO_CHAR(v.fechaventa, 'DD/MM/YYYY'), v.totalventa, 
+                                v.codmoneda, v.cotizacion, m.nummoneda 
+                                from sales.ventas v 
+                                inner join referential.moneda m on v.codmoneda = m.codmoneda 
+                                where v.codestmov = 1 and v.condicionpago = 0 and v.codcliente = @codcliente;";
                     break;
             }
             return sentence;

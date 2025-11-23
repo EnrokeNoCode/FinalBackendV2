@@ -1,5 +1,6 @@
 using Api.POS.Persistence.SQL.Referencial;
 using Persistence;
+using Persistence.SQL;
 using Persistence.SQL.Acceso;
 using Persistence.SQL.Compra;
 using Persistence.SQL.Referencial;
@@ -40,6 +41,7 @@ namespace Utils
             services.AddScoped<VendedorService>();
             services.AddScoped<ProductoService>();
             services.AddScoped<ProveedorService>();
+            services.AddScoped<FormaCobroService>();
 
             services.AddScoped<CajaSQL>();
             services.AddScoped<SucursalSQL>();
@@ -55,6 +57,7 @@ namespace Utils
             services.AddScoped<VendedorSQL>();
             services.AddScoped<ProductoSQL>();
             services.AddScoped<ProveedorSQL>();
+            services.AddScoped<FormaCobroSQL>();
 
             //Compras
             services.AddScoped<PedidoCompraService>();

@@ -15,8 +15,7 @@ namespace Controller
             _data = data;
         }
 
-        [HttpGet]
-        [Route("lista")]
+        [HttpGet("lista")]
         public async Task<ActionResult<List<VentasListDTO>>> GetList(int page = 1, int pageSize = 10)
         {
             var ventasList = await _data.VentasList(page, pageSize);
@@ -26,6 +25,19 @@ namespace Controller
                 return NotFound();
             }
             return Ok(ventasList);
+        }
+
+        [HttpGet("ventacontado/{codcliente}")]
+        public async Task<ActionResult> GetVentaContado(int codcliente)
+        {
+            var lista = await _data.VentaContado(codcliente);
+
+            if (lista == null || lista.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(lista);
         }
 
         [HttpPost("insertar")]
@@ -42,8 +54,7 @@ namespace Controller
             }
         }
 
-        [HttpPut]
-        [Route("anularventa/{codventa}/{codestado}")]
+        [HttpPut("anularventa/{codventa}/{codestado}")]
         public async Task<ActionResult> PutActualizarEstado(int codventa, int codestado)
         {
             try

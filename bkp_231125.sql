@@ -5,7 +5,7 @@
 -- Dumped from database version 16.4
 -- Dumped by pg_dump version 16.4
 
--- Started on 2025-11-02 15:54:06
+-- Started on 2025-11-23 16:44:14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -79,7 +79,7 @@ CREATE SCHEMA shared;
 ALTER SCHEMA shared OWNER TO postgres;
 
 --
--- TOC entry 297 (class 1255 OID 231354)
+-- TOC entry 306 (class 1255 OID 231354)
 -- Name: fn_insert_compra(integer, text, timestamp without time zone, integer, integer, integer, text, text, integer, integer, integer, integer, integer, numeric, text, numeric, numeric, numeric, numeric, numeric, numeric, json); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -211,7 +211,7 @@ $$;
 ALTER FUNCTION purchase.fn_insert_compra(p_codtipocomprobante integer, p_numcompra text, p_fechacompra timestamp without time zone, p_codproveedor integer, p_terminal integer, p_ultimo integer, p_finvalideztimbrado text, p_nrotimbrado text, p_codsucursal integer, p_codempleado integer, p_codestmov integer, p_condicionpago integer, p_codmoneda integer, p_cotizacion numeric, p_observacion text, p_totaliva numeric, p_totaldescuento numeric, p_totalexento numeric, p_totalgravada numeric, p_totalcompra numeric, p_codordenc numeric, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 298 (class 1255 OID 231355)
+-- TOC entry 307 (class 1255 OID 231355)
 -- Name: fn_insert_compra2(integer, text, timestamp without time zone, integer, integer, integer, text, text, integer, integer, integer, integer, integer, numeric, text, numeric, numeric, numeric, numeric, numeric, numeric, numeric, json); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -364,7 +364,7 @@ $$;
 ALTER FUNCTION purchase.fn_insert_compra2(p_codtipocomprobante integer, p_numcompra text, p_fechacompra timestamp without time zone, p_codproveedor integer, p_terminal integer, p_ultimo integer, p_finvalideztimbrado text, p_nrotimbrado text, p_codsucursal integer, p_codempleado integer, p_codestmov integer, p_condicionpago integer, p_codmoneda integer, p_cotizacion numeric, p_observacion text, p_totaliva numeric, p_totaldescuento numeric, p_totalexento numeric, p_totalgravada numeric, p_totalcompra numeric, p_codordenc numeric, p_cantcuotas numeric, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 299 (class 1255 OID 231357)
+-- TOC entry 308 (class 1255 OID 231357)
 -- Name: fn_insert_ordencompra(integer, integer, integer, text, timestamp without time zone, integer, integer, integer, integer, integer, numeric, numeric, numeric, numeric, numeric, numeric, text, integer, integer, json); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -473,7 +473,7 @@ $$;
 ALTER FUNCTION purchase.fn_insert_ordencompra(p_codtipocomprobante integer, p_terminal integer, p_ultimo integer, p_numordencompra text, p_fechaorden timestamp without time zone, p_codestmov integer, p_codempleado integer, p_codproveedor integer, p_codmoneda integer, p_codsucursal integer, p_totaliva numeric, p_totaldescuento numeric, p_totalexento numeric, p_totalgravada numeric, p_totalordencompra numeric, p_cotizacion numeric, p_observacion text, p_condiciopago integer, p_codpresupuestocompra integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 301 (class 1255 OID 231358)
+-- TOC entry 310 (class 1255 OID 231358)
 -- Name: fn_insert_pedcompra(integer, text, timestamp without time zone, integer, integer, integer, json); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -532,7 +532,7 @@ $$;
 ALTER FUNCTION purchase.fn_insert_pedcompra(p_codtipocomprobante integer, p_numpedcompra text, p_fechapedcompra timestamp without time zone, p_codestmov integer, p_codempleado integer, p_codsucursal integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 302 (class 1255 OID 231359)
+-- TOC entry 311 (class 1255 OID 231359)
 -- Name: fn_insert_pedcompra2(integer, integer, integer, text, timestamp without time zone, integer, integer, integer, json); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -592,7 +592,7 @@ $$;
 ALTER FUNCTION purchase.fn_insert_pedcompra2(p_codtipocomprobante integer, p_terminal integer, p_ultimo integer, p_numpedcompra text, p_fechapedcompra timestamp without time zone, p_codestmov integer, p_codempleado integer, p_codsucursal integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 303 (class 1255 OID 231360)
+-- TOC entry 312 (class 1255 OID 231360)
 -- Name: fn_insert_presupuestocompra(integer, integer, integer, text, timestamp without time zone, integer, integer, integer, integer, integer, numeric, numeric, numeric, numeric, numeric, numeric, text, text, integer, json); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -696,7 +696,7 @@ $$;
 ALTER FUNCTION purchase.fn_insert_presupuestocompra(p_codtipocomprobante integer, p_terminal integer, p_ultimo integer, p_numpresupuestocompra text, p_fechapresupuesto timestamp without time zone, p_codestmov integer, p_codempleado integer, p_codproveedor integer, p_codmoneda integer, p_codsucursal integer, p_totaliva numeric, p_totaldescuento numeric, p_totalexento numeric, p_totalgravada numeric, p_totalpresupuestocompra numeric, p_cotizacion numeric, p_observacion text, p_contactoprv text, p_condiciopago integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 304 (class 1255 OID 231361)
+-- TOC entry 313 (class 1255 OID 231361)
 -- Name: fn_update_compraestado(integer, integer); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -754,7 +754,7 @@ $$;
 ALTER FUNCTION purchase.fn_update_compraestado(v_codcompra integer, p_codestmov integer) OWNER TO postgres;
 
 --
--- TOC entry 305 (class 1255 OID 231362)
+-- TOC entry 314 (class 1255 OID 231362)
 -- Name: fn_update_ordencompraestado(integer, integer); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -814,7 +814,7 @@ $$;
 ALTER FUNCTION purchase.fn_update_ordencompraestado(p_ordenc integer, p_codestmov integer) OWNER TO postgres;
 
 --
--- TOC entry 285 (class 1255 OID 231363)
+-- TOC entry 294 (class 1255 OID 231363)
 -- Name: fn_update_pedidocompradet(integer, json); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -851,7 +851,7 @@ $$;
 ALTER FUNCTION purchase.fn_update_pedidocompradet(p_codpedcompra integer, p_newdetalle json) OWNER TO postgres;
 
 --
--- TOC entry 300 (class 1255 OID 231364)
+-- TOC entry 309 (class 1255 OID 231364)
 -- Name: fn_update_pedidocompraestado(integer, integer); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -906,7 +906,7 @@ $$;
 ALTER FUNCTION purchase.fn_update_pedidocompraestado(p_codpedcompra integer, p_codestmov integer) OWNER TO postgres;
 
 --
--- TOC entry 306 (class 1255 OID 231365)
+-- TOC entry 315 (class 1255 OID 231365)
 -- Name: fn_update_presupuestocompraestado(integer, integer); Type: FUNCTION; Schema: purchase; Owner: postgres
 --
 
@@ -966,7 +966,7 @@ $$;
 ALTER FUNCTION purchase.fn_update_presupuestocompraestado(p_codpresupuestocompra integer, p_codestmov integer) OWNER TO postgres;
 
 --
--- TOC entry 321 (class 1255 OID 255924)
+-- TOC entry 330 (class 1255 OID 255924)
 -- Name: fn_apertura_caja(integer, integer, timestamp with time zone, numeric, integer); Type: FUNCTION; Schema: referential; Owner: postgres
 --
 
@@ -1051,7 +1051,7 @@ $$;
 ALTER FUNCTION referential.fn_apertura_caja(p_codcaja integer, p_codcobrador integer, p_fechaapertura timestamp with time zone, p_montoapertura numeric, p_codterminal integer) OWNER TO postgres;
 
 --
--- TOC entry 319 (class 1255 OID 255925)
+-- TOC entry 328 (class 1255 OID 255925)
 -- Name: fn_cierre_caja(integer, timestamp with time zone, numeric); Type: FUNCTION; Schema: referential; Owner: postgres
 --
 
@@ -1099,7 +1099,7 @@ $$;
 ALTER FUNCTION referential.fn_cierre_caja(p_codgestion integer, p_fechacierre timestamp with time zone, p_montocierre numeric) OWNER TO postgres;
 
 --
--- TOC entry 307 (class 1255 OID 231366)
+-- TOC entry 316 (class 1255 OID 231366)
 -- Name: fn_insert_pedventa(integer, integer, integer, timestamp without time zone, text, integer, integer, integer, numeric, numeric, integer, integer, json); Type: FUNCTION; Schema: sales; Owner: postgres
 --
 
@@ -1149,7 +1149,7 @@ $$;
 ALTER FUNCTION sales.fn_insert_pedventa(p_codtipocomprobante integer, p_codsucursal integer, p_codestmov integer, p_fechapedidov timestamp without time zone, p_numpedventa text, p_codvendedor integer, p_codcliente integer, p_codmoneda integer, p_totalpedidov numeric, p_cotizacion1 numeric, p_ultimo integer, p_codterminal integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 308 (class 1255 OID 231367)
+-- TOC entry 317 (class 1255 OID 231367)
 -- Name: fn_insert_presupuestoventa(integer, integer, integer, integer, timestamp without time zone, text, integer, text, integer, smallint, integer, numeric, integer, numeric, numeric, numeric, numeric, numeric, integer, integer, json); Type: FUNCTION; Schema: sales; Owner: postgres
 --
 
@@ -1256,7 +1256,7 @@ $$;
 ALTER FUNCTION sales.fn_insert_presupuestoventa(p_codtipocomprobante integer, p_codsucursal integer, p_codvendedor integer, p_codcliente integer, p_fechapresupuesto timestamp without time zone, p_numprstventa text, p_codpedidov integer, p_observacion text, p_diaven integer, p_condicionpago smallint, p_codmoneda integer, p_cotizacion numeric, p_codestmov integer, p_totaliva numeric, p_totaldescuento numeric, p_totalexento numeric, p_totalgravada numeric, p_totalpresupuestoventa numeric, p_terminal integer, p_ultimo integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 309 (class 1255 OID 231368)
+-- TOC entry 318 (class 1255 OID 231368)
 -- Name: fn_insert_ventas(integer, text, timestamp without time zone, integer, integer, integer, text, text, integer, integer, integer, integer, integer, numeric, text, numeric, numeric, numeric, numeric, numeric, numeric, numeric, json); Type: FUNCTION; Schema: sales; Owner: postgres
 --
 
@@ -1373,7 +1373,7 @@ $$;
 ALTER FUNCTION sales.fn_insert_ventas(p_codtipocomprobante integer, p_numventa text, p_fechaventa timestamp without time zone, p_codcliente integer, p_terminal integer, p_ultimo integer, p_finvalideztimbrado text, p_nrotimbrado text, p_codsucursal integer, p_codvendedor integer, p_codestmov integer, p_condicionpago integer, p_codmoneda integer, p_cotizacion numeric, p_observacion text, p_totaliva numeric, p_totaldescuento numeric, p_totalexento numeric, p_totalgravada numeric, p_totalventa numeric, p_codpresupuestoventa numeric, p_cantcuotas numeric, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 317 (class 1255 OID 247731)
+-- TOC entry 326 (class 1255 OID 247731)
 -- Name: fn_update_pedidoventaestado(integer, integer); Type: FUNCTION; Schema: sales; Owner: postgres
 --
 
@@ -1432,7 +1432,7 @@ $$;
 ALTER FUNCTION sales.fn_update_pedidoventaestado(p_codpedidov integer, p_codestmov integer) OWNER TO postgres;
 
 --
--- TOC entry 318 (class 1255 OID 247732)
+-- TOC entry 327 (class 1255 OID 247732)
 -- Name: fn_update_presupuestoventaestado(integer, integer); Type: FUNCTION; Schema: sales; Owner: postgres
 --
 
@@ -1501,7 +1501,7 @@ $$;
 ALTER FUNCTION sales.fn_update_presupuestoventaestado(p_codpresupuestoventa integer, p_codestmov integer) OWNER TO postgres;
 
 --
--- TOC entry 320 (class 1255 OID 231369)
+-- TOC entry 329 (class 1255 OID 231369)
 -- Name: fn_update_ventaestado(integer, integer); Type: FUNCTION; Schema: sales; Owner: postgres
 --
 
@@ -1578,7 +1578,7 @@ $$;
 ALTER FUNCTION sales.fn_update_ventaestado(v_codventa integer, p_codestmov integer) OWNER TO postgres;
 
 --
--- TOC entry 310 (class 1255 OID 231370)
+-- TOC entry 319 (class 1255 OID 231370)
 -- Name: fn_insert_diagnosticotecnico(integer, integer, text, integer, integer, timestamp without time zone, integer, integer, integer, json); Type: FUNCTION; Schema: service; Owner: postgres
 --
 
@@ -1635,7 +1635,7 @@ $$;
 ALTER FUNCTION service.fn_insert_diagnosticotecnico(p_codtipocomprobante integer, p_codsucursal integer, p_nrodiagnostico text, p_codestmov integer, p_codempleado integer, p_fechadiagnostico timestamp without time zone, p_codvehiculo integer, p_terminal integer, p_ultimo integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 311 (class 1255 OID 231371)
+-- TOC entry 320 (class 1255 OID 231371)
 -- Name: fn_insert_registrovehiculo(integer, integer, integer, integer, integer, text, timestamp without time zone, integer, text, text, text, integer); Type: FUNCTION; Schema: service; Owner: postgres
 --
 
@@ -1684,7 +1684,7 @@ $$;
 ALTER FUNCTION service.fn_insert_registrovehiculo(p_codcliente integer, p_codsucursal integer, p_codempleado integer, p_codestmov integer, p_codtipocomprobante integer, p_numregistro text, p_fecharegistro timestamp without time zone, p_codmarca integer, p_modelo text, p_nrochapa text, p_nrochasis text, p_codterminal integer) OWNER TO postgres;
 
 --
--- TOC entry 312 (class 1255 OID 231372)
+-- TOC entry 321 (class 1255 OID 231372)
 -- Name: fn_insert_registrovehiculo2(integer, integer, integer, integer, integer, text, timestamp without time zone, integer, text, text, text, integer); Type: FUNCTION; Schema: service; Owner: postgres
 --
 
@@ -1755,7 +1755,7 @@ $$;
 ALTER FUNCTION service.fn_insert_registrovehiculo2(p_codcliente integer, p_codsucursal integer, p_codempleado integer, p_codestmov integer, p_codtipocomprobante integer, p_numregistro text, p_fecharegistro timestamp without time zone, p_codmarca integer, p_modelo text, p_nrochapa text, p_nrochasis text, p_codterminal integer) OWNER TO postgres;
 
 --
--- TOC entry 313 (class 1255 OID 231373)
+-- TOC entry 322 (class 1255 OID 231373)
 -- Name: fn_insert_ajustes(integer, integer, text, timestamp without time zone, integer, integer, integer, integer, integer, json); Type: FUNCTION; Schema: shared; Owner: postgres
 --
 
@@ -1870,7 +1870,7 @@ $$;
 ALTER FUNCTION shared.fn_insert_ajustes(p_codtipocomprobante integer, p_codsucursal integer, p_numajuste text, p_fechaajuste timestamp without time zone, p_codmotivo integer, p_codempleado integer, p_condicion integer, p_codterminal integer, p_ultimo integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 314 (class 1255 OID 231374)
+-- TOC entry 323 (class 1255 OID 231374)
 -- Name: fn_insert_notacredito_compra(integer, integer, integer, text, timestamp without time zone, text, date, integer, integer, integer, integer, numeric, numeric, numeric, numeric, numeric, numeric, integer, integer, json); Type: FUNCTION; Schema: shared; Owner: postgres
 --
 
@@ -1946,7 +1946,7 @@ $$;
 ALTER FUNCTION shared.fn_insert_notacredito_compra(p_codcompra integer, p_codproveedor integer, p_codtipocomprobante integer, p_numnotacredito text, p_fechanotacredito timestamp without time zone, p_nrotimbrado text, p_fechavalidez date, p_codestmov integer, p_codempleado integer, p_codsucursal integer, p_codmoneda integer, p_cotizacion numeric, p_totaliva numeric, p_totalexenta numeric, p_totalgravada numeric, p_totaldescuento numeric, p_totaldevolucion numeric, p_terminal integer, p_ultimo integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 315 (class 1255 OID 231375)
+-- TOC entry 324 (class 1255 OID 231375)
 -- Name: fn_insert_notacredito_venta(integer, integer, integer, text, timestamp without time zone, text, date, integer, integer, integer, integer, numeric, numeric, numeric, numeric, numeric, numeric, integer, integer, json); Type: FUNCTION; Schema: shared; Owner: postgres
 --
 
@@ -2022,7 +2022,7 @@ $$;
 ALTER FUNCTION shared.fn_insert_notacredito_venta(p_codventa integer, p_codcliente integer, p_codtipocomprobante integer, p_numnotacredito text, p_fechanotacredito timestamp without time zone, p_nrotimbrado text, p_fechavalidez date, p_codestmov integer, p_codempleado integer, p_codsucursal integer, p_codmoneda integer, p_cotizacion numeric, p_totaliva numeric, p_totalexenta numeric, p_totalgravada numeric, p_totaldescuento numeric, p_totaldevolucion numeric, p_terminal integer, p_ultimo integer, p_detalles json) OWNER TO postgres;
 
 --
--- TOC entry 316 (class 1255 OID 231376)
+-- TOC entry 325 (class 1255 OID 231376)
 -- Name: fn_notacredito_list_detalle(text, integer); Type: FUNCTION; Schema: shared; Owner: postgres
 --
 
@@ -2390,6 +2390,59 @@ CREATE TABLE purchase.presupuestocompradet (
 ALTER TABLE purchase.presupuestocompradet OWNER TO postgres;
 
 --
+-- TOC entry 285 (class 1259 OID 264115)
+-- Name: remisioncompra; Type: TABLE; Schema: purchase; Owner: postgres
+--
+
+CREATE TABLE purchase.remisioncompra (
+    codremisioncompra integer NOT NULL,
+    codcompra integer NOT NULL,
+    codsucursal integer NOT NULL,
+    codtipocomprobante integer NOT NULL,
+    codestmov integer NOT NULL,
+    numremisioncompra character varying(20),
+    fecharemision timestamp without time zone,
+    fechallegada timestamp without time zone,
+    codproveedor integer NOT NULL,
+    codempleado integer NOT NULL,
+    datotransportista character varying,
+    datovehiculo character varying,
+    datochofer character varying
+);
+
+
+ALTER TABLE purchase.remisioncompra OWNER TO postgres;
+
+--
+-- TOC entry 286 (class 1259 OID 264152)
+-- Name: remisioncompra_det; Type: TABLE; Schema: purchase; Owner: postgres
+--
+
+CREATE TABLE purchase.remisioncompra_det (
+    codremisioncompra integer NOT NULL,
+    codproducto integer NOT NULL,
+    cantidad numeric(18,5),
+    costo numeric(18,5)
+);
+
+
+ALTER TABLE purchase.remisioncompra_det OWNER TO postgres;
+
+--
+-- TOC entry 287 (class 1259 OID 264165)
+-- Name: banco; Type: TABLE; Schema: referential; Owner: postgres
+--
+
+CREATE TABLE referential.banco (
+    codbanco integer NOT NULL,
+    numbanco character varying(5),
+    desbanco character varying(100)
+);
+
+
+ALTER TABLE referential.banco OWNER TO postgres;
+
+--
 -- TOC entry 236 (class 1259 OID 231424)
 -- Name: caja; Type: TABLE; Schema: referential; Owner: postgres
 --
@@ -2404,6 +2457,41 @@ CREATE TABLE referential.caja (
 
 
 ALTER TABLE referential.caja OWNER TO postgres;
+
+--
+-- TOC entry 292 (class 1259 OID 264264)
+-- Name: cajachequerecibido; Type: TABLE; Schema: referential; Owner: postgres
+--
+
+CREATE TABLE referential.cajachequerecibido (
+    codgestion integer NOT NULL,
+    codbanco integer NOT NULL,
+    codformacobro integer NOT NULL,
+    numcheque character varying(100),
+    codmoneda integer NOT NULL,
+    librador character varying(100),
+    montocheque numeric(18,5),
+    cotizacion numeric(18,5),
+    fechavto date
+);
+
+
+ALTER TABLE referential.cajachequerecibido OWNER TO postgres;
+
+--
+-- TOC entry 288 (class 1259 OID 264170)
+-- Name: cajaformacobro; Type: TABLE; Schema: referential; Owner: postgres
+--
+
+CREATE TABLE referential.cajaformacobro (
+    codgestion integer NOT NULL,
+    codformacobro integer NOT NULL,
+    montocobrado numeric(18,5),
+    codmoneda integer NOT NULL
+);
+
+
+ALTER TABLE referential.cajaformacobro OWNER TO postgres;
 
 --
 -- TOC entry 237 (class 1259 OID 231427)
@@ -2424,6 +2512,24 @@ CREATE TABLE referential.cajagestion (
 
 
 ALTER TABLE referential.cajagestion OWNER TO postgres;
+
+--
+-- TOC entry 293 (class 1259 OID 264310)
+-- Name: cajatarjetas; Type: TABLE; Schema: referential; Owner: postgres
+--
+
+CREATE TABLE referential.cajatarjetas (
+    codgestion integer NOT NULL,
+    codtipotar integer NOT NULL,
+    codformacobro integer NOT NULL,
+    numvaucher character varying(100),
+    codmoneda integer NOT NULL,
+    montotarjeta numeric(18,5),
+    cotizacion numeric(18,5)
+);
+
+
+ALTER TABLE referential.cajatarjetas OWNER TO postgres;
 
 --
 -- TOC entry 238 (class 1259 OID 231430)
@@ -2581,7 +2687,8 @@ ALTER TABLE referential.familia OWNER TO postgres;
 CREATE TABLE referential.formacobro (
     codformacobro integer NOT NULL,
     numformacobro character varying(100),
-    desformacobro character varying(100)
+    desformacobro character varying(100),
+    tipo character varying(3)
 );
 
 
@@ -2693,7 +2800,7 @@ ALTER TABLE referential.precioventaproducto OWNER TO postgres;
 --
 
 CREATE TABLE referential.procesadoratarjeta (
-    codprocedadora integer NOT NULL,
+    codprocesadora integer NOT NULL,
     numprocedadora character varying(100),
     desprocedadora character varying(100)
 );
@@ -2864,7 +2971,8 @@ ALTER TABLE referential.tipolistaprecio OWNER TO postgres;
 CREATE TABLE referential.tipotarjeta (
     codtipotar integer NOT NULL,
     numtipotar character varying(3),
-    destipotar character varying(100)
+    destipotar character varying(100),
+    codprocesadora integer
 );
 
 
@@ -2914,6 +3022,19 @@ CREATE TABLE referential.vendedor (
 
 
 ALTER TABLE referential.vendedor OWNER TO postgres;
+
+--
+-- TOC entry 289 (class 1259 OID 264188)
+-- Name: cajafacturaventacobradas; Type: TABLE; Schema: sales; Owner: postgres
+--
+
+CREATE TABLE sales.cajafacturaventacobradas (
+    codgestion integer NOT NULL,
+    codventa integer NOT NULL
+);
+
+
+ALTER TABLE sales.cajafacturaventacobradas OWNER TO postgres;
 
 --
 -- TOC entry 269 (class 1259 OID 231527)
@@ -3015,6 +3136,45 @@ CREATE TABLE sales.presupuestoventadet (
 
 
 ALTER TABLE sales.presupuestoventadet OWNER TO postgres;
+
+--
+-- TOC entry 290 (class 1259 OID 264201)
+-- Name: remisionventa; Type: TABLE; Schema: sales; Owner: postgres
+--
+
+CREATE TABLE sales.remisionventa (
+    codremisionventa integer NOT NULL,
+    codventa integer NOT NULL,
+    codsucursal integer NOT NULL,
+    codtipocomprobante integer NOT NULL,
+    codestmov integer NOT NULL,
+    numremisionventa character varying(20),
+    fecharemision timestamp without time zone,
+    fechallegada timestamp without time zone,
+    codcliente integer NOT NULL,
+    codempleado integer NOT NULL,
+    datotransportista character varying,
+    datovehiculo character varying,
+    datochofer character varying
+);
+
+
+ALTER TABLE sales.remisionventa OWNER TO postgres;
+
+--
+-- TOC entry 291 (class 1259 OID 264251)
+-- Name: remisionventa_det; Type: TABLE; Schema: sales; Owner: postgres
+--
+
+CREATE TABLE sales.remisionventa_det (
+    codremisionventa integer NOT NULL,
+    codproducto integer NOT NULL,
+    cantidad numeric(18,5),
+    costo numeric(18,5)
+);
+
+
+ALTER TABLE sales.remisionventa_det OWNER TO postgres;
 
 --
 -- TOC entry 274 (class 1259 OID 231542)
@@ -3243,7 +3403,7 @@ CREATE TABLE shared.transferenciadet (
 ALTER TABLE shared.transferenciadet OWNER TO postgres;
 
 --
--- TOC entry 5299 (class 0 OID 231377)
+-- TOC entry 5370 (class 0 OID 231377)
 -- Dependencies: 221
 -- Data for Name: area; Type: TABLE DATA; Schema: access; Owner: postgres
 --
@@ -3254,7 +3414,7 @@ COPY access.area (codarea, numarea, descarea) FROM stdin;
 
 
 --
--- TOC entry 5300 (class 0 OID 231380)
+-- TOC entry 5371 (class 0 OID 231380)
 -- Dependencies: 222
 -- Data for Name: modulo; Type: TABLE DATA; Schema: access; Owner: postgres
 --
@@ -3264,7 +3424,7 @@ COPY access.modulo (codmodulo, nummodulo, descmodulo) FROM stdin;
 
 
 --
--- TOC entry 5301 (class 0 OID 231383)
+-- TOC entry 5372 (class 0 OID 231383)
 -- Dependencies: 223
 -- Data for Name: permisos; Type: TABLE DATA; Schema: access; Owner: postgres
 --
@@ -3274,7 +3434,7 @@ COPY access.permisos (codusuario, codmodulo, i, u, d, s) FROM stdin;
 
 
 --
--- TOC entry 5302 (class 0 OID 231386)
+-- TOC entry 5373 (class 0 OID 231386)
 -- Dependencies: 224
 -- Data for Name: rol; Type: TABLE DATA; Schema: access; Owner: postgres
 --
@@ -3285,7 +3445,7 @@ COPY access.rol (codrol, numrol, descrol) FROM stdin;
 
 
 --
--- TOC entry 5303 (class 0 OID 231389)
+-- TOC entry 5374 (class 0 OID 231389)
 -- Dependencies: 225
 -- Data for Name: terminal; Type: TABLE DATA; Schema: access; Owner: postgres
 --
@@ -3298,7 +3458,7 @@ COPY access.terminal (codterminal, numterminal, desterminal, pcasociado, codsucu
 
 
 --
--- TOC entry 5304 (class 0 OID 231392)
+-- TOC entry 5375 (class 0 OID 231392)
 -- Dependencies: 226
 -- Data for Name: usuario; Type: TABLE DATA; Schema: access; Owner: postgres
 --
@@ -3310,7 +3470,7 @@ COPY access.usuario (codusuario, nomusuario, passusuario, correo, codempleado, c
 
 
 --
--- TOC entry 5305 (class 0 OID 231395)
+-- TOC entry 5376 (class 0 OID 231395)
 -- Dependencies: 227
 -- Data for Name: compras; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3339,7 +3499,7 @@ COPY purchase.compras (codcompra, codtipocomprobante, numcompra, fechacompra, co
 
 
 --
--- TOC entry 5306 (class 0 OID 231398)
+-- TOC entry 5377 (class 0 OID 231398)
 -- Dependencies: 228
 -- Data for Name: comprasdet; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3373,7 +3533,7 @@ COPY purchase.comprasdet (codcompra, codproducto, coddepsuc, codiva, cantidad, d
 
 
 --
--- TOC entry 5307 (class 0 OID 231401)
+-- TOC entry 5378 (class 0 OID 231401)
 -- Dependencies: 229
 -- Data for Name: facturacompracredito; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3383,7 +3543,7 @@ COPY purchase.facturacompracredito (codcompra, nrocuota, montocuota, saldopendie
 
 
 --
--- TOC entry 5308 (class 0 OID 231404)
+-- TOC entry 5379 (class 0 OID 231404)
 -- Dependencies: 230
 -- Data for Name: ordencompra; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3400,7 +3560,7 @@ COPY purchase.ordencompra (codordenc, codpresupuestocompra, codtipocomprobante, 
 
 
 --
--- TOC entry 5309 (class 0 OID 231407)
+-- TOC entry 5380 (class 0 OID 231407)
 -- Dependencies: 231
 -- Data for Name: ordencompradet; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3417,7 +3577,7 @@ COPY purchase.ordencompradet (codordenc, codproducto, codiva, cantidad, descuent
 
 
 --
--- TOC entry 5310 (class 0 OID 231410)
+-- TOC entry 5381 (class 0 OID 231410)
 -- Dependencies: 232
 -- Data for Name: pedidocompra; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3451,7 +3611,7 @@ COPY purchase.pedidocompra (codpedcompra, codtipocomprobante, numpedcompra, fech
 
 
 --
--- TOC entry 5311 (class 0 OID 231415)
+-- TOC entry 5382 (class 0 OID 231415)
 -- Dependencies: 233
 -- Data for Name: pedidocompradet; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3495,7 +3655,7 @@ COPY purchase.pedidocompradet (codpedcompra, codproducto, cantidad, costoultimo)
 
 
 --
--- TOC entry 5312 (class 0 OID 231418)
+-- TOC entry 5383 (class 0 OID 231418)
 -- Dependencies: 234
 -- Data for Name: presupuestocompra; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3512,7 +3672,7 @@ COPY purchase.presupuestocompra (codpresupuestocompra, codtipocomprobante, fecha
 
 
 --
--- TOC entry 5313 (class 0 OID 231421)
+-- TOC entry 5384 (class 0 OID 231421)
 -- Dependencies: 235
 -- Data for Name: presupuestocompradet; Type: TABLE DATA; Schema: purchase; Owner: postgres
 --
@@ -3530,7 +3690,40 @@ COPY purchase.presupuestocompradet (codpresupuestocompra, codproducto, cantidad,
 
 
 --
--- TOC entry 5314 (class 0 OID 231424)
+-- TOC entry 5434 (class 0 OID 264115)
+-- Dependencies: 285
+-- Data for Name: remisioncompra; Type: TABLE DATA; Schema: purchase; Owner: postgres
+--
+
+COPY purchase.remisioncompra (codremisioncompra, codcompra, codsucursal, codtipocomprobante, codestmov, numremisioncompra, fecharemision, fechallegada, codproveedor, codempleado, datotransportista, datovehiculo, datochofer) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5435 (class 0 OID 264152)
+-- Dependencies: 286
+-- Data for Name: remisioncompra_det; Type: TABLE DATA; Schema: purchase; Owner: postgres
+--
+
+COPY purchase.remisioncompra_det (codremisioncompra, codproducto, cantidad, costo) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5436 (class 0 OID 264165)
+-- Dependencies: 287
+-- Data for Name: banco; Type: TABLE DATA; Schema: referential; Owner: postgres
+--
+
+COPY referential.banco (codbanco, numbanco, desbanco) FROM stdin;
+1	UENO	UENO
+2	SUD	SUDAMERIS
+3	CONTI	CONTINETAL
+\.
+
+
+--
+-- TOC entry 5385 (class 0 OID 231424)
 -- Dependencies: 236
 -- Data for Name: caja; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3544,7 +3737,27 @@ COPY referential.caja (codcaja, numcaja, descaja, codsucursal, habilitado) FROM 
 
 
 --
--- TOC entry 5315 (class 0 OID 231427)
+-- TOC entry 5441 (class 0 OID 264264)
+-- Dependencies: 292
+-- Data for Name: cajachequerecibido; Type: TABLE DATA; Schema: referential; Owner: postgres
+--
+
+COPY referential.cajachequerecibido (codgestion, codbanco, codformacobro, numcheque, codmoneda, librador, montocheque, cotizacion, fechavto) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5437 (class 0 OID 264170)
+-- Dependencies: 288
+-- Data for Name: cajaformacobro; Type: TABLE DATA; Schema: referential; Owner: postgres
+--
+
+COPY referential.cajaformacobro (codgestion, codformacobro, montocobrado, codmoneda) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5386 (class 0 OID 231427)
 -- Dependencies: 237
 -- Data for Name: cajagestion; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3559,12 +3772,24 @@ COPY referential.cajagestion (codgestion, codcaja, codcobrador, fechaapertura, f
 13	3	1	2025-10-19 21:42:00	2025-10-19 21:43:00	t	411111.00000	10000.00000	2
 14	3	1	2025-11-02 03:23:00	2025-11-02 03:45:00	t	10000.00000	100000.00000	2
 15	3	1	2025-11-02 17:31:00	2025-11-02 17:31:00	t	1000.00000	100000.00000	2
-16	3	1	2025-11-02 18:00:00	\N	f	10000.00000	\N	2
+16	3	1	2025-11-02 18:00:00	2025-11-23 13:40:00	t	10000.00000	100000.00000	2
+17	3	1	2025-11-23 14:19:00	2025-11-23 16:30:00	t	100000.00000	100000.00000	2
+18	4	2	2025-11-23 16:30:00	\N	f	100000.00000	\N	2
 \.
 
 
 --
--- TOC entry 5316 (class 0 OID 231430)
+-- TOC entry 5442 (class 0 OID 264310)
+-- Dependencies: 293
+-- Data for Name: cajatarjetas; Type: TABLE DATA; Schema: referential; Owner: postgres
+--
+
+COPY referential.cajatarjetas (codgestion, codtipotar, codformacobro, numvaucher, codmoneda, montotarjeta, cotizacion) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5387 (class 0 OID 231430)
 -- Dependencies: 238
 -- Data for Name: ciudad; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3575,7 +3800,7 @@ COPY referential.ciudad (codciudad, numciudad, descciudad, coddpto) FROM stdin;
 
 
 --
--- TOC entry 5317 (class 0 OID 231433)
+-- TOC entry 5388 (class 0 OID 231433)
 -- Dependencies: 239
 -- Data for Name: cliente; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3587,7 +3812,7 @@ COPY referential.cliente (codcliente, nrodoc, nombre, apellido, activo, fechaalt
 
 
 --
--- TOC entry 5318 (class 0 OID 231438)
+-- TOC entry 5389 (class 0 OID 231438)
 -- Dependencies: 240
 -- Data for Name: cobrador; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3599,7 +3824,7 @@ COPY referential.cobrador (codcobrador, numcobrador, codempleado) FROM stdin;
 
 
 --
--- TOC entry 5319 (class 0 OID 231441)
+-- TOC entry 5390 (class 0 OID 231441)
 -- Dependencies: 241
 -- Data for Name: comprobanteterminal; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3624,7 +3849,7 @@ COPY referential.comprobanteterminal (codterminal, codtipocomprobante, inicio, f
 
 
 --
--- TOC entry 5320 (class 0 OID 231444)
+-- TOC entry 5391 (class 0 OID 231444)
 -- Dependencies: 242
 -- Data for Name: cotizacion; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3634,7 +3859,7 @@ COPY referential.cotizacion (codcotizacion, codmoneda, monto1, monto2, fechacoti
 
 
 --
--- TOC entry 5321 (class 0 OID 231447)
+-- TOC entry 5392 (class 0 OID 231447)
 -- Dependencies: 243
 -- Data for Name: departamento; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3645,7 +3870,7 @@ COPY referential.departamento (coddpto, numdpto, descdpto, codpais) FROM stdin;
 
 
 --
--- TOC entry 5322 (class 0 OID 231450)
+-- TOC entry 5393 (class 0 OID 231450)
 -- Dependencies: 244
 -- Data for Name: empleado; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3657,7 +3882,7 @@ COPY referential.empleado (codempleado, numdoc, nombre_emp, apellido_emp, codare
 
 
 --
--- TOC entry 5323 (class 0 OID 231453)
+-- TOC entry 5394 (class 0 OID 231453)
 -- Dependencies: 245
 -- Data for Name: estadomovimiento; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3676,7 +3901,7 @@ COPY referential.estadomovimiento (codestmov, numestmov, desestmov) FROM stdin;
 
 
 --
--- TOC entry 5324 (class 0 OID 231456)
+-- TOC entry 5395 (class 0 OID 231456)
 -- Dependencies: 246
 -- Data for Name: familia; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3687,17 +3912,21 @@ COPY referential.familia (codfamilia, numfamilia, desfamilia) FROM stdin;
 
 
 --
--- TOC entry 5325 (class 0 OID 231459)
+-- TOC entry 5396 (class 0 OID 231459)
 -- Dependencies: 247
 -- Data for Name: formacobro; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
 
-COPY referential.formacobro (codformacobro, numformacobro, desformacobro) FROM stdin;
+COPY referential.formacobro (codformacobro, numformacobro, desformacobro, tipo) FROM stdin;
+1	TC	TARJETA CREDITO	TAR
+2	TD	TARJETA DEBITO	TAR
+3	EFE	EFECTIVO	EFE
+4	CHE	CHEQUE	CHE
 \.
 
 
 --
--- TOC entry 5326 (class 0 OID 231462)
+-- TOC entry 5397 (class 0 OID 231462)
 -- Dependencies: 248
 -- Data for Name: marca; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3709,7 +3938,7 @@ COPY referential.marca (codmarca, nummarca, desmarca, soloservicio) FROM stdin;
 
 
 --
--- TOC entry 5327 (class 0 OID 231465)
+-- TOC entry 5398 (class 0 OID 231465)
 -- Dependencies: 249
 -- Data for Name: moneda; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3721,7 +3950,7 @@ COPY referential.moneda (codmoneda, nummoneda, desmoneda, monedaprincipal) FROM 
 
 
 --
--- TOC entry 5328 (class 0 OID 231468)
+-- TOC entry 5399 (class 0 OID 231468)
 -- Dependencies: 250
 -- Data for Name: motivoajuste; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3736,7 +3965,7 @@ COPY referential.motivoajuste (codmotivo, nummotivo, desmotivo) FROM stdin;
 
 
 --
--- TOC entry 5329 (class 0 OID 231471)
+-- TOC entry 5400 (class 0 OID 231471)
 -- Dependencies: 251
 -- Data for Name: movimiento; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3749,7 +3978,7 @@ COMPRAS
 
 
 --
--- TOC entry 5330 (class 0 OID 231474)
+-- TOC entry 5401 (class 0 OID 231474)
 -- Dependencies: 252
 -- Data for Name: pais; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3760,7 +3989,7 @@ COPY referential.pais (codpais, numpais, descpaist) FROM stdin;
 
 
 --
--- TOC entry 5331 (class 0 OID 231477)
+-- TOC entry 5402 (class 0 OID 231477)
 -- Dependencies: 253
 -- Data for Name: partesvehiculo; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3782,7 +4011,7 @@ COPY referential.partesvehiculo (codparte, numparte, desparte, observacion) FROM
 
 
 --
--- TOC entry 5332 (class 0 OID 231480)
+-- TOC entry 5403 (class 0 OID 231480)
 -- Dependencies: 254
 -- Data for Name: precioventaproducto; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3797,17 +4026,19 @@ COPY referential.precioventaproducto (codproducto, codlista, precioventa, codsuc
 
 
 --
--- TOC entry 5333 (class 0 OID 231483)
+-- TOC entry 5404 (class 0 OID 231483)
 -- Dependencies: 255
 -- Data for Name: procesadoratarjeta; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
 
-COPY referential.procesadoratarjeta (codprocedadora, numprocedadora, desprocedadora) FROM stdin;
+COPY referential.procesadoratarjeta (codprocesadora, numprocedadora, desprocedadora) FROM stdin;
+1	BAN	BANCARD
+2	DIN	DINELCO
 \.
 
 
 --
--- TOC entry 5334 (class 0 OID 231486)
+-- TOC entry 5405 (class 0 OID 231486)
 -- Dependencies: 256
 -- Data for Name: producto; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3820,7 +4051,7 @@ COPY referential.producto (codproducto, codigobarra, desproducto, codfamilia, co
 
 
 --
--- TOC entry 5335 (class 0 OID 231489)
+-- TOC entry 5406 (class 0 OID 231489)
 -- Dependencies: 257
 -- Data for Name: productosucursal; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3835,7 +4066,7 @@ COPY referential.productosucursal (codproducto, codsucursal, cantidad, cantidad_
 
 
 --
--- TOC entry 5336 (class 0 OID 231492)
+-- TOC entry 5407 (class 0 OID 231492)
 -- Dependencies: 258
 -- Data for Name: proveedor; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3847,7 +4078,7 @@ COPY referential.proveedor (codproveedor, nrodocprv, razonsocial, activo, fechaa
 
 
 --
--- TOC entry 5337 (class 0 OID 231497)
+-- TOC entry 5408 (class 0 OID 231497)
 -- Dependencies: 259
 -- Data for Name: rubro; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3858,7 +4089,7 @@ COPY referential.rubro (codrubro, numrubro, desrubro) FROM stdin;
 
 
 --
--- TOC entry 5338 (class 0 OID 231500)
+-- TOC entry 5409 (class 0 OID 231500)
 -- Dependencies: 260
 -- Data for Name: sucursal; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3870,7 +4101,7 @@ COPY referential.sucursal (codsucursal, numsucursal, dessucursal, direccion, nro
 
 
 --
--- TOC entry 5339 (class 0 OID 231503)
+-- TOC entry 5410 (class 0 OID 231503)
 -- Dependencies: 261
 -- Data for Name: tipo_identificacion; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3882,7 +4113,7 @@ COPY referential.tipo_identificacion (codtipoidnt, numtipoidnt, desctipoidnt) FR
 
 
 --
--- TOC entry 5340 (class 0 OID 231506)
+-- TOC entry 5411 (class 0 OID 231506)
 -- Dependencies: 262
 -- Data for Name: tipocomprobante; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3902,7 +4133,7 @@ COPY referential.tipocomprobante (codtipocomprobante, numtipocomprobante, destip
 
 
 --
--- TOC entry 5341 (class 0 OID 231509)
+-- TOC entry 5412 (class 0 OID 231509)
 -- Dependencies: 263
 -- Data for Name: tipoiva; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3915,7 +4146,7 @@ COPY referential.tipoiva (codiva, numiva, desiva, coheficiente) FROM stdin;
 
 
 --
--- TOC entry 5342 (class 0 OID 231512)
+-- TOC entry 5413 (class 0 OID 231512)
 -- Dependencies: 264
 -- Data for Name: tipolistaprecio; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3927,17 +4158,21 @@ COPY referential.tipolistaprecio (codlista, numlista, deslista) FROM stdin;
 
 
 --
--- TOC entry 5343 (class 0 OID 231515)
+-- TOC entry 5414 (class 0 OID 231515)
 -- Dependencies: 265
 -- Data for Name: tipotarjeta; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
 
-COPY referential.tipotarjeta (codtipotar, numtipotar, destipotar) FROM stdin;
+COPY referential.tipotarjeta (codtipotar, numtipotar, destipotar, codprocesadora) FROM stdin;
+1	VIS	VISA	1
+2	MC	MASTERCARD	1
+3	CRD	CREDICARD	1
+4	PRO	PROCARD	1
 \.
 
 
 --
--- TOC entry 5344 (class 0 OID 231518)
+-- TOC entry 5415 (class 0 OID 231518)
 -- Dependencies: 266
 -- Data for Name: unidadmedida; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3948,7 +4183,7 @@ COPY referential.unidadmedida (codunidadmedida, numunidadmedida, desunidadmedida
 
 
 --
--- TOC entry 5345 (class 0 OID 231521)
+-- TOC entry 5416 (class 0 OID 231521)
 -- Dependencies: 267
 -- Data for Name: vehiculo; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3959,7 +4194,7 @@ COPY referential.vehiculo (codvehiculo, modelo, nrochapa, nrochasis, codcliente,
 
 
 --
--- TOC entry 5346 (class 0 OID 231524)
+-- TOC entry 5417 (class 0 OID 231524)
 -- Dependencies: 268
 -- Data for Name: vendedor; Type: TABLE DATA; Schema: referential; Owner: postgres
 --
@@ -3970,7 +4205,17 @@ COPY referential.vendedor (codvendedor, numvendedor, codempleado) FROM stdin;
 
 
 --
--- TOC entry 5347 (class 0 OID 231527)
+-- TOC entry 5438 (class 0 OID 264188)
+-- Dependencies: 289
+-- Data for Name: cajafacturaventacobradas; Type: TABLE DATA; Schema: sales; Owner: postgres
+--
+
+COPY sales.cajafacturaventacobradas (codgestion, codventa) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5418 (class 0 OID 231527)
 -- Dependencies: 269
 -- Data for Name: facturaventacredito; Type: TABLE DATA; Schema: sales; Owner: postgres
 --
@@ -3996,7 +4241,7 @@ COPY sales.facturaventacredito (codventa, nrocuota, montocuota, saldopendiente, 
 
 
 --
--- TOC entry 5348 (class 0 OID 231530)
+-- TOC entry 5419 (class 0 OID 231530)
 -- Dependencies: 270
 -- Data for Name: pedidoventa; Type: TABLE DATA; Schema: sales; Owner: postgres
 --
@@ -4009,7 +4254,7 @@ COPY sales.pedidoventa (codpedidov, codtipocomprobante, codsucursal, codestmov, 
 
 
 --
--- TOC entry 5349 (class 0 OID 231533)
+-- TOC entry 5420 (class 0 OID 231533)
 -- Dependencies: 271
 -- Data for Name: pedidoventadet; Type: TABLE DATA; Schema: sales; Owner: postgres
 --
@@ -4022,7 +4267,7 @@ COPY sales.pedidoventadet (codpedidov, codproducto, cantidad, precioventa) FROM 
 
 
 --
--- TOC entry 5350 (class 0 OID 231536)
+-- TOC entry 5421 (class 0 OID 231536)
 -- Dependencies: 272
 -- Data for Name: presupuestoventa; Type: TABLE DATA; Schema: sales; Owner: postgres
 --
@@ -4042,7 +4287,7 @@ COPY sales.presupuestoventa (codpresupuestoventa, codtipocomprobante, codsucursa
 
 
 --
--- TOC entry 5351 (class 0 OID 231539)
+-- TOC entry 5422 (class 0 OID 231539)
 -- Dependencies: 273
 -- Data for Name: presupuestoventadet; Type: TABLE DATA; Schema: sales; Owner: postgres
 --
@@ -4066,7 +4311,27 @@ COPY sales.presupuestoventadet (codpresupuestoventa, codproducto, precioneto, pr
 
 
 --
--- TOC entry 5352 (class 0 OID 231542)
+-- TOC entry 5439 (class 0 OID 264201)
+-- Dependencies: 290
+-- Data for Name: remisionventa; Type: TABLE DATA; Schema: sales; Owner: postgres
+--
+
+COPY sales.remisionventa (codremisionventa, codventa, codsucursal, codtipocomprobante, codestmov, numremisionventa, fecharemision, fechallegada, codcliente, codempleado, datotransportista, datovehiculo, datochofer) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5440 (class 0 OID 264251)
+-- Dependencies: 291
+-- Data for Name: remisionventa_det; Type: TABLE DATA; Schema: sales; Owner: postgres
+--
+
+COPY sales.remisionventa_det (codremisionventa, codproducto, cantidad, costo) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5423 (class 0 OID 231542)
 -- Dependencies: 274
 -- Data for Name: ventas; Type: TABLE DATA; Schema: sales; Owner: postgres
 --
@@ -4087,7 +4352,7 @@ COPY sales.ventas (codventa, codtipocomprobante, numventa, fechaventa, codclient
 
 
 --
--- TOC entry 5353 (class 0 OID 231545)
+-- TOC entry 5424 (class 0 OID 231545)
 -- Dependencies: 275
 -- Data for Name: ventasdet; Type: TABLE DATA; Schema: sales; Owner: postgres
 --
@@ -4112,7 +4377,7 @@ COPY sales.ventasdet (codventa, codproducto, codiva, cantidad, descuento, precio
 
 
 --
--- TOC entry 5354 (class 0 OID 231548)
+-- TOC entry 5425 (class 0 OID 231548)
 -- Dependencies: 276
 -- Data for Name: diagnosticotecnico; Type: TABLE DATA; Schema: service; Owner: postgres
 --
@@ -4126,7 +4391,7 @@ COPY service.diagnosticotecnico (coddiagnostico, codtipocomprobante, codsucursal
 
 
 --
--- TOC entry 5355 (class 0 OID 231551)
+-- TOC entry 5426 (class 0 OID 231551)
 -- Dependencies: 277
 -- Data for Name: diagnosticotecnicodet; Type: TABLE DATA; Schema: service; Owner: postgres
 --
@@ -4140,7 +4405,7 @@ COPY service.diagnosticotecnicodet (coddiagnostico, codparte, observacion) FROM 
 
 
 --
--- TOC entry 5356 (class 0 OID 231554)
+-- TOC entry 5427 (class 0 OID 231554)
 -- Dependencies: 278
 -- Data for Name: registrovehiculo; Type: TABLE DATA; Schema: service; Owner: postgres
 --
@@ -4152,7 +4417,7 @@ COPY service.registrovehiculo (codregistro, codcliente, codsucursal, codempleado
 
 
 --
--- TOC entry 5357 (class 0 OID 231557)
+-- TOC entry 5428 (class 0 OID 231557)
 -- Dependencies: 279
 -- Data for Name: ajustes; Type: TABLE DATA; Schema: shared; Owner: postgres
 --
@@ -4172,7 +4437,7 @@ COPY shared.ajustes (codajuste, codtipocomprobante, codsucursal, numajuste, fech
 
 
 --
--- TOC entry 5358 (class 0 OID 231560)
+-- TOC entry 5429 (class 0 OID 231560)
 -- Dependencies: 280
 -- Data for Name: ajustesdet; Type: TABLE DATA; Schema: shared; Owner: postgres
 --
@@ -4194,7 +4459,7 @@ COPY shared.ajustesdet (codajuste, codproducto, cantidad) FROM stdin;
 
 
 --
--- TOC entry 5359 (class 0 OID 231563)
+-- TOC entry 5430 (class 0 OID 231563)
 -- Dependencies: 281
 -- Data for Name: notacredito; Type: TABLE DATA; Schema: shared; Owner: postgres
 --
@@ -4216,7 +4481,7 @@ COPY shared.notacredito (codnotacredito, codcompra, codventa, codproveedor, codc
 
 
 --
--- TOC entry 5360 (class 0 OID 231566)
+-- TOC entry 5431 (class 0 OID 231566)
 -- Dependencies: 282
 -- Data for Name: notacreditodet; Type: TABLE DATA; Schema: shared; Owner: postgres
 --
@@ -4241,7 +4506,7 @@ COPY shared.notacreditodet (codnotacredito, codproducto, cantidaddev, preciobrut
 
 
 --
--- TOC entry 5361 (class 0 OID 231569)
+-- TOC entry 5432 (class 0 OID 231569)
 -- Dependencies: 283
 -- Data for Name: transferencia; Type: TABLE DATA; Schema: shared; Owner: postgres
 --
@@ -4252,7 +4517,7 @@ COPY shared.transferencia (codtransferencia, codsucursal, codtipocomprobante, co
 
 
 --
--- TOC entry 5362 (class 0 OID 231572)
+-- TOC entry 5433 (class 0 OID 231572)
 -- Dependencies: 284
 -- Data for Name: transferenciadet; Type: TABLE DATA; Schema: shared; Owner: postgres
 --
@@ -4262,7 +4527,7 @@ COPY shared.transferenciadet (codtransferencia, codproducto, cantidad, costoulti
 
 
 --
--- TOC entry 4918 (class 2606 OID 231576)
+-- TOC entry 4954 (class 2606 OID 231576)
 -- Name: area area_pkey; Type: CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4271,7 +4536,7 @@ ALTER TABLE ONLY access.area
 
 
 --
--- TOC entry 4920 (class 2606 OID 231578)
+-- TOC entry 4956 (class 2606 OID 231578)
 -- Name: modulo modulo_pk; Type: CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4280,7 +4545,7 @@ ALTER TABLE ONLY access.modulo
 
 
 --
--- TOC entry 4922 (class 2606 OID 231580)
+-- TOC entry 4958 (class 2606 OID 231580)
 -- Name: permisos permisos_pk; Type: CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4289,7 +4554,7 @@ ALTER TABLE ONLY access.permisos
 
 
 --
--- TOC entry 4924 (class 2606 OID 231582)
+-- TOC entry 4960 (class 2606 OID 231582)
 -- Name: rol rol_pk; Type: CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4298,7 +4563,7 @@ ALTER TABLE ONLY access.rol
 
 
 --
--- TOC entry 4926 (class 2606 OID 231584)
+-- TOC entry 4962 (class 2606 OID 231584)
 -- Name: terminal terminal_pkey; Type: CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4307,7 +4572,7 @@ ALTER TABLE ONLY access.terminal
 
 
 --
--- TOC entry 4928 (class 2606 OID 231586)
+-- TOC entry 4964 (class 2606 OID 231586)
 -- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4316,7 +4581,7 @@ ALTER TABLE ONLY access.usuario
 
 
 --
--- TOC entry 4930 (class 2606 OID 231588)
+-- TOC entry 4966 (class 2606 OID 231588)
 -- Name: compras compras_pkey; Type: CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4325,7 +4590,7 @@ ALTER TABLE ONLY purchase.compras
 
 
 --
--- TOC entry 4932 (class 2606 OID 231590)
+-- TOC entry 4968 (class 2606 OID 231590)
 -- Name: ordencompra ordencompra_pkey; Type: CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4334,7 +4599,7 @@ ALTER TABLE ONLY purchase.ordencompra
 
 
 --
--- TOC entry 4934 (class 2606 OID 231592)
+-- TOC entry 4970 (class 2606 OID 231592)
 -- Name: pedidocompra pedidocompra_pkey; Type: CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4343,7 +4608,7 @@ ALTER TABLE ONLY purchase.pedidocompra
 
 
 --
--- TOC entry 4936 (class 2606 OID 231594)
+-- TOC entry 4972 (class 2606 OID 231594)
 -- Name: presupuestocompra presupuestocompra_pkey; Type: CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4352,7 +4617,25 @@ ALTER TABLE ONLY purchase.presupuestocompra
 
 
 --
--- TOC entry 4938 (class 2606 OID 231596)
+-- TOC entry 5052 (class 2606 OID 264121)
+-- Name: remisioncompra remisioncompra_pkey; Type: CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra
+    ADD CONSTRAINT remisioncompra_pkey PRIMARY KEY (codremisioncompra);
+
+
+--
+-- TOC entry 5054 (class 2606 OID 264169)
+-- Name: banco banco_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.banco
+    ADD CONSTRAINT banco_pkey PRIMARY KEY (codbanco);
+
+
+--
+-- TOC entry 4974 (class 2606 OID 231596)
 -- Name: caja caja_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4361,7 +4644,7 @@ ALTER TABLE ONLY referential.caja
 
 
 --
--- TOC entry 4940 (class 2606 OID 231598)
+-- TOC entry 4976 (class 2606 OID 231598)
 -- Name: cajagestion cajagestion_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4370,7 +4653,7 @@ ALTER TABLE ONLY referential.cajagestion
 
 
 --
--- TOC entry 4942 (class 2606 OID 231600)
+-- TOC entry 4978 (class 2606 OID 231600)
 -- Name: ciudad ciudad_pk; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4379,7 +4662,7 @@ ALTER TABLE ONLY referential.ciudad
 
 
 --
--- TOC entry 4944 (class 2606 OID 231602)
+-- TOC entry 4980 (class 2606 OID 231602)
 -- Name: cliente cliente_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4388,7 +4671,7 @@ ALTER TABLE ONLY referential.cliente
 
 
 --
--- TOC entry 4946 (class 2606 OID 231604)
+-- TOC entry 4982 (class 2606 OID 231604)
 -- Name: cobrador cobrador_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4397,7 +4680,7 @@ ALTER TABLE ONLY referential.cobrador
 
 
 --
--- TOC entry 4948 (class 2606 OID 231606)
+-- TOC entry 4984 (class 2606 OID 231606)
 -- Name: cotizacion cotizacion_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4406,7 +4689,7 @@ ALTER TABLE ONLY referential.cotizacion
 
 
 --
--- TOC entry 4950 (class 2606 OID 231608)
+-- TOC entry 4986 (class 2606 OID 231608)
 -- Name: departamento departamento_unique; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4415,7 +4698,7 @@ ALTER TABLE ONLY referential.departamento
 
 
 --
--- TOC entry 4952 (class 2606 OID 231610)
+-- TOC entry 4988 (class 2606 OID 231610)
 -- Name: empleado empleado_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4424,7 +4707,7 @@ ALTER TABLE ONLY referential.empleado
 
 
 --
--- TOC entry 4954 (class 2606 OID 231612)
+-- TOC entry 4990 (class 2606 OID 231612)
 -- Name: estadomovimiento estadomovimiento_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4433,7 +4716,7 @@ ALTER TABLE ONLY referential.estadomovimiento
 
 
 --
--- TOC entry 4956 (class 2606 OID 231614)
+-- TOC entry 4992 (class 2606 OID 231614)
 -- Name: familia familia_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4442,7 +4725,7 @@ ALTER TABLE ONLY referential.familia
 
 
 --
--- TOC entry 4958 (class 2606 OID 231616)
+-- TOC entry 4994 (class 2606 OID 231616)
 -- Name: formacobro formacobro_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4451,7 +4734,7 @@ ALTER TABLE ONLY referential.formacobro
 
 
 --
--- TOC entry 4960 (class 2606 OID 231618)
+-- TOC entry 4996 (class 2606 OID 231618)
 -- Name: marca marca_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4460,7 +4743,7 @@ ALTER TABLE ONLY referential.marca
 
 
 --
--- TOC entry 4962 (class 2606 OID 231620)
+-- TOC entry 4998 (class 2606 OID 231620)
 -- Name: moneda moneda_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4469,7 +4752,7 @@ ALTER TABLE ONLY referential.moneda
 
 
 --
--- TOC entry 4964 (class 2606 OID 231622)
+-- TOC entry 5000 (class 2606 OID 231622)
 -- Name: motivoajuste motivoajuste_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4478,7 +4761,7 @@ ALTER TABLE ONLY referential.motivoajuste
 
 
 --
--- TOC entry 4966 (class 2606 OID 231624)
+-- TOC entry 5002 (class 2606 OID 231624)
 -- Name: movimiento movimiento_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4487,7 +4770,7 @@ ALTER TABLE ONLY referential.movimiento
 
 
 --
--- TOC entry 4968 (class 2606 OID 231626)
+-- TOC entry 5004 (class 2606 OID 231626)
 -- Name: pais pais_unique; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4496,7 +4779,7 @@ ALTER TABLE ONLY referential.pais
 
 
 --
--- TOC entry 4970 (class 2606 OID 231628)
+-- TOC entry 5006 (class 2606 OID 231628)
 -- Name: partesvehiculo partesvehiculo_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4505,16 +4788,16 @@ ALTER TABLE ONLY referential.partesvehiculo
 
 
 --
--- TOC entry 4972 (class 2606 OID 231630)
+-- TOC entry 5008 (class 2606 OID 231630)
 -- Name: procesadoratarjeta procesadoratarjeta_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
 ALTER TABLE ONLY referential.procesadoratarjeta
-    ADD CONSTRAINT procesadoratarjeta_pkey PRIMARY KEY (codprocedadora);
+    ADD CONSTRAINT procesadoratarjeta_pkey PRIMARY KEY (codprocesadora);
 
 
 --
--- TOC entry 4974 (class 2606 OID 231632)
+-- TOC entry 5010 (class 2606 OID 231632)
 -- Name: producto producto_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4523,7 +4806,7 @@ ALTER TABLE ONLY referential.producto
 
 
 --
--- TOC entry 4976 (class 2606 OID 231634)
+-- TOC entry 5012 (class 2606 OID 231634)
 -- Name: productosucursal productosucursal_pk; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4532,7 +4815,7 @@ ALTER TABLE ONLY referential.productosucursal
 
 
 --
--- TOC entry 4978 (class 2606 OID 231636)
+-- TOC entry 5014 (class 2606 OID 231636)
 -- Name: proveedor proveedor_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4541,7 +4824,7 @@ ALTER TABLE ONLY referential.proveedor
 
 
 --
--- TOC entry 4980 (class 2606 OID 231638)
+-- TOC entry 5016 (class 2606 OID 231638)
 -- Name: rubro rubro_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4550,7 +4833,7 @@ ALTER TABLE ONLY referential.rubro
 
 
 --
--- TOC entry 4982 (class 2606 OID 231640)
+-- TOC entry 5018 (class 2606 OID 231640)
 -- Name: sucursal sucursal_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4559,7 +4842,7 @@ ALTER TABLE ONLY referential.sucursal
 
 
 --
--- TOC entry 4986 (class 2606 OID 231642)
+-- TOC entry 5022 (class 2606 OID 231642)
 -- Name: tipocomprobante tipocomprobante_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4568,7 +4851,7 @@ ALTER TABLE ONLY referential.tipocomprobante
 
 
 --
--- TOC entry 4984 (class 2606 OID 231644)
+-- TOC entry 5020 (class 2606 OID 231644)
 -- Name: tipo_identificacion tipoidnt_pk; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4577,7 +4860,7 @@ ALTER TABLE ONLY referential.tipo_identificacion
 
 
 --
--- TOC entry 4988 (class 2606 OID 231646)
+-- TOC entry 5024 (class 2606 OID 231646)
 -- Name: tipoiva tipoiva_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4586,7 +4869,7 @@ ALTER TABLE ONLY referential.tipoiva
 
 
 --
--- TOC entry 4990 (class 2606 OID 231648)
+-- TOC entry 5026 (class 2606 OID 231648)
 -- Name: tipolistaprecio tipolistaprecio_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4595,7 +4878,7 @@ ALTER TABLE ONLY referential.tipolistaprecio
 
 
 --
--- TOC entry 4992 (class 2606 OID 231650)
+-- TOC entry 5028 (class 2606 OID 231650)
 -- Name: tipotarjeta tipotarjeta_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4604,7 +4887,7 @@ ALTER TABLE ONLY referential.tipotarjeta
 
 
 --
--- TOC entry 4994 (class 2606 OID 231652)
+-- TOC entry 5030 (class 2606 OID 231652)
 -- Name: unidadmedida unidadmedida_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4613,7 +4896,7 @@ ALTER TABLE ONLY referential.unidadmedida
 
 
 --
--- TOC entry 4996 (class 2606 OID 231654)
+-- TOC entry 5032 (class 2606 OID 231654)
 -- Name: vehiculo vehiculo_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4622,7 +4905,7 @@ ALTER TABLE ONLY referential.vehiculo
 
 
 --
--- TOC entry 4998 (class 2606 OID 231656)
+-- TOC entry 5034 (class 2606 OID 231656)
 -- Name: vendedor vendedor_pkey; Type: CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -4631,7 +4914,7 @@ ALTER TABLE ONLY referential.vendedor
 
 
 --
--- TOC entry 5000 (class 2606 OID 231658)
+-- TOC entry 5036 (class 2606 OID 231658)
 -- Name: pedidoventa pedidoventa_pkey; Type: CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -4640,7 +4923,7 @@ ALTER TABLE ONLY sales.pedidoventa
 
 
 --
--- TOC entry 5002 (class 2606 OID 231660)
+-- TOC entry 5038 (class 2606 OID 231660)
 -- Name: presupuestoventa presupuestoventa_pkey; Type: CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -4649,7 +4932,16 @@ ALTER TABLE ONLY sales.presupuestoventa
 
 
 --
--- TOC entry 5004 (class 2606 OID 231662)
+-- TOC entry 5056 (class 2606 OID 264207)
+-- Name: remisionventa remisionventa_pkey; Type: CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa
+    ADD CONSTRAINT remisionventa_pkey PRIMARY KEY (codremisionventa);
+
+
+--
+-- TOC entry 5040 (class 2606 OID 231662)
 -- Name: ventas ventas_pkey; Type: CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -4658,7 +4950,7 @@ ALTER TABLE ONLY sales.ventas
 
 
 --
--- TOC entry 5006 (class 2606 OID 231664)
+-- TOC entry 5042 (class 2606 OID 231664)
 -- Name: diagnosticotecnico diagnosticotecnico_pkey; Type: CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -4667,7 +4959,7 @@ ALTER TABLE ONLY service.diagnosticotecnico
 
 
 --
--- TOC entry 5008 (class 2606 OID 231666)
+-- TOC entry 5044 (class 2606 OID 231666)
 -- Name: registrovehiculo registrovehiculo_pkey; Type: CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -4676,7 +4968,7 @@ ALTER TABLE ONLY service.registrovehiculo
 
 
 --
--- TOC entry 5010 (class 2606 OID 231668)
+-- TOC entry 5046 (class 2606 OID 231668)
 -- Name: ajustes ajustes_pkey; Type: CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -4685,7 +4977,7 @@ ALTER TABLE ONLY shared.ajustes
 
 
 --
--- TOC entry 5012 (class 2606 OID 231670)
+-- TOC entry 5048 (class 2606 OID 231670)
 -- Name: notacredito notacredito_pkey; Type: CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -4694,7 +4986,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5014 (class 2606 OID 231672)
+-- TOC entry 5050 (class 2606 OID 231672)
 -- Name: transferencia transferencia_pkey; Type: CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -4703,7 +4995,7 @@ ALTER TABLE ONLY shared.transferencia
 
 
 --
--- TOC entry 5017 (class 2606 OID 231673)
+-- TOC entry 5059 (class 2606 OID 231673)
 -- Name: terminal sucursalterminal_fk; Type: FK CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4712,7 +5004,7 @@ ALTER TABLE ONLY access.terminal
 
 
 --
--- TOC entry 5018 (class 2606 OID 231678)
+-- TOC entry 5060 (class 2606 OID 231678)
 -- Name: usuario usu_emp; Type: FK CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4721,7 +5013,7 @@ ALTER TABLE ONLY access.usuario
 
 
 --
--- TOC entry 5015 (class 2606 OID 231683)
+-- TOC entry 5057 (class 2606 OID 231683)
 -- Name: permisos usu_modulo; Type: FK CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4730,7 +5022,7 @@ ALTER TABLE ONLY access.permisos
 
 
 --
--- TOC entry 5016 (class 2606 OID 231688)
+-- TOC entry 5058 (class 2606 OID 231688)
 -- Name: permisos usu_perm; Type: FK CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4739,7 +5031,7 @@ ALTER TABLE ONLY access.permisos
 
 
 --
--- TOC entry 5019 (class 2606 OID 231693)
+-- TOC entry 5061 (class 2606 OID 231693)
 -- Name: usuario usu_rol; Type: FK CONSTRAINT; Schema: access; Owner: postgres
 --
 
@@ -4748,7 +5040,7 @@ ALTER TABLE ONLY access.usuario
 
 
 --
--- TOC entry 5020 (class 2606 OID 231698)
+-- TOC entry 5062 (class 2606 OID 231698)
 -- Name: compras compras_codempleado_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4757,7 +5049,7 @@ ALTER TABLE ONLY purchase.compras
 
 
 --
--- TOC entry 5021 (class 2606 OID 231703)
+-- TOC entry 5063 (class 2606 OID 231703)
 -- Name: compras compras_codestmov_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4766,7 +5058,7 @@ ALTER TABLE ONLY purchase.compras
 
 
 --
--- TOC entry 5022 (class 2606 OID 231708)
+-- TOC entry 5064 (class 2606 OID 231708)
 -- Name: compras compras_codmoneda_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4775,7 +5067,7 @@ ALTER TABLE ONLY purchase.compras
 
 
 --
--- TOC entry 5023 (class 2606 OID 231713)
+-- TOC entry 5065 (class 2606 OID 231713)
 -- Name: compras compras_codordenc_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4784,7 +5076,7 @@ ALTER TABLE ONLY purchase.compras
 
 
 --
--- TOC entry 5024 (class 2606 OID 231718)
+-- TOC entry 5066 (class 2606 OID 231718)
 -- Name: compras compras_codproveedor_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4793,7 +5085,7 @@ ALTER TABLE ONLY purchase.compras
 
 
 --
--- TOC entry 5025 (class 2606 OID 231723)
+-- TOC entry 5067 (class 2606 OID 231723)
 -- Name: compras compras_codsucursal_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4802,7 +5094,7 @@ ALTER TABLE ONLY purchase.compras
 
 
 --
--- TOC entry 5026 (class 2606 OID 231728)
+-- TOC entry 5068 (class 2606 OID 231728)
 -- Name: compras compras_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4811,7 +5103,7 @@ ALTER TABLE ONLY purchase.compras
 
 
 --
--- TOC entry 5027 (class 2606 OID 231733)
+-- TOC entry 5069 (class 2606 OID 231733)
 -- Name: comprasdet comprasdet_codcompra_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4820,7 +5112,7 @@ ALTER TABLE ONLY purchase.comprasdet
 
 
 --
--- TOC entry 5028 (class 2606 OID 231738)
+-- TOC entry 5070 (class 2606 OID 231738)
 -- Name: comprasdet comprasdet_codiva_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4829,7 +5121,7 @@ ALTER TABLE ONLY purchase.comprasdet
 
 
 --
--- TOC entry 5029 (class 2606 OID 231743)
+-- TOC entry 5071 (class 2606 OID 231743)
 -- Name: comprasdet comprasdet_codproducto_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4838,7 +5130,7 @@ ALTER TABLE ONLY purchase.comprasdet
 
 
 --
--- TOC entry 5030 (class 2606 OID 231748)
+-- TOC entry 5072 (class 2606 OID 231748)
 -- Name: facturacompracredito facturacompracredito_codcompra_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4847,7 +5139,7 @@ ALTER TABLE ONLY purchase.facturacompracredito
 
 
 --
--- TOC entry 5031 (class 2606 OID 231753)
+-- TOC entry 5073 (class 2606 OID 231753)
 -- Name: ordencompra ordencompra_codempleado_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4856,7 +5148,7 @@ ALTER TABLE ONLY purchase.ordencompra
 
 
 --
--- TOC entry 5032 (class 2606 OID 231758)
+-- TOC entry 5074 (class 2606 OID 231758)
 -- Name: ordencompra ordencompra_codestmov_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4865,7 +5157,7 @@ ALTER TABLE ONLY purchase.ordencompra
 
 
 --
--- TOC entry 5033 (class 2606 OID 231763)
+-- TOC entry 5075 (class 2606 OID 231763)
 -- Name: ordencompra ordencompra_codmoneda_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4874,7 +5166,7 @@ ALTER TABLE ONLY purchase.ordencompra
 
 
 --
--- TOC entry 5034 (class 2606 OID 231768)
+-- TOC entry 5076 (class 2606 OID 231768)
 -- Name: ordencompra ordencompra_codpresupuestocompra_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4883,7 +5175,7 @@ ALTER TABLE ONLY purchase.ordencompra
 
 
 --
--- TOC entry 5035 (class 2606 OID 231773)
+-- TOC entry 5077 (class 2606 OID 231773)
 -- Name: ordencompra ordencompra_codproveedor_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4892,7 +5184,7 @@ ALTER TABLE ONLY purchase.ordencompra
 
 
 --
--- TOC entry 5036 (class 2606 OID 231778)
+-- TOC entry 5078 (class 2606 OID 231778)
 -- Name: ordencompra ordencompra_codsucursal_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4901,7 +5193,7 @@ ALTER TABLE ONLY purchase.ordencompra
 
 
 --
--- TOC entry 5037 (class 2606 OID 231783)
+-- TOC entry 5079 (class 2606 OID 231783)
 -- Name: ordencompra ordencompra_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4910,7 +5202,7 @@ ALTER TABLE ONLY purchase.ordencompra
 
 
 --
--- TOC entry 5038 (class 2606 OID 231788)
+-- TOC entry 5080 (class 2606 OID 231788)
 -- Name: ordencompradet ordencompradet_codiva_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4919,7 +5211,7 @@ ALTER TABLE ONLY purchase.ordencompradet
 
 
 --
--- TOC entry 5039 (class 2606 OID 231793)
+-- TOC entry 5081 (class 2606 OID 231793)
 -- Name: ordencompradet ordencompradet_codordenc_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4928,7 +5220,7 @@ ALTER TABLE ONLY purchase.ordencompradet
 
 
 --
--- TOC entry 5040 (class 2606 OID 231798)
+-- TOC entry 5082 (class 2606 OID 231798)
 -- Name: ordencompradet ordencompradet_codproducto_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4937,7 +5229,7 @@ ALTER TABLE ONLY purchase.ordencompradet
 
 
 --
--- TOC entry 5041 (class 2606 OID 231803)
+-- TOC entry 5083 (class 2606 OID 231803)
 -- Name: pedidocompra pedidocompra_codempleado_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4946,7 +5238,7 @@ ALTER TABLE ONLY purchase.pedidocompra
 
 
 --
--- TOC entry 5042 (class 2606 OID 231808)
+-- TOC entry 5084 (class 2606 OID 231808)
 -- Name: pedidocompra pedidocompra_codestmov_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4955,7 +5247,7 @@ ALTER TABLE ONLY purchase.pedidocompra
 
 
 --
--- TOC entry 5043 (class 2606 OID 231813)
+-- TOC entry 5085 (class 2606 OID 231813)
 -- Name: pedidocompra pedidocompra_codsucursal_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4964,7 +5256,7 @@ ALTER TABLE ONLY purchase.pedidocompra
 
 
 --
--- TOC entry 5044 (class 2606 OID 231818)
+-- TOC entry 5086 (class 2606 OID 231818)
 -- Name: pedidocompra pedidocompra_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4973,7 +5265,7 @@ ALTER TABLE ONLY purchase.pedidocompra
 
 
 --
--- TOC entry 5045 (class 2606 OID 231823)
+-- TOC entry 5087 (class 2606 OID 231823)
 -- Name: pedidocompradet pedidocompradet_codpedcompra_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4982,7 +5274,7 @@ ALTER TABLE ONLY purchase.pedidocompradet
 
 
 --
--- TOC entry 5046 (class 2606 OID 231828)
+-- TOC entry 5088 (class 2606 OID 231828)
 -- Name: pedidocompradet pedidocompradet_codproducto_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -4991,7 +5283,7 @@ ALTER TABLE ONLY purchase.pedidocompradet
 
 
 --
--- TOC entry 5047 (class 2606 OID 231833)
+-- TOC entry 5089 (class 2606 OID 231833)
 -- Name: presupuestocompra prescompra_estadomov_fk; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5000,7 +5292,7 @@ ALTER TABLE ONLY purchase.presupuestocompra
 
 
 --
--- TOC entry 5048 (class 2606 OID 231838)
+-- TOC entry 5090 (class 2606 OID 231838)
 -- Name: presupuestocompra prescompra_sucursal_fk; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5009,7 +5301,7 @@ ALTER TABLE ONLY purchase.presupuestocompra
 
 
 --
--- TOC entry 5054 (class 2606 OID 231843)
+-- TOC entry 5096 (class 2606 OID 231843)
 -- Name: presupuestocompradet presupuescompradet_codiva_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5018,7 +5310,7 @@ ALTER TABLE ONLY purchase.presupuestocompradet
 
 
 --
--- TOC entry 5055 (class 2606 OID 231848)
+-- TOC entry 5097 (class 2606 OID 231848)
 -- Name: presupuestocompradet presupuescompradet_codpresupuestocompra_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5027,7 +5319,7 @@ ALTER TABLE ONLY purchase.presupuestocompradet
 
 
 --
--- TOC entry 5056 (class 2606 OID 231853)
+-- TOC entry 5098 (class 2606 OID 231853)
 -- Name: presupuestocompradet presupuescompradet_codproducto_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5036,7 +5328,7 @@ ALTER TABLE ONLY purchase.presupuestocompradet
 
 
 --
--- TOC entry 5049 (class 2606 OID 231858)
+-- TOC entry 5091 (class 2606 OID 231858)
 -- Name: presupuestocompra presupuestocompra_codempleado_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5045,7 +5337,7 @@ ALTER TABLE ONLY purchase.presupuestocompra
 
 
 --
--- TOC entry 5050 (class 2606 OID 231863)
+-- TOC entry 5092 (class 2606 OID 231863)
 -- Name: presupuestocompra presupuestocompra_codmoneda_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5054,7 +5346,7 @@ ALTER TABLE ONLY purchase.presupuestocompra
 
 
 --
--- TOC entry 5051 (class 2606 OID 231868)
+-- TOC entry 5093 (class 2606 OID 231868)
 -- Name: presupuestocompra presupuestocompra_codpedcompra_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5063,7 +5355,7 @@ ALTER TABLE ONLY purchase.presupuestocompra
 
 
 --
--- TOC entry 5052 (class 2606 OID 231873)
+-- TOC entry 5094 (class 2606 OID 231873)
 -- Name: presupuestocompra presupuestocompra_codproveedor_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5072,7 +5364,7 @@ ALTER TABLE ONLY purchase.presupuestocompra
 
 
 --
--- TOC entry 5053 (class 2606 OID 231878)
+-- TOC entry 5095 (class 2606 OID 231878)
 -- Name: presupuestocompra presupuestocompra_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
 --
 
@@ -5081,7 +5373,79 @@ ALTER TABLE ONLY purchase.presupuestocompra
 
 
 --
--- TOC entry 5057 (class 2606 OID 231883)
+-- TOC entry 5198 (class 2606 OID 264147)
+-- Name: remisioncompra remisioncompra_codcompra_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra
+    ADD CONSTRAINT remisioncompra_codcompra_fkey FOREIGN KEY (codcompra) REFERENCES purchase.compras(codcompra);
+
+
+--
+-- TOC entry 5199 (class 2606 OID 264142)
+-- Name: remisioncompra remisioncompra_codempleado_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra
+    ADD CONSTRAINT remisioncompra_codempleado_fkey FOREIGN KEY (codempleado) REFERENCES referential.empleado(codempleado);
+
+
+--
+-- TOC entry 5200 (class 2606 OID 264122)
+-- Name: remisioncompra remisioncompra_codestmov_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra
+    ADD CONSTRAINT remisioncompra_codestmov_fkey FOREIGN KEY (codestmov) REFERENCES referential.estadomovimiento(codestmov);
+
+
+--
+-- TOC entry 5201 (class 2606 OID 264137)
+-- Name: remisioncompra remisioncompra_codproveedor_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra
+    ADD CONSTRAINT remisioncompra_codproveedor_fkey FOREIGN KEY (codproveedor) REFERENCES referential.proveedor(codproveedor);
+
+
+--
+-- TOC entry 5202 (class 2606 OID 264132)
+-- Name: remisioncompra remisioncompra_codsucursal_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra
+    ADD CONSTRAINT remisioncompra_codsucursal_fkey FOREIGN KEY (codsucursal) REFERENCES referential.sucursal(codsucursal);
+
+
+--
+-- TOC entry 5203 (class 2606 OID 264127)
+-- Name: remisioncompra remisioncompra_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra
+    ADD CONSTRAINT remisioncompra_codtipocomprobante_fkey FOREIGN KEY (codtipocomprobante) REFERENCES referential.tipocomprobante(codtipocomprobante);
+
+
+--
+-- TOC entry 5204 (class 2606 OID 264160)
+-- Name: remisioncompra_det remisioncompra_det_codproducto_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra_det
+    ADD CONSTRAINT remisioncompra_det_codproducto_fkey FOREIGN KEY (codproducto) REFERENCES referential.producto(codproducto);
+
+
+--
+-- TOC entry 5205 (class 2606 OID 264155)
+-- Name: remisioncompra_det remisioncompra_det_codremisioncompra_fkey; Type: FK CONSTRAINT; Schema: purchase; Owner: postgres
+--
+
+ALTER TABLE ONLY purchase.remisioncompra_det
+    ADD CONSTRAINT remisioncompra_det_codremisioncompra_fkey FOREIGN KEY (codremisioncompra) REFERENCES purchase.remisioncompra(codremisioncompra);
+
+
+--
+-- TOC entry 5099 (class 2606 OID 231883)
 -- Name: caja caja_codsucursal_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5090,7 +5454,70 @@ ALTER TABLE ONLY referential.caja
 
 
 --
--- TOC entry 5058 (class 2606 OID 231888)
+-- TOC entry 5219 (class 2606 OID 264282)
+-- Name: cajachequerecibido cajachequerecibido_codbanco_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajachequerecibido
+    ADD CONSTRAINT cajachequerecibido_codbanco_fkey FOREIGN KEY (codbanco) REFERENCES referential.banco(codbanco);
+
+
+--
+-- TOC entry 5220 (class 2606 OID 264272)
+-- Name: cajachequerecibido cajachequerecibido_codformacobro_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajachequerecibido
+    ADD CONSTRAINT cajachequerecibido_codformacobro_fkey FOREIGN KEY (codformacobro) REFERENCES referential.formacobro(codformacobro);
+
+
+--
+-- TOC entry 5221 (class 2606 OID 264267)
+-- Name: cajachequerecibido cajachequerecibido_codgestion_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajachequerecibido
+    ADD CONSTRAINT cajachequerecibido_codgestion_fkey FOREIGN KEY (codgestion) REFERENCES referential.cajagestion(codgestion);
+
+
+--
+-- TOC entry 5222 (class 2606 OID 264277)
+-- Name: cajachequerecibido cajachequerecibido_codmoneda_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajachequerecibido
+    ADD CONSTRAINT cajachequerecibido_codmoneda_fkey FOREIGN KEY (codmoneda) REFERENCES referential.moneda(codmoneda);
+
+
+--
+-- TOC entry 5206 (class 2606 OID 264178)
+-- Name: cajaformacobro cajaformacobro_codformacobro_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajaformacobro
+    ADD CONSTRAINT cajaformacobro_codformacobro_fkey FOREIGN KEY (codformacobro) REFERENCES referential.formacobro(codformacobro);
+
+
+--
+-- TOC entry 5207 (class 2606 OID 264173)
+-- Name: cajaformacobro cajaformacobro_codgestion_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajaformacobro
+    ADD CONSTRAINT cajaformacobro_codgestion_fkey FOREIGN KEY (codgestion) REFERENCES referential.cajagestion(codgestion);
+
+
+--
+-- TOC entry 5208 (class 2606 OID 264183)
+-- Name: cajaformacobro cajaformacobro_codmoneda_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajaformacobro
+    ADD CONSTRAINT cajaformacobro_codmoneda_fkey FOREIGN KEY (codmoneda) REFERENCES referential.moneda(codmoneda);
+
+
+--
+-- TOC entry 5100 (class 2606 OID 231888)
 -- Name: cajagestion cajagestion_codcaja_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5099,7 +5526,7 @@ ALTER TABLE ONLY referential.cajagestion
 
 
 --
--- TOC entry 5059 (class 2606 OID 231893)
+-- TOC entry 5101 (class 2606 OID 231893)
 -- Name: cajagestion cajagestion_codcobrador_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5108,7 +5535,43 @@ ALTER TABLE ONLY referential.cajagestion
 
 
 --
--- TOC entry 5060 (class 2606 OID 231898)
+-- TOC entry 5223 (class 2606 OID 264318)
+-- Name: cajatarjetas cajatarjetas_codformacobro_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajatarjetas
+    ADD CONSTRAINT cajatarjetas_codformacobro_fkey FOREIGN KEY (codformacobro) REFERENCES referential.formacobro(codformacobro);
+
+
+--
+-- TOC entry 5224 (class 2606 OID 264313)
+-- Name: cajatarjetas cajatarjetas_codgestion_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajatarjetas
+    ADD CONSTRAINT cajatarjetas_codgestion_fkey FOREIGN KEY (codgestion) REFERENCES referential.cajagestion(codgestion);
+
+
+--
+-- TOC entry 5225 (class 2606 OID 264323)
+-- Name: cajatarjetas cajatarjetas_codmoneda_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajatarjetas
+    ADD CONSTRAINT cajatarjetas_codmoneda_fkey FOREIGN KEY (codmoneda) REFERENCES referential.moneda(codmoneda);
+
+
+--
+-- TOC entry 5226 (class 2606 OID 264328)
+-- Name: cajatarjetas cajatarjetas_codtipotar_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
+--
+
+ALTER TABLE ONLY referential.cajatarjetas
+    ADD CONSTRAINT cajatarjetas_codtipotar_fkey FOREIGN KEY (codtipotar) REFERENCES referential.tipotarjeta(codtipotar);
+
+
+--
+-- TOC entry 5102 (class 2606 OID 231898)
 -- Name: ciudad ciudad_dpto; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5117,7 +5580,7 @@ ALTER TABLE ONLY referential.ciudad
 
 
 --
--- TOC entry 5061 (class 2606 OID 231903)
+-- TOC entry 5103 (class 2606 OID 231903)
 -- Name: cliente cliente_codciudad_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5126,7 +5589,7 @@ ALTER TABLE ONLY referential.cliente
 
 
 --
--- TOC entry 5062 (class 2606 OID 231908)
+-- TOC entry 5104 (class 2606 OID 231908)
 -- Name: cliente cliente_codlista_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5135,7 +5598,7 @@ ALTER TABLE ONLY referential.cliente
 
 
 --
--- TOC entry 5063 (class 2606 OID 231913)
+-- TOC entry 5105 (class 2606 OID 231913)
 -- Name: cliente cliente_codtipoidnt_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5144,7 +5607,7 @@ ALTER TABLE ONLY referential.cliente
 
 
 --
--- TOC entry 5064 (class 2606 OID 231923)
+-- TOC entry 5106 (class 2606 OID 231923)
 -- Name: cobrador cobrador_codempleado_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5153,7 +5616,7 @@ ALTER TABLE ONLY referential.cobrador
 
 
 --
--- TOC entry 5065 (class 2606 OID 231928)
+-- TOC entry 5107 (class 2606 OID 231928)
 -- Name: comprobanteterminal comprobanteterminal_codterminal_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5162,7 +5625,7 @@ ALTER TABLE ONLY referential.comprobanteterminal
 
 
 --
--- TOC entry 5066 (class 2606 OID 231933)
+-- TOC entry 5108 (class 2606 OID 231933)
 -- Name: comprobanteterminal comprobanteterminal_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5171,7 +5634,7 @@ ALTER TABLE ONLY referential.comprobanteterminal
 
 
 --
--- TOC entry 5067 (class 2606 OID 231938)
+-- TOC entry 5109 (class 2606 OID 231938)
 -- Name: cotizacion cotizacion_codmoneda_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5180,7 +5643,7 @@ ALTER TABLE ONLY referential.cotizacion
 
 
 --
--- TOC entry 5068 (class 2606 OID 231943)
+-- TOC entry 5110 (class 2606 OID 231943)
 -- Name: departamento dpto_pais; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5189,7 +5652,7 @@ ALTER TABLE ONLY referential.departamento
 
 
 --
--- TOC entry 5069 (class 2606 OID 231948)
+-- TOC entry 5111 (class 2606 OID 231948)
 -- Name: empleado emp_area; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5198,7 +5661,7 @@ ALTER TABLE ONLY referential.empleado
 
 
 --
--- TOC entry 5085 (class 2606 OID 231953)
+-- TOC entry 5127 (class 2606 OID 231953)
 -- Name: vehiculo fk_marcavehiculo; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5207,7 +5670,7 @@ ALTER TABLE ONLY referential.vehiculo
 
 
 --
--- TOC entry 5070 (class 2606 OID 231958)
+-- TOC entry 5112 (class 2606 OID 231958)
 -- Name: precioventaproducto precioventaproducto_codlista_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5216,7 +5679,7 @@ ALTER TABLE ONLY referential.precioventaproducto
 
 
 --
--- TOC entry 5071 (class 2606 OID 231963)
+-- TOC entry 5113 (class 2606 OID 231963)
 -- Name: precioventaproducto precioventaproducto_codproducto_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5225,7 +5688,7 @@ ALTER TABLE ONLY referential.precioventaproducto
 
 
 --
--- TOC entry 5072 (class 2606 OID 231968)
+-- TOC entry 5114 (class 2606 OID 231968)
 -- Name: precioventaproducto precioventaproducto_codsucursal_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5234,7 +5697,7 @@ ALTER TABLE ONLY referential.precioventaproducto
 
 
 --
--- TOC entry 5073 (class 2606 OID 231973)
+-- TOC entry 5115 (class 2606 OID 231973)
 -- Name: producto producto_codfamilia_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5243,7 +5706,7 @@ ALTER TABLE ONLY referential.producto
 
 
 --
--- TOC entry 5074 (class 2606 OID 231978)
+-- TOC entry 5116 (class 2606 OID 231978)
 -- Name: producto producto_codiva_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5252,7 +5715,7 @@ ALTER TABLE ONLY referential.producto
 
 
 --
--- TOC entry 5075 (class 2606 OID 231983)
+-- TOC entry 5117 (class 2606 OID 231983)
 -- Name: producto producto_codmarca_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5261,7 +5724,7 @@ ALTER TABLE ONLY referential.producto
 
 
 --
--- TOC entry 5076 (class 2606 OID 231988)
+-- TOC entry 5118 (class 2606 OID 231988)
 -- Name: producto producto_codproveedor_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5270,7 +5733,7 @@ ALTER TABLE ONLY referential.producto
 
 
 --
--- TOC entry 5077 (class 2606 OID 231993)
+-- TOC entry 5119 (class 2606 OID 231993)
 -- Name: producto producto_codrubro_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5279,7 +5742,7 @@ ALTER TABLE ONLY referential.producto
 
 
 --
--- TOC entry 5078 (class 2606 OID 231998)
+-- TOC entry 5120 (class 2606 OID 231998)
 -- Name: producto producto_codunidadmedida_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5288,7 +5751,7 @@ ALTER TABLE ONLY referential.producto
 
 
 --
--- TOC entry 5079 (class 2606 OID 232003)
+-- TOC entry 5121 (class 2606 OID 232003)
 -- Name: productosucursal productosucursal_codproducto_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5297,7 +5760,7 @@ ALTER TABLE ONLY referential.productosucursal
 
 
 --
--- TOC entry 5080 (class 2606 OID 232008)
+-- TOC entry 5122 (class 2606 OID 232008)
 -- Name: productosucursal productosucursal_codsucursal_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5306,7 +5769,7 @@ ALTER TABLE ONLY referential.productosucursal
 
 
 --
--- TOC entry 5081 (class 2606 OID 232013)
+-- TOC entry 5123 (class 2606 OID 232013)
 -- Name: proveedor proveedor_codciudad_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5315,7 +5778,7 @@ ALTER TABLE ONLY referential.proveedor
 
 
 --
--- TOC entry 5082 (class 2606 OID 232018)
+-- TOC entry 5124 (class 2606 OID 232018)
 -- Name: proveedor proveedor_codtipoidnt_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5324,7 +5787,7 @@ ALTER TABLE ONLY referential.proveedor
 
 
 --
--- TOC entry 5083 (class 2606 OID 232023)
+-- TOC entry 5125 (class 2606 OID 232023)
 -- Name: sucursal sucursal_codciudad_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5333,7 +5796,7 @@ ALTER TABLE ONLY referential.sucursal
 
 
 --
--- TOC entry 5084 (class 2606 OID 232028)
+-- TOC entry 5126 (class 2606 OID 232028)
 -- Name: tipocomprobante tipomov_fk; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5342,7 +5805,7 @@ ALTER TABLE ONLY referential.tipocomprobante
 
 
 --
--- TOC entry 5086 (class 2606 OID 232033)
+-- TOC entry 5128 (class 2606 OID 232033)
 -- Name: vehiculo vehiculo_codcliente_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5351,7 +5814,7 @@ ALTER TABLE ONLY referential.vehiculo
 
 
 --
--- TOC entry 5087 (class 2606 OID 232038)
+-- TOC entry 5129 (class 2606 OID 232038)
 -- Name: vendedor vendedor_codempleado_fkey; Type: FK CONSTRAINT; Schema: referential; Owner: postgres
 --
 
@@ -5360,7 +5823,25 @@ ALTER TABLE ONLY referential.vendedor
 
 
 --
--- TOC entry 5088 (class 2606 OID 232043)
+-- TOC entry 5209 (class 2606 OID 264191)
+-- Name: cajafacturaventacobradas cajafacturaventacobradas_codgestion_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.cajafacturaventacobradas
+    ADD CONSTRAINT cajafacturaventacobradas_codgestion_fkey FOREIGN KEY (codgestion) REFERENCES referential.cajagestion(codgestion);
+
+
+--
+-- TOC entry 5210 (class 2606 OID 264196)
+-- Name: cajafacturaventacobradas cajafacturaventacobradas_codventa_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.cajafacturaventacobradas
+    ADD CONSTRAINT cajafacturaventacobradas_codventa_fkey FOREIGN KEY (codventa) REFERENCES sales.ventas(codventa);
+
+
+--
+-- TOC entry 5130 (class 2606 OID 232043)
 -- Name: facturaventacredito facturaventacredito_codventa_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5369,7 +5850,7 @@ ALTER TABLE ONLY sales.facturaventacredito
 
 
 --
--- TOC entry 5089 (class 2606 OID 232048)
+-- TOC entry 5131 (class 2606 OID 232048)
 -- Name: pedidoventa pedidoventa_codcliente_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5378,7 +5859,7 @@ ALTER TABLE ONLY sales.pedidoventa
 
 
 --
--- TOC entry 5090 (class 2606 OID 232053)
+-- TOC entry 5132 (class 2606 OID 232053)
 -- Name: pedidoventa pedidoventa_codestmov_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5387,7 +5868,7 @@ ALTER TABLE ONLY sales.pedidoventa
 
 
 --
--- TOC entry 5091 (class 2606 OID 232058)
+-- TOC entry 5133 (class 2606 OID 232058)
 -- Name: pedidoventa pedidoventa_codmoneda_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5396,7 +5877,7 @@ ALTER TABLE ONLY sales.pedidoventa
 
 
 --
--- TOC entry 5092 (class 2606 OID 232063)
+-- TOC entry 5134 (class 2606 OID 232063)
 -- Name: pedidoventa pedidoventa_codsucursal_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5405,7 +5886,7 @@ ALTER TABLE ONLY sales.pedidoventa
 
 
 --
--- TOC entry 5093 (class 2606 OID 232068)
+-- TOC entry 5135 (class 2606 OID 232068)
 -- Name: pedidoventa pedidoventa_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5414,7 +5895,7 @@ ALTER TABLE ONLY sales.pedidoventa
 
 
 --
--- TOC entry 5094 (class 2606 OID 232073)
+-- TOC entry 5136 (class 2606 OID 232073)
 -- Name: pedidoventa pedidoventa_codvendedor_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5423,7 +5904,7 @@ ALTER TABLE ONLY sales.pedidoventa
 
 
 --
--- TOC entry 5095 (class 2606 OID 232078)
+-- TOC entry 5137 (class 2606 OID 232078)
 -- Name: pedidoventadet pedidoventadet_codpedidov_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5432,7 +5913,7 @@ ALTER TABLE ONLY sales.pedidoventadet
 
 
 --
--- TOC entry 5096 (class 2606 OID 232083)
+-- TOC entry 5138 (class 2606 OID 232083)
 -- Name: pedidoventadet pedidoventadet_codproducto_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5441,7 +5922,7 @@ ALTER TABLE ONLY sales.pedidoventadet
 
 
 --
--- TOC entry 5097 (class 2606 OID 232088)
+-- TOC entry 5139 (class 2606 OID 232088)
 -- Name: presupuestoventa presupuestoventa_codcliente_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5450,7 +5931,7 @@ ALTER TABLE ONLY sales.presupuestoventa
 
 
 --
--- TOC entry 5098 (class 2606 OID 232093)
+-- TOC entry 5140 (class 2606 OID 232093)
 -- Name: presupuestoventa presupuestoventa_codestmov_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5459,7 +5940,7 @@ ALTER TABLE ONLY sales.presupuestoventa
 
 
 --
--- TOC entry 5099 (class 2606 OID 232098)
+-- TOC entry 5141 (class 2606 OID 232098)
 -- Name: presupuestoventa presupuestoventa_codmoneda_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5468,7 +5949,7 @@ ALTER TABLE ONLY sales.presupuestoventa
 
 
 --
--- TOC entry 5100 (class 2606 OID 232103)
+-- TOC entry 5142 (class 2606 OID 232103)
 -- Name: presupuestoventa presupuestoventa_codpedidov_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5477,7 +5958,7 @@ ALTER TABLE ONLY sales.presupuestoventa
 
 
 --
--- TOC entry 5101 (class 2606 OID 232108)
+-- TOC entry 5143 (class 2606 OID 232108)
 -- Name: presupuestoventa presupuestoventa_codsucursal_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5486,7 +5967,7 @@ ALTER TABLE ONLY sales.presupuestoventa
 
 
 --
--- TOC entry 5102 (class 2606 OID 232113)
+-- TOC entry 5144 (class 2606 OID 232113)
 -- Name: presupuestoventa presupuestoventa_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5495,7 +5976,7 @@ ALTER TABLE ONLY sales.presupuestoventa
 
 
 --
--- TOC entry 5103 (class 2606 OID 232118)
+-- TOC entry 5145 (class 2606 OID 232118)
 -- Name: presupuestoventa presupuestoventa_codvendedor_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5504,7 +5985,7 @@ ALTER TABLE ONLY sales.presupuestoventa
 
 
 --
--- TOC entry 5104 (class 2606 OID 232123)
+-- TOC entry 5146 (class 2606 OID 232123)
 -- Name: presupuestoventadet presupuestoventadet_codiva_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5513,7 +5994,7 @@ ALTER TABLE ONLY sales.presupuestoventadet
 
 
 --
--- TOC entry 5105 (class 2606 OID 232128)
+-- TOC entry 5147 (class 2606 OID 232128)
 -- Name: presupuestoventadet presupuestoventadet_codpresupuestoventa_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5522,7 +6003,7 @@ ALTER TABLE ONLY sales.presupuestoventadet
 
 
 --
--- TOC entry 5106 (class 2606 OID 232133)
+-- TOC entry 5148 (class 2606 OID 232133)
 -- Name: presupuestoventadet presupuestoventadet_codproducto_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5531,7 +6012,79 @@ ALTER TABLE ONLY sales.presupuestoventadet
 
 
 --
--- TOC entry 5107 (class 2606 OID 232138)
+-- TOC entry 5211 (class 2606 OID 264223)
+-- Name: remisionventa remisionventa_codcliente_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa
+    ADD CONSTRAINT remisionventa_codcliente_fkey FOREIGN KEY (codcliente) REFERENCES referential.cliente(codcliente);
+
+
+--
+-- TOC entry 5212 (class 2606 OID 264228)
+-- Name: remisionventa remisionventa_codempleado_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa
+    ADD CONSTRAINT remisionventa_codempleado_fkey FOREIGN KEY (codempleado) REFERENCES referential.empleado(codempleado);
+
+
+--
+-- TOC entry 5213 (class 2606 OID 264208)
+-- Name: remisionventa remisionventa_codestmov_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa
+    ADD CONSTRAINT remisionventa_codestmov_fkey FOREIGN KEY (codestmov) REFERENCES referential.estadomovimiento(codestmov);
+
+
+--
+-- TOC entry 5214 (class 2606 OID 264218)
+-- Name: remisionventa remisionventa_codsucursal_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa
+    ADD CONSTRAINT remisionventa_codsucursal_fkey FOREIGN KEY (codsucursal) REFERENCES referential.sucursal(codsucursal);
+
+
+--
+-- TOC entry 5215 (class 2606 OID 264213)
+-- Name: remisionventa remisionventa_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa
+    ADD CONSTRAINT remisionventa_codtipocomprobante_fkey FOREIGN KEY (codtipocomprobante) REFERENCES referential.tipocomprobante(codtipocomprobante);
+
+
+--
+-- TOC entry 5216 (class 2606 OID 264233)
+-- Name: remisionventa remisionventa_codventa_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa
+    ADD CONSTRAINT remisionventa_codventa_fkey FOREIGN KEY (codventa) REFERENCES sales.ventas(codventa);
+
+
+--
+-- TOC entry 5217 (class 2606 OID 264259)
+-- Name: remisionventa_det remisionventa_det_codproducto_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa_det
+    ADD CONSTRAINT remisionventa_det_codproducto_fkey FOREIGN KEY (codproducto) REFERENCES referential.producto(codproducto);
+
+
+--
+-- TOC entry 5218 (class 2606 OID 264254)
+-- Name: remisionventa_det remisionventa_det_codremisionventa_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
+--
+
+ALTER TABLE ONLY sales.remisionventa_det
+    ADD CONSTRAINT remisionventa_det_codremisionventa_fkey FOREIGN KEY (codremisionventa) REFERENCES sales.remisionventa(codremisionventa);
+
+
+--
+-- TOC entry 5149 (class 2606 OID 232138)
 -- Name: ventas ventas_codcliente_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5540,7 +6093,7 @@ ALTER TABLE ONLY sales.ventas
 
 
 --
--- TOC entry 5108 (class 2606 OID 232143)
+-- TOC entry 5150 (class 2606 OID 232143)
 -- Name: ventas ventas_codestmov_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5549,7 +6102,7 @@ ALTER TABLE ONLY sales.ventas
 
 
 --
--- TOC entry 5109 (class 2606 OID 232148)
+-- TOC entry 5151 (class 2606 OID 232148)
 -- Name: ventas ventas_codmoneda_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5558,7 +6111,7 @@ ALTER TABLE ONLY sales.ventas
 
 
 --
--- TOC entry 5110 (class 2606 OID 232153)
+-- TOC entry 5152 (class 2606 OID 232153)
 -- Name: ventas ventas_codpresupuestoventa_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5567,7 +6120,7 @@ ALTER TABLE ONLY sales.ventas
 
 
 --
--- TOC entry 5111 (class 2606 OID 232158)
+-- TOC entry 5153 (class 2606 OID 232158)
 -- Name: ventas ventas_codsucursal_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5576,7 +6129,7 @@ ALTER TABLE ONLY sales.ventas
 
 
 --
--- TOC entry 5112 (class 2606 OID 232163)
+-- TOC entry 5154 (class 2606 OID 232163)
 -- Name: ventas ventas_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5585,7 +6138,7 @@ ALTER TABLE ONLY sales.ventas
 
 
 --
--- TOC entry 5113 (class 2606 OID 232168)
+-- TOC entry 5155 (class 2606 OID 232168)
 -- Name: ventas ventas_codvendedor_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5594,7 +6147,7 @@ ALTER TABLE ONLY sales.ventas
 
 
 --
--- TOC entry 5114 (class 2606 OID 232173)
+-- TOC entry 5156 (class 2606 OID 232173)
 -- Name: ventasdet ventasdet_codiva_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5603,7 +6156,7 @@ ALTER TABLE ONLY sales.ventasdet
 
 
 --
--- TOC entry 5115 (class 2606 OID 232178)
+-- TOC entry 5157 (class 2606 OID 232178)
 -- Name: ventasdet ventasdet_codproducto_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5612,7 +6165,7 @@ ALTER TABLE ONLY sales.ventasdet
 
 
 --
--- TOC entry 5116 (class 2606 OID 232183)
+-- TOC entry 5158 (class 2606 OID 232183)
 -- Name: ventasdet ventasdet_codventa_fkey; Type: FK CONSTRAINT; Schema: sales; Owner: postgres
 --
 
@@ -5621,7 +6174,7 @@ ALTER TABLE ONLY sales.ventasdet
 
 
 --
--- TOC entry 5117 (class 2606 OID 232188)
+-- TOC entry 5159 (class 2606 OID 232188)
 -- Name: diagnosticotecnico diagnosticotecnico_codempleado_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5630,7 +6183,7 @@ ALTER TABLE ONLY service.diagnosticotecnico
 
 
 --
--- TOC entry 5118 (class 2606 OID 232193)
+-- TOC entry 5160 (class 2606 OID 232193)
 -- Name: diagnosticotecnico diagnosticotecnico_codestmov_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5639,7 +6192,7 @@ ALTER TABLE ONLY service.diagnosticotecnico
 
 
 --
--- TOC entry 5119 (class 2606 OID 232198)
+-- TOC entry 5161 (class 2606 OID 232198)
 -- Name: diagnosticotecnico diagnosticotecnico_codsucursal_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5648,7 +6201,7 @@ ALTER TABLE ONLY service.diagnosticotecnico
 
 
 --
--- TOC entry 5120 (class 2606 OID 232203)
+-- TOC entry 5162 (class 2606 OID 232203)
 -- Name: diagnosticotecnico diagnosticotecnico_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5657,7 +6210,7 @@ ALTER TABLE ONLY service.diagnosticotecnico
 
 
 --
--- TOC entry 5121 (class 2606 OID 232208)
+-- TOC entry 5163 (class 2606 OID 232208)
 -- Name: diagnosticotecnico diagnosticotecnico_codvehiculo_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5666,7 +6219,7 @@ ALTER TABLE ONLY service.diagnosticotecnico
 
 
 --
--- TOC entry 5122 (class 2606 OID 232213)
+-- TOC entry 5164 (class 2606 OID 232213)
 -- Name: diagnosticotecnicodet diagnosticotecnicodet_coddiagnostico_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5675,7 +6228,7 @@ ALTER TABLE ONLY service.diagnosticotecnicodet
 
 
 --
--- TOC entry 5123 (class 2606 OID 232218)
+-- TOC entry 5165 (class 2606 OID 232218)
 -- Name: diagnosticotecnicodet diagnosticotecnicodet_codparte_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5684,7 +6237,7 @@ ALTER TABLE ONLY service.diagnosticotecnicodet
 
 
 --
--- TOC entry 5124 (class 2606 OID 232223)
+-- TOC entry 5166 (class 2606 OID 232223)
 -- Name: registrovehiculo registrovehiculo_codcliente_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5693,7 +6246,7 @@ ALTER TABLE ONLY service.registrovehiculo
 
 
 --
--- TOC entry 5125 (class 2606 OID 232228)
+-- TOC entry 5167 (class 2606 OID 232228)
 -- Name: registrovehiculo registrovehiculo_codempleado_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5702,7 +6255,7 @@ ALTER TABLE ONLY service.registrovehiculo
 
 
 --
--- TOC entry 5126 (class 2606 OID 232233)
+-- TOC entry 5168 (class 2606 OID 232233)
 -- Name: registrovehiculo registrovehiculo_codsucursal_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5711,7 +6264,7 @@ ALTER TABLE ONLY service.registrovehiculo
 
 
 --
--- TOC entry 5127 (class 2606 OID 232238)
+-- TOC entry 5169 (class 2606 OID 232238)
 -- Name: registrovehiculo registrovehiculo_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5720,7 +6273,7 @@ ALTER TABLE ONLY service.registrovehiculo
 
 
 --
--- TOC entry 5128 (class 2606 OID 232243)
+-- TOC entry 5170 (class 2606 OID 232243)
 -- Name: registrovehiculo registrovehiculo_codvehiculo_fkey; Type: FK CONSTRAINT; Schema: service; Owner: postgres
 --
 
@@ -5729,7 +6282,7 @@ ALTER TABLE ONLY service.registrovehiculo
 
 
 --
--- TOC entry 5129 (class 2606 OID 232248)
+-- TOC entry 5171 (class 2606 OID 232248)
 -- Name: ajustes ajustes_codempleado_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5738,7 +6291,7 @@ ALTER TABLE ONLY shared.ajustes
 
 
 --
--- TOC entry 5130 (class 2606 OID 232253)
+-- TOC entry 5172 (class 2606 OID 232253)
 -- Name: ajustes ajustes_codmotivo_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5747,7 +6300,7 @@ ALTER TABLE ONLY shared.ajustes
 
 
 --
--- TOC entry 5131 (class 2606 OID 232258)
+-- TOC entry 5173 (class 2606 OID 232258)
 -- Name: ajustes ajustes_codsucursal_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5756,7 +6309,7 @@ ALTER TABLE ONLY shared.ajustes
 
 
 --
--- TOC entry 5132 (class 2606 OID 232263)
+-- TOC entry 5174 (class 2606 OID 232263)
 -- Name: ajustes ajustes_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5765,7 +6318,7 @@ ALTER TABLE ONLY shared.ajustes
 
 
 --
--- TOC entry 5133 (class 2606 OID 232268)
+-- TOC entry 5175 (class 2606 OID 232268)
 -- Name: ajustesdet ajustesdet_codajuste_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5774,7 +6327,7 @@ ALTER TABLE ONLY shared.ajustesdet
 
 
 --
--- TOC entry 5134 (class 2606 OID 232273)
+-- TOC entry 5176 (class 2606 OID 232273)
 -- Name: ajustesdet ajustesdet_codproducto_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5783,7 +6336,7 @@ ALTER TABLE ONLY shared.ajustesdet
 
 
 --
--- TOC entry 5135 (class 2606 OID 232278)
+-- TOC entry 5177 (class 2606 OID 232278)
 -- Name: notacredito notacredito_codcliente_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5792,7 +6345,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5136 (class 2606 OID 232283)
+-- TOC entry 5178 (class 2606 OID 232283)
 -- Name: notacredito notacredito_codcompra_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5801,7 +6354,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5137 (class 2606 OID 232288)
+-- TOC entry 5179 (class 2606 OID 232288)
 -- Name: notacredito notacredito_codempleado_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5810,7 +6363,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5138 (class 2606 OID 232293)
+-- TOC entry 5180 (class 2606 OID 232293)
 -- Name: notacredito notacredito_codestmov_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5819,7 +6372,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5139 (class 2606 OID 232298)
+-- TOC entry 5181 (class 2606 OID 232298)
 -- Name: notacredito notacredito_codmoneda_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5828,7 +6381,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5140 (class 2606 OID 232303)
+-- TOC entry 5182 (class 2606 OID 232303)
 -- Name: notacredito notacredito_codproveedor_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5837,7 +6390,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5141 (class 2606 OID 232308)
+-- TOC entry 5183 (class 2606 OID 232308)
 -- Name: notacredito notacredito_codsucursal_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5846,7 +6399,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5142 (class 2606 OID 232313)
+-- TOC entry 5184 (class 2606 OID 232313)
 -- Name: notacredito notacredito_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5855,7 +6408,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5143 (class 2606 OID 232318)
+-- TOC entry 5185 (class 2606 OID 232318)
 -- Name: notacredito notacredito_codventa_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5864,7 +6417,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5144 (class 2606 OID 232323)
+-- TOC entry 5186 (class 2606 OID 232323)
 -- Name: notacredito notacredito_movimiento_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5873,7 +6426,7 @@ ALTER TABLE ONLY shared.notacredito
 
 
 --
--- TOC entry 5145 (class 2606 OID 232328)
+-- TOC entry 5187 (class 2606 OID 232328)
 -- Name: notacreditodet notacreditodet_codiva_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5882,7 +6435,7 @@ ALTER TABLE ONLY shared.notacreditodet
 
 
 --
--- TOC entry 5146 (class 2606 OID 232333)
+-- TOC entry 5188 (class 2606 OID 232333)
 -- Name: notacreditodet notacreditodet_codnotacredito_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5891,7 +6444,7 @@ ALTER TABLE ONLY shared.notacreditodet
 
 
 --
--- TOC entry 5147 (class 2606 OID 232338)
+-- TOC entry 5189 (class 2606 OID 232338)
 -- Name: notacreditodet notacreditodet_codproducto_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5900,7 +6453,7 @@ ALTER TABLE ONLY shared.notacreditodet
 
 
 --
--- TOC entry 5148 (class 2606 OID 232343)
+-- TOC entry 5190 (class 2606 OID 232343)
 -- Name: transferencia sucursaldestino_sucursal; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5909,7 +6462,7 @@ ALTER TABLE ONLY shared.transferencia
 
 
 --
--- TOC entry 5149 (class 2606 OID 232348)
+-- TOC entry 5191 (class 2606 OID 232348)
 -- Name: transferencia sucursalorigen_sucursal; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5918,7 +6471,7 @@ ALTER TABLE ONLY shared.transferencia
 
 
 --
--- TOC entry 5150 (class 2606 OID 232353)
+-- TOC entry 5192 (class 2606 OID 232353)
 -- Name: transferencia transferencia_codestmov_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5927,7 +6480,7 @@ ALTER TABLE ONLY shared.transferencia
 
 
 --
--- TOC entry 5151 (class 2606 OID 232358)
+-- TOC entry 5193 (class 2606 OID 232358)
 -- Name: transferencia transferencia_codtipocomprobante_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5936,7 +6489,7 @@ ALTER TABLE ONLY shared.transferencia
 
 
 --
--- TOC entry 5154 (class 2606 OID 232363)
+-- TOC entry 5196 (class 2606 OID 232363)
 -- Name: transferenciadet transferenciadet_codproducto_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5945,7 +6498,7 @@ ALTER TABLE ONLY shared.transferenciadet
 
 
 --
--- TOC entry 5155 (class 2606 OID 232368)
+-- TOC entry 5197 (class 2606 OID 232368)
 -- Name: transferenciadet transferenciadet_codtransferencia_fkey; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5954,7 +6507,7 @@ ALTER TABLE ONLY shared.transferenciadet
 
 
 --
--- TOC entry 5152 (class 2606 OID 232373)
+-- TOC entry 5194 (class 2606 OID 232373)
 -- Name: transferencia ususarioautoriza_usuario; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5963,7 +6516,7 @@ ALTER TABLE ONLY shared.transferencia
 
 
 --
--- TOC entry 5153 (class 2606 OID 232378)
+-- TOC entry 5195 (class 2606 OID 232378)
 -- Name: transferencia ususariocarga_usuario; Type: FK CONSTRAINT; Schema: shared; Owner: postgres
 --
 
@@ -5971,7 +6524,7 @@ ALTER TABLE ONLY shared.transferencia
     ADD CONSTRAINT ususariocarga_usuario FOREIGN KEY (usuariocarga) REFERENCES access.usuario(codusuario);
 
 
--- Completed on 2025-11-02 15:54:07
+-- Completed on 2025-11-23 16:44:14
 
 --
 -- PostgreSQL database dump complete
