@@ -8,6 +8,7 @@
         public string datoempleado { get; set; }
         public string datomotivo { get; set; }
         public string dessucursal { get; set; }
+        public string estado { get; set; }
 
     }
 }

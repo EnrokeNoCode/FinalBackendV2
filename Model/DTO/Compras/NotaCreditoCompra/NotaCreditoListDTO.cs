@@ -10,6 +10,7 @@
         public string datoproveedor { get; set; } 
         public string nummoneda { get; set; }   
         public string dessucursal { get; set; }
+        public string estado { get; set; }
         public decimal totaldevolucion { get; set; }
     }
 }

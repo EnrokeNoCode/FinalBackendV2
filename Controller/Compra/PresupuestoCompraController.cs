@@ -14,11 +14,10 @@ namespace Controller
             _data = data;
         }
 
-        [HttpGet]
-        [Route("lista")]
-        public async Task<ActionResult<PresupuestoCompraListDTO>> GetList(int page = 1, int pageSize = 10)
+        [HttpGet("lista/{codsucursal}")]
+        public async Task<ActionResult<PresupuestoCompraListDTO>> GetList(int codsucursal,int page = 1, int pageSize = 10)
         {
-            var presupuestocompra = await _data.PresupuestoCompraList(page, pageSize);
+            var presupuestocompra = await _data.PresupuestoCompraList(page, pageSize, codsucursal);
 
             if (presupuestocompra == null)
             {

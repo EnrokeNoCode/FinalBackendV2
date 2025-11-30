@@ -20,14 +20,14 @@ namespace Service.Compra
             _query = query;
         }
 
-        public async Task<PaginadoDTO<CompraListDTO>> CompraList(int page, int pageSize)
+        public async Task<PaginadoDTO<CompraListDTO>> CompraList(int page, int pageSize, int codsucursal)
         {
             var lista = new List<CompraListDTO>();
             int totalItems = 0;
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
             {
                 await npgsql.OpenAsync();
-                using (var cmdCount = new NpgsqlCommand("SELECT COUNT(*) FROM purchase.compras", npgsql))
+                using (var cmdCount = new NpgsqlCommand($"SELECT COUNT(*) FROM purchase.compras where codsucursal = {codsucursal}", npgsql))
                 {
                     totalItems = Convert.ToInt32(await cmdCount.ExecuteScalarAsync());
                 }
@@ -36,6 +36,7 @@ namespace Service.Compra
                 string consultaCompras = _query.SelectList(pageSize, offset);
                 using (var cmdCompras = new NpgsqlCommand(consultaCompras, npgsql))
                 {
+                    cmdCompras.Parameters.AddWithValue("@codsucursal", codsucursal);
                     using (var readerCompras = await cmdCompras.ExecuteReaderAsync())
                     {
                         while (await readerCompras.ReadAsync())
@@ -135,7 +136,7 @@ namespace Service.Compra
 
             return comprasList;
         }
-
+        //--> Para la Nota de Credito calcular disponible en base a los detalles
         public async Task<List<ComprasDetNCListDTO>> ComprasListDetalle(int codcompra)
         {
             var detalles = new List<ComprasDetNCListDTO>();
@@ -151,6 +152,27 @@ namespace Service.Compra
                 while (await reader.ReadAsync())
                 {
                     detalles.Add(reader.MapToObject<ComprasDetNCListDTO>());
+                }
+            }
+
+            return detalles;
+        }
+        //--> Para la Remision calcular disponible en base a los detalles
+        public async Task<List<ComprasREMDetListDTO>> ComprasRemListDetalle(int codcompra)
+        {
+            var detalles = new List<ComprasREMDetListDTO>();
+
+            using var npgsql = new NpgsqlConnection(_cn.cadenaSQL());
+            await npgsql.OpenAsync();
+
+            using (var cmd = new NpgsqlCommand(_query.SelectDetails(3), npgsql))
+            {
+                cmd.Parameters.AddWithValue("@codcompra", codcompra);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    detalles.Add(reader.MapToObject<ComprasREMDetListDTO>());
                 }
             }
 

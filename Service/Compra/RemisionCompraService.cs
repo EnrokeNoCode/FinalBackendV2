@@ -1,33 +1,34 @@
-﻿using Model.DTO;
-using Model.DTO.Compras.NotaCreditoCompra;
+using System.Data;
+using System.Text.Json;
+using Model.DTO;
+using Model.DTO.Compras.Compra;
+using Model.DTO.Compras.RemisionCompra;
 using Npgsql;
 using Persistence;
 using Persistence.SQL.Compra;
-using System.Data;
-using System.Text.Json;
 using Utils;
 
 namespace Service.Compra
 {
-    public class NotaCreditoCompraService
+    public class RemisionCompraService
     {
         private readonly DBConnector _cn;
-        private readonly NotaCreditoCompra_Sql _query;
+        private readonly RemisionCompra_Sql _query;
 
-        public NotaCreditoCompraService(DBConnector cn, NotaCreditoCompra_Sql query)
+        public RemisionCompraService(DBConnector cn, RemisionCompra_Sql query)
         {
             _cn = cn;
             _query = query;
         }
 
-        public async Task<PaginadoDTO<NotaCreditoListDTO>> NotaCreditoCompraList(int page, int pageSize, int codsucursal)
+        public async Task<PaginadoDTO<RemisionCompraListDTO>> RemisionCompraList( int page, int pageSize, int codsucursal)
         {
-            var lista = new List<NotaCreditoListDTO>();
+            var lista = new List<RemisionCompraListDTO>();
             int totalItems = 0;
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
             {
                 await npgsql.OpenAsync();
-                using (var cmdCount = new NpgsqlCommand($"SELECT COUNT(*) FROM shared.notacredito where movimiento = 'COMPRAS' and codsucursal = {codsucursal}", npgsql))
+                using (var cmdCount = new NpgsqlCommand($"SELECT COUNT(*) FROM purchase.remisioncompra where codsucursal = {codsucursal}", npgsql))
                 {
                     totalItems = Convert.ToInt32(await cmdCount.ExecuteScalarAsync());
                 }
@@ -41,18 +42,17 @@ namespace Service.Compra
                     {
                         while (await readerCompras.ReadAsync())
                         {
-                            var compras_ = new NotaCreditoListDTO
+                            var compras_ = new RemisionCompraListDTO
                             {
-                                codnotacredito = (int)readerCompras["codnotacredito"],
-                                codcompra = (int)readerCompras["codcompra"],
-                                fechanotacredito = (DateTime)readerCompras["fechanotacredito"],
-                                nronotacredito = (string)readerCompras["nronotacredito"],
-                                dessucursal = (string)readerCompras["dessucursal"],
+                                codremisioncompra = (int)readerCompras["codremisioncompra"],
+                                fecharemision = (DateTime)readerCompras["fecharemision"],
+                                numremisioncompra = (string)readerCompras["numremisioncompra"],
                                 datocompra = (string)readerCompras["datocompra"],
-                                totaldevolucion = (decimal)readerCompras["totaldevolucion"],
                                 datoproveedor = (string)readerCompras["datoproveedor"],
-                                nummoneda = (string)readerCompras["nummoneda"],
-                                estado = (string)readerCompras["desestmov"]
+                                datosucursal = (string)readerCompras["datosucursal"],
+                                fechallegada = (DateTime)readerCompras["fechallegada"],
+                                estado = (string)readerCompras["estado"],
+                                totalnotaremision = 0.00m
                             };
                             lista.Add(compras_);
                         }
@@ -62,7 +62,7 @@ namespace Service.Compra
             }
             var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-            return new PaginadoDTO<NotaCreditoListDTO>
+            return new PaginadoDTO<RemisionCompraListDTO>
             {
                 Data = lista,
                 TotalItems = totalItems,
@@ -72,7 +72,7 @@ namespace Service.Compra
             };
         }
 
-        public async Task<int> InsertarNotaCreditoCompra(NotaCreditoInsertDTO notaCredito)
+        public async Task<int> InsertarRemisionCompra(RemisionCompraInsertDTO remisionCompra)
         {
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
             {
@@ -89,27 +89,26 @@ namespace Service.Compra
                             cmd.CommandType = CommandType.Text;
                             cmd.Transaction = transaction;
 
-                            cmd.Parameters.AddWithValue("@codcompra", notaCredito.codcompra);
-                            cmd.Parameters.AddWithValue("@codproveedor", notaCredito.codproveedor);
-                            cmd.Parameters.AddWithValue("@codtipocomprobante", notaCredito.codtipocomprobante);
-                            cmd.Parameters.AddWithValue("@numnotacredito", notaCredito.numnotacredito);
-                            cmd.Parameters.AddWithValue("@fechanotacredito", DateTime.Parse(notaCredito.fechanotacredito));
-                            cmd.Parameters.AddWithValue("@nrotimbrado", notaCredito.nrotimbrado);
-                            cmd.Parameters.AddWithValue("@fechavalidez", DateOnly.Parse(notaCredito.fechavalidez));
-                            cmd.Parameters.AddWithValue("@codestmov", notaCredito.codestmov);
-                            cmd.Parameters.AddWithValue("@codempleado", notaCredito.codempleado);
-                            cmd.Parameters.AddWithValue("@codsucursal", notaCredito.codsucursal);
-                            cmd.Parameters.AddWithValue("@codmoneda", notaCredito.codmoneda);
-                            cmd.Parameters.AddWithValue("@cotizacion", notaCredito.cotizacion);
-                            cmd.Parameters.AddWithValue("@totaliva", notaCredito.totaliva);
-                            cmd.Parameters.AddWithValue("@totaldescuento", notaCredito.totaldescuento);
-                            cmd.Parameters.AddWithValue("@totalexento", notaCredito.totalexenta);
-                            cmd.Parameters.AddWithValue("@totalgravada", notaCredito.totalgravada);
-                            cmd.Parameters.AddWithValue("@totaldevolucion", notaCredito.totaldevolucion);
-                            cmd.Parameters.AddWithValue("@codterminal", notaCredito.codterminal);
-                            cmd.Parameters.AddWithValue("@ultimo", notaCredito.ultimo);
-                            var detallesJson = JsonSerializer.Serialize(notaCredito.notacreditodet);
+                            cmd.Parameters.AddWithValue("@codcompra", remisionCompra.codcompra);
+                            cmd.Parameters.AddWithValue("@codsucursal", remisionCompra.codsucursal);
+                            cmd.Parameters.AddWithValue("@codtipocomprobante", remisionCompra.codtipocomprobante);
+                            cmd.Parameters.AddWithValue("@codestmov", remisionCompra.codestmov);
+                            cmd.Parameters.AddWithValue("@numremisioncompra", remisionCompra.numremisioncompra);
+                            cmd.Parameters.AddWithValue("@fecharemision", remisionCompra.fecharemision);
+                            cmd.Parameters.AddWithValue("@fecharegistro", remisionCompra.fecharegistro);
+                            cmd.Parameters.AddWithValue("@codproveedor", remisionCompra.codproveedor);
+                            cmd.Parameters.AddWithValue("@codempleado", remisionCompra.codempleado);
+                            cmd.Parameters.AddWithValue("@rucransportista", remisionCompra.ruc_ransportista);
+                            cmd.Parameters.AddWithValue("@razonsocialtransportista", remisionCompra.razonsocial_transportista);
+                            cmd.Parameters.AddWithValue("@chapavehiculo", remisionCompra.chapa_vehiculo);
+                            cmd.Parameters.AddWithValue("@marcavehiculo", remisionCompra.marca_vehiculo);
+                            cmd.Parameters.AddWithValue("@modelovehiculo", remisionCompra.modelo_vehiculo);
+                            cmd.Parameters.AddWithValue("@nrodocchofer", remisionCompra.nrodoc_chofer);
+                            cmd.Parameters.AddWithValue("@nombreapellidochofer", remisionCompra.nombreapellido_chofer);
+                            cmd.Parameters.AddWithValue("@nrotelefonochofer", remisionCompra.telefono_chofer);
+                            var detallesJson = JsonSerializer.Serialize(remisionCompra.remisioncompradet);
                             cmd.Parameters.AddWithValue("@detalles", NpgsqlTypes.NpgsqlDbType.Json, detallesJson);
+                            cmd.Parameters.AddWithValue("@codterminal", remisionCompra.codterminal);
                             int codcompra = (int)await cmd.ExecuteScalarAsync();
                             await transaction.CommitAsync();
                             return codcompra;
@@ -118,50 +117,48 @@ namespace Service.Compra
                     catch (Exception ex)
                     {
                         await transaction.RollbackAsync();
-                        Console.WriteLine("Error al insertar la Nota Credito: " + ex.Message);
+                        Console.WriteLine("Error al insertar la Remision Compra: " + ex.Message);
                         throw;
                     }
                 }
             }
         }
-
-        public async Task<NotaCreditoDTO?> NotaCreditoVer(int codnotacredito)
+        public async Task<RemisionCompraDTO?> RemisionCompraVer(int codremisioncompra)
         {
-            NotaCreditoDTO? notaCredito = null;
+            RemisionCompraDTO? compras = null;
 
             using var npgsql = new NpgsqlConnection(_cn.cadenaSQL());
             await npgsql.OpenAsync();
 
             using (var cmd = new NpgsqlCommand(_query.Select(1), npgsql))
             {
-                cmd.Parameters.AddWithValue("@codnotacredito", codnotacredito);
+                cmd.Parameters.AddWithValue("@codremisioncompra", codremisioncompra);
 
                 using var reader = await cmd.ExecuteReaderAsync();
                 if (await reader.ReadAsync())
                 {
-                    notaCredito = reader.MapToObject<NotaCreditoDTO>();
-                    notaCredito.notacreditodet = new List<NotaCreditoDetDTO>();
+                    compras = reader.MapToObject<RemisionCompraDTO>();
+                    compras.remisiondet = new List<RemisionCompraDetDTO>();
                 }
             }
 
-            if (notaCredito == null) return null;
+            if (compras == null) return null;
 
             // --- Detalles ---
-            using (var cmdDet = new NpgsqlCommand(_query.SelectDetail(1), npgsql))
+            using (var cmdDet = new NpgsqlCommand(_query.SelectWithDetails(), npgsql))
             {
-                cmdDet.Parameters.AddWithValue("@codnotacredito", codnotacredito);
+                cmdDet.Parameters.AddWithValue("@codremisioncompra", codremisioncompra);
 
                 using var readerDet = await cmdDet.ExecuteReaderAsync();
                 while (await readerDet.ReadAsync())
                 {
-                    notaCredito.notacreditodet!.Add(readerDet.MapToObject<NotaCreditoDetDTO>());
+                    compras.remisiondet!.Add(readerDet.MapToObject<RemisionCompraDetDTO>());
                 }
             }
 
-            return notaCredito;
+            return compras;
         }
-
-        public async Task<string> ActualizarEstadoV2(int codnotacredito, int codestado)
+        public async Task<string> CancelarRemision(int codremisioncompra)
         {
 
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
@@ -175,8 +172,7 @@ namespace Service.Compra
                         using (var cmd = new NpgsqlCommand(actulizarestado, npgsql))
                         {
                             cmd.CommandType = CommandType.Text;
-                            cmd.Parameters.AddWithValue("@codnotacredito", codnotacredito);
-                            cmd.Parameters.AddWithValue("@codestado", codestado);
+                            cmd.Parameters.AddWithValue("@codremisioncompra", codremisioncompra);
                             cmd.Transaction = transaction;
                             string filasAfectadas = (string)await cmd.ExecuteScalarAsync();
                             await transaction.CommitAsync();

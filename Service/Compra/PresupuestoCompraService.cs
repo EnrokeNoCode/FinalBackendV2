@@ -20,7 +20,7 @@ namespace Service.Compra
             _query = query;
         }
 
-        public async Task<PaginadoDTO<PresupuestoCompraListDTO>> PresupuestoCompraList(int page, int pageSize)
+        public async Task<PaginadoDTO<PresupuestoCompraListDTO>> PresupuestoCompraList(int page, int pageSize, int codsucursal)
         {
             var lista = new List<PresupuestoCompraListDTO>();
             int totalItems = 0;
@@ -28,7 +28,7 @@ namespace Service.Compra
             {
                 await npgsql.OpenAsync();
 
-                using (var cmdCount = new NpgsqlCommand("SELECT COUNT(*) FROM purchase.presupuestocompra", npgsql))
+                using (var cmdCount = new NpgsqlCommand($"SELECT COUNT(*) FROM purchase.presupuestocompra where codsucursal = {codsucursal}", npgsql))
                 {
                     totalItems = Convert.ToInt32(await cmdCount.ExecuteScalarAsync());
                 }
@@ -38,6 +38,7 @@ namespace Service.Compra
                 string consultapresc_ = _query.SelectList(pageSize, offset);
                 using (var cmdPresupuestoCompra = new NpgsqlCommand(consultapresc_, npgsql))
                 {
+                    cmdPresupuestoCompra.Parameters.AddWithValue("@codsucursal", codsucursal);
                     using (var readerPresCompra = await cmdPresupuestoCompra.ExecuteReaderAsync())
                     {
                         while (await readerPresCompra.ReadAsync())

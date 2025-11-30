@@ -16,11 +16,10 @@ namespace Controller
             _data = data;
         }
 
-        [HttpGet]
-        [Route("lista")]
-        public async Task<ActionResult<List<PedidoCompraListDTO>>> GetList(int page = 1, int pageSize = 10)
+        [HttpGet("lista/{codsucursal}")]
+        public async Task<ActionResult<List<PedidoCompraListDTO>>> GetList(int codsucursal, int page = 1, int pageSize = 10)
         {
-            var resultado = await _data.PedidoCompraLista(page, pageSize);
+            var resultado = await _data.PedidoCompraLista(page, pageSize, codsucursal);
 
             if (resultado == null || resultado.Data == null || !resultado.Data.Any())
             {
@@ -36,13 +35,12 @@ namespace Controller
             var pedido = await _data.PedidoCompraConDet(codpedcompra);
 
             if (pedido == null)
-                return NotFound();
+                return NotFound(pedido);
 
             return Ok(pedido);
         }
 
-        [HttpPut]
-        [Route("anularpedcompra/{codpedcompra}/{codestado}")]
+        [HttpPut("anularpedcompra/{codpedcompra}/{codestado}")]
         public async Task<ActionResult> PutActualizarEstado(int codpedcompra, int codestado)
         {
              try
@@ -69,8 +67,7 @@ namespace Controller
 
         }
 
-        [HttpPut]
-        [Route("actualizarpedidodet")]
+        [HttpPut("actualizarpedidodet")]
         public async Task<ActionResult> ActualizarPedCompraDet([FromBody] PedidoCompraUpdateDTO pedido)
         {
             try

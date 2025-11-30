@@ -15,11 +15,10 @@ namespace Controller
             _data = data;
         }
 
-        [HttpGet]
-        [Route("lista")]
-        public async Task<ActionResult<List<OrdenCompraListDTO>>> GetList(int page = 1, int pageSize = 10)  
+        [HttpGet("lista/{codsucursal}")]
+        public async Task<ActionResult<List<OrdenCompraListDTO>>> GetList(int codsucursal, int page = 1, int pageSize = 10)  
         {
-            var ordenCompraList = await _data.OrdenCompraList(page, pageSize); 
+            var ordenCompraList = await _data.OrdenCompraList(page, pageSize, codsucursal); 
 
             if (ordenCompraList == null)
             {
@@ -64,8 +63,7 @@ namespace Controller
             }
         }
 
-        [HttpPut]
-        [Route("actualizarestado/{codordenc}/{codestado}")]
+        [HttpPut("actualizarestado/{codordenc}/{codestado}")]
         public async Task<ActionResult> PutActualizarEstado(int codordenc, int codestado)
         {
             try

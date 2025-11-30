@@ -20,7 +20,7 @@ namespace Service.Compra
             _query = query;
         }
 
-        public async Task<PaginadoDTO<PedidoCompraListDTO>> PedidoCompraLista(int page, int pageSize)
+        public async Task<PaginadoDTO<PedidoCompraListDTO>> PedidoCompraLista(int page, int pageSize, int codsucursal)
         {
             var lista = new List<PedidoCompraListDTO>();
             int totalItems = 0;
@@ -30,7 +30,7 @@ namespace Service.Compra
                 await npgsql.OpenAsync();
 
                 // ➕ Consulta para obtener el total de registros sin paginación
-                using (var cmdCount = new NpgsqlCommand("SELECT COUNT(*) FROM purchase.pedidocompra", npgsql))
+                using (var cmdCount = new NpgsqlCommand($"SELECT COUNT(*) FROM purchase.pedidocompra where codsucursal = {codsucursal}", npgsql))
                 {
                     totalItems = Convert.ToInt32(await cmdCount.ExecuteScalarAsync());
                 }
@@ -40,6 +40,7 @@ namespace Service.Compra
 
                 using (var cmdPedidoCompra = new NpgsqlCommand(consultapedidoc_, npgsql))
                 {
+                    cmdPedidoCompra.Parameters.AddWithValue("@codsucursal", codsucursal);
                     using (var readerPedCompra = await cmdPedidoCompra.ExecuteReaderAsync())
                     {
                         while (await readerPedCompra.ReadAsync())
@@ -76,7 +77,6 @@ namespace Service.Compra
                 TotalPages = totalPages
             };
         }
-
         public async Task<PedidoCompraDTO?> PedidoCompraConDet(int idpedcompra)
         {
             PedidoCompraDTO? pedido = null;
@@ -261,7 +261,6 @@ namespace Service.Compra
                 }
             }
         }
-
         public async Task<string> ActualizarPedidoCompraDet(PedidoCompraUpdateDTO pedido)
         {
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))

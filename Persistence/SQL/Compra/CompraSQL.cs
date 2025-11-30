@@ -14,6 +14,7 @@ namespace Persistence.SQL.Compra
                     inner join referential.empleado e on p.codempleado = e.codempleado
                     inner join referential.estadomovimiento e2 on p.codestmov = e2.codestmov
                     inner join referential.sucursal s on p.codsucursal = s.codsucursal
+                    where p.codsucursal = @codsucursal
                     order by p.fechapedcompra, p.codpedcompra desc
                     limit {pageSize} offset {offset}";
         }
@@ -89,6 +90,7 @@ namespace Persistence.SQL.Compra
                     inner join referential.sucursal s on p.codsucursal = s.codsucursal 
                     inner join referential.estadomovimiento em on p.codestmov = em.codestmov 
                     left join purchase.pedidocompra pc on p.codpedcompra = pc.codpedcompra 
+                    where p.codsucursal = @codsucursal
                     order by p.fechapresupuesto, p.codpresupuestocompra desc
                     limit {pageSize} offset {offset}";
         }
@@ -214,6 +216,7 @@ namespace Persistence.SQL.Compra
                     inner join referential.sucursal s on o.codsucursal = s.codsucursal 
                     inner join referential.estadomovimiento em on o.codestmov = em.codestmov 
                     left join purchase.presupuestocompra pc on o.codpresupuestocompra  = pc.codpresupuestocompra 
+                    where o.codsucursal  = @codsucursal
                     order by o.fechaorden, o.codordenc desc
                     limit {pageSize} offset {offset}";
         }
@@ -331,16 +334,17 @@ namespace Persistence.SQL.Compra
                                     when c.condicionpago = 0 then 'CONTADO'
                                     else 'CREDITO'
                                 end as condicion
-            from purchase.compras c
-                                inner join referential.proveedor prv on c.codproveedor = prv.codproveedor 
-                                inner join referential.empleado e on c.codempleado = e.codempleado 
-                                inner join referential.moneda m on c.codmoneda = m.codmoneda 
-                                inner join referential.tipocomprobante t on c.codtipocomprobante = t.codtipocomprobante 
-                                inner join referential.sucursal s on c.codsucursal = s.codsucursal 
-                                inner join referential.estadomovimiento em on c.codestmov = em.codestmov 
-                                left join purchase.ordencompra o on c.codordenc   = o.codordenc
-                                order by c.fechacompra, c.codcompra desc
-                                limit {pageSize} offset {offset}";
+                    from purchase.compras c
+                    inner join referential.proveedor prv on c.codproveedor = prv.codproveedor 
+                    inner join referential.empleado e on c.codempleado = e.codempleado 
+                    inner join referential.moneda m on c.codmoneda = m.codmoneda 
+                    inner join referential.tipocomprobante t on c.codtipocomprobante = t.codtipocomprobante 
+                    inner join referential.sucursal s on c.codsucursal = s.codsucursal 
+                    inner join referential.estadomovimiento em on c.codestmov = em.codestmov 
+                    left join purchase.ordencompra o on c.codordenc   = o.codordenc
+                    where c.codsucursal = @codsucursal
+                    order by c.fechacompra, c.codcompra desc
+                    limit {pageSize} offset {offset}";
         }
 
         public string Insert()
@@ -423,6 +427,9 @@ namespace Persistence.SQL.Compra
                 case 2:
                     sentence = @"SELECT * FROM shared.fn_notacredito_list_detalle('COMPRA', @codcompra);";
                     break;
+                case 3:
+                    sentence = @"select * from purchase.fn_remisioncompra_list_detalle(@codcompra);";
+                    break;
             }
             return sentence;
         }
@@ -447,18 +454,23 @@ namespace Persistence.SQL.Compra
     {
         public string SelectList(int pageSize, int offset)
         {
-            return $@"select nc.codnotacredito, nc.codcompra, nc.fechanotacredito , 
+            return $@"select nc.codnotacredito, coalesce(nc.codcompra,0) as codcompra, nc.fechanotacredito , 
                     tnc.numtipocomprobante || '- ' || nc.numnotacredito as nronotacredito,
-                    tc.numtipocomprobante || '- ' || c.numcompra as datocompra, s.dessucursal ,
-                    prv.nrodocprv || '- ' || prv.razonsocial as datoproveedor, nc.totaldevolucion , m.nummoneda 
+                    case 
+                    	when coalesce(nc.codcompra,0) = 0 then 'ANULADO'
+                    	when nc.codcompra != 0 then tc.numtipocomprobante || '- ' || c.numcompra
+                    end
+                    as datocompra, s.dessucursal ,
+                    prv.nrodocprv || '- ' || prv.razonsocial as datoproveedor, nc.totaldevolucion , m.nummoneda , em.numestmov , em.desestmov
                     from shared.notacredito nc 
-                    inner join purchase.compras c on nc.codcompra = c.codcompra 
+                    left join purchase.compras c on nc.codcompra = c.codcompra 
                     inner join referential.tipocomprobante tnc on nc.codtipocomprobante = tnc.codtipocomprobante 
-                    inner join referential.tipocomprobante tc on tc.codtipocomprobante = c.codtipocomprobante 
+                    left join referential.tipocomprobante tc on tc.codtipocomprobante = c.codtipocomprobante 
                     inner join referential.moneda m on nc.codmoneda = m.codmoneda 
                     inner join referential.proveedor prv on nc.codproveedor  = prv.codproveedor 
-                    inner join referential.sucursal s on nc.codsucursal = s.codsucursal 
-                    where nc.movimiento = 'COMPRAS'
+                    inner join referential.sucursal s on nc.codsucursal = s.codsucursal
+                    inner join referential.estadomovimiento em on nc.codestmov = em.codestmov
+                    where nc.movimiento = 'COMPRAS' and nc.codsucursal = @codsucursal
                     order by nc.codnotacredito , nc.fechanotacredito desc
                     limit {pageSize} offset {offset}";
 
@@ -500,11 +512,15 @@ namespace Persistence.SQL.Compra
                 case 1:
                     sentence = @"select nc.nrotimbrado, nc.fechavalidez, nc.fechanotacredito , tc.numtipocomprobante || '- ' || nc.numnotacredito as datonotacredito, nc.totaldevolucion ,
                                 p.nrodocprv  || '- ' || p.razonsocial as datoproveedor, 
-                                'Fecha Compra: ' || c.fechacompra || ' Nro. Fac: ' || tcc.numtipocomprobante || '- ' || c.numcompra  as datocompra
+                                case
+                                when coalesce(nc.codcompra,0) = 0 then 'LA COMPRA YA NO SE ENCUENTRA ASOCIADA'
+                                when coalesce(nc.codcompra,0) != 0 then 'Fecha Compra: ' || c.fechacompra || ' Nro. Fac: ' || tcc.numtipocomprobante || '- ' || c.numcompra
+                                end
+                                as datocompra
                                 from shared.notacredito nc 
-                                inner join purchase.compras c on nc.codcompra = c.codcompra
+                                left join purchase.compras c on nc.codcompra = c.codcompra
                                 inner join referential.tipocomprobante tc on nc.codtipocomprobante = tc.codtipocomprobante
-                                inner join referential.tipocomprobante tcc on c.codtipocomprobante = tcc.codtipocomprobante
+                                left join referential.tipocomprobante tcc on c.codtipocomprobante = tcc.codtipocomprobante
                                 inner join referential.proveedor p on nc.codproveedor = p.codproveedor 
                                 where nc.movimiento = 'COMPRAS' and nc.codnotacredito = @codnotacredito
                                 ;";
@@ -532,6 +548,11 @@ namespace Persistence.SQL.Compra
 
             return sentence;
         }
+
+        public string Update()
+        {
+            return @"SELECT shared.fn_update_notacreditoestado(@codnotacredito, @codestado, 'COMPRA')";
+        }
     }
 
     public class Ajustes_Sql
@@ -540,12 +561,17 @@ namespace Persistence.SQL.Compra
          {
             return $@"select a.codajuste , a.fechaajuste , tc.numtipocomprobante  || '- ' || a.numajuste as datoajuste,
                     s.dessucursal , case when a.condicion = 0 then 'SUMA por ' || ma.desmotivo else 'RESTA por ' || ma.desmotivo end as datomotivo ,
-                    e.nombre_emp || ', ' || e.apellido_emp as datoempleado
+                    e.nombre_emp || ', ' || e.apellido_emp as datoempleado, 
+                    case
+                    	when coalesce(a.estado, 0) = 0 then 'ABIERTO'
+                    	when coalesce(a.estado, 0) = 1 then 'CERRADO'
+                    end as estado
                     from shared.ajustes a 
                     inner join referential.sucursal s on a.codsucursal = s.codsucursal 
                     inner join referential.empleado e on a.codempleado = e.codempleado 
                     inner join referential.tipocomprobante tc on a.codtipocomprobante  = tc.codtipocomprobante 
                     inner join referential.motivoajuste ma on a.codmotivo = ma.codmotivo
+                    where a.codsucursal = @codsucursal
                     order by a.codajuste , a.fechaajuste desc
                     limit {pageSize} offset {offset}; ";
          }
@@ -567,29 +593,137 @@ namespace Persistence.SQL.Compra
                     );";
         }
 
+        public string Update(int option)
+        {
+            string query = "";
+            switch (option)
+            {
+                case 1:
+                    // para el update de estado
+                    query = @"select shared.fn_update_ajustecerrar(@codajuste)";
+                    break;
+                case 2:
+                    // para el update de detalles
+                    query = @"select shared.fn_update_ajustedet(@codajuste, @codsucursal, @detalles)";
+                    break;
+            }
+            return query;
+        }
+
+        public string Select()
+        {
+            return @"select a.codajuste , a.fechaajuste , t.numtipocomprobante, t.destipocomprobante, 
+                    a.numajuste , e.nombre_emp || ' ' || e.apellido_emp as empleado , case
+                    	when coalesce(a.estado, 0) = 0 then 'ABIERTO'
+                    	when coalesce(a.estado, 0) = 1 then 'CERRADO'
+                    end as estado,
+                    s.numsucursal , s.dessucursal,
+                    case when a.condicion = 0 then 'SUMA por ' || ma.desmotivo else 'RESTA por ' || ma.desmotivo end as datomotivo 
+                    from shared.ajustes a
+                    inner join referential.tipocomprobante t  on a.codtipocomprobante  = t.codtipocomprobante 
+                    inner join referential.empleado e on a.codempleado  = e.codempleado 
+                    inner join referential.sucursal s on a.codsucursal = s.codsucursal
+                    inner join referential.motivoajuste ma on a.codmotivo = ma.codmotivo
+                   	where a.codajuste = @codajuste; ";
+        }
+
+        public string SelectWithDetail()
+        {
+            return @"select ad.codajuste, ad.codproducto, p2.codigobarra, p2.desproducto, ad.cantidad
+                    from shared.ajustesdet ad
+                    inner join referential.producto p2 on ad.codproducto = P2.codproducto
+                    where ad.codajuste = @codajuste;";
+        }
+
     }
 
+    public class RemisionCompra_Sql
+    {
+        public string SelectList(int pageSize, int offset)
+        {
+            return $@"select rc.codremisioncompra, rc.fecharemision, rc.fechallegada, tc.numtipocomprobante || '- ' || rc.numremisioncompra as numremisioncompra,
+                    tc2.numtipocomprobante || '- ' || c.numcompra as datocompra, prv.nrodocprv || '- ' || prv.razonsocial as datoproveedor,
+                    s.numsucursal || '- ' || s.dessucursal as datosucursal , em.desestmov as estado
+                    from purchase.remisioncompra rc
+                    inner join purchase.compras c on rc.codcompra= c.codcompra
+                    inner join referential.proveedor prv on rc.codproveedor = prv.codproveedor 
+                    inner join referential.sucursal s on rc.codsucursal = s.codsucursal
+                    inner join referential.tipocomprobante tc on rc.codtipocomprobante = tc.codtipocomprobante 
+                    inner join referential.tipocomprobante tc2 on c.codtipocomprobante = tc2.codtipocomprobante 
+                    inner join referential.estadomovimiento em on rc.codestmov = em.codestmov 
+                    where rc.codsucursal = @codsucursal
+                    order by rc.fecharemision, rc.codremisioncompra desc
+                    limit {pageSize} offset {offset}";
+        }
 
+        public string Insert()
+        {
+            return @"
+                SELECT purchase.fn_insert_remisioncompra(
+                    @codcompra,
+                    @codsucursal,
+                    @codtipocomprobante,
+                    @codestmov,
+                    @numremisioncompra,
+                    @fecharemision::timestamp,
+                    @fecharegistro::timestamp,
+                    @codproveedor,
+                    @codempleado,
+                    @rucransportista,
+                    @razonsocialtransportista,
+                    @chapavehiculo,
+                    @marcavehiculo,
+                    @modelovehiculo,
+                    @nrodocchofer,
+                    @nombreapellidochofer,
+                    @nrotelefonochofer,
+                    @detalles,
+                    @codterminal
+                );";
+        }
+
+
+        public string Select(int option)
+        {
+            string sentence = "";
+
+            switch (option)
+            {
+                case 1:
+                    sentence = @"select tc.numtipocomprobante , rc.numremisioncompra , rc.fecharemision, rc.fechallegada,
+                                p.nrodocprv || '- ' || p.razonsocial as datoproveedor,
+                                tc.numtipocomprobante || '- ' || c.numcompra as datocompra, 
+                                rc.ruc_transportista , rc.razonsocial_transportista , rc.nrochapa_vehiculo , rc.marca_vehiculo , rc.modelo_vehiculo , 
+                                rc.nombreapellido_chofer, rc.nrodoc_chofer , rc.nrotelefono_chofer, 
+                                (select sum(rcd.costo) * sum(rcd.cantidad) from purchase.remisioncompra_det rcd where rcd.codremisioncompra = @codremisioncompra) as totalremision,
+                                e.nombre_emp || ' ' || e.apellido_emp as datoempleado, s.numsucursal || '- ' || s.dessucursal as datosucursal
+                                from purchase.remisioncompra rc
+                                inner join purchase.compras c on rc.codcompra = c.codcompra 
+                                inner join referential.tipocomprobante tr on rc.codtipocomprobante = tr.codtipocomprobante 
+                                inner join referential.tipocomprobante tc on c.codtipocomprobante = tc.codtipocomprobante 
+                                inner join referential.sucursal s on rc.codsucursal = s.codsucursal 
+                                inner join referential.proveedor p on rc.codproveedor = p.codproveedor 
+                                inner join referential.empleado e on rc.codempleado = e.codempleado 
+                                where rc.codremisioncompra = @codremisioncompra;";
+                    break;
+            }
+
+            return sentence;    
+        }
+        public string SelectWithDetails()
+        {
+            return @"select p.codigobarra, p.desproducto, rd.cantidad, rd.costo 
+                    from purchase.remisioncompra_det rd 
+                    inner join referential.producto p on rd.codproducto = p.codproducto 
+                    where rd.codremisioncompra = @codremisioncompra;";
+        }
+        public string Update()
+        {
+            return @"select purchase.fn_update_remisioncompraestado(@codremisioncompra)";
+        }
+
+    }
+        
 }
 
 
-
-
-/*
-Compras
-
-Nota Remision
-Libro Compras
-
-Ventas
-
-Arqueo de Caja
-Recaudacion a Depositar
-Cobranzas
-Libro Ventas
-
-Servicios
-
-
- 
- */

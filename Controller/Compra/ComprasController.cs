@@ -15,11 +15,10 @@ namespace Controller
             _data = data;
         }
 
-        [HttpGet]
-        [Route("lista")]
-        public async Task<ActionResult<List<CompraListDTO>>> GetList(int page = 1, int pageSize = 10)
+        [HttpGet("lista/{codsucursal}")]
+        public async Task<ActionResult<List<CompraListDTO>>> GetList(int codsucursal, int page = 1, int pageSize = 10)
         {
-            var comprasList = await _data.CompraList(page, pageSize);
+            var comprasList = await _data.CompraList(page, pageSize, codsucursal);
 
             if (comprasList == null)
             {
@@ -56,7 +55,18 @@ namespace Controller
             var detalles = await _data.ComprasListDetalle(codcompra);
 
             if (detalles == null || detalles.Count == 0)
-                return NotFound();
+                return NotFound(detalles);
+
+            return Ok(detalles);
+        }
+
+        [HttpGet("reccompradetalle/remision/{codcompra}")]
+        public async Task<ActionResult<List<ComprasREMDetListDTO>>> GetDetalleRemision(int codcompra)
+        {
+            var detalles = await _data.ComprasRemListDetalle(codcompra);
+
+            if (detalles == null || detalles.Count == 0)
+                return NotFound(detalles);
 
             return Ok(detalles);
         }

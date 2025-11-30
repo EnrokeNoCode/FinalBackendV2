@@ -70,6 +70,7 @@ namespace Utils
             services.AddScoped<NotaCreditoCompraService>();
             services.AddScoped<ComprasService>();
             services.AddScoped<AjustesService>();
+            services.AddScoped<RemisionCompraService>();
             
             services.AddScoped<PedidosCompras_sql>();
             services.AddScoped<PresupuestoCompras_sql>();
@@ -77,6 +78,7 @@ namespace Utils
             services.AddScoped<Compras_Sql>();
             services.AddScoped<NotaCreditoCompra_Sql>();
             services.AddScoped<Ajustes_Sql>();
+            services.AddScoped<RemisionCompra_Sql>();
 
             //Ventas
             services.AddScoped<PedidoVentaService>();
