@@ -13,7 +13,7 @@
     <strong>PostgreSQL 16</strong>.
 </p>
 
-<h2>Estructura de los Módulos</h2>
+<h2>Estructura Esperada en los Módulos a Desarrollar</h2>
 
 <h3>Módulo Compra</h3>
 <ul>
