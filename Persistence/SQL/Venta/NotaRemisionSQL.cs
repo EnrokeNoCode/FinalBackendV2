@@ -1,0 +1,4 @@
+namespace Persistence.SQL.Venta
+{
+    
+}

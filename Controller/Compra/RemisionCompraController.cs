@@ -3,7 +3,7 @@ using Model.DTO.Compras.Compra;
 using Model.DTO.Compras.RemisionCompra;
 using Service.Compra;
 
-namespace Controller
+namespace Controller.Compras
 {
     [ApiController]
     [Route("api/remisioncompra")]

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.DTO.Compras.PedidoCompra;
 using Service.Compra;
 
-namespace Controller
+namespace Controller.Compras
 {
 
     [ApiController]

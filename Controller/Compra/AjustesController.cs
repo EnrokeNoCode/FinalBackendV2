@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.DTO.Compras.Ajustes;
-using Model.DTO.Compras.Compra;
-using Model.DTO.Compras.PedidoCompra;
 using Service.Compra;
 
-namespace Controller
+namespace Controller.Compras
 {
     [ApiController]
     [Route("api/ajustes")]

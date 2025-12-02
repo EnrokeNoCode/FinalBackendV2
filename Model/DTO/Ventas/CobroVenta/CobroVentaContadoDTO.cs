@@ -1,4 +1,4 @@
-namespace Model.DTO
+namespace Model.DTO.CobroVenta
 {
     public class CobroVentaContadoDTO
     {

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.DTO.Ventas.PedidoVenta;
 using Service.Venta;
 
-namespace Controller
+namespace Controller.Venta
 {
     [ApiController]
     [Route("api/pedidoventa")]

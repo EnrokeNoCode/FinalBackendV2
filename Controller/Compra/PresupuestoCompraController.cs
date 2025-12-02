@@ -2,7 +2,7 @@
 using Model.DTO.Compras.PresupuestoCompra;
 using Service.Compra;
 
-namespace Controller
+namespace Controller.Compras
 {
     [ApiController]
     [Route("api/presupuestocompra")]

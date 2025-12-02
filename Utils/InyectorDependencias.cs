@@ -1,4 +1,5 @@
 using Api.POS.Persistence.SQL.Referencial;
+using Model.DTO;
 using Persistence;
 using Persistence.SQL;
 using Persistence.SQL.Acceso;
@@ -85,11 +86,13 @@ namespace Utils
             services.AddScoped<PresupuestoVentaService>();
             services.AddScoped<VentasService>();
             services.AddScoped<NotaCreditoVentaService>();
+            services.AddScoped<CobrosVentaService>();
 
             services.AddScoped<Ventas_sql>();
             services.AddScoped<PedidoVenta_sql>();
             services.AddScoped<PresupuestoVenta_sql>();
             services.AddScoped<NotaCreditoVenta_Sql>();
+            services.AddScoped<CobroContado_sql>();
 
             //Servicios
             services.AddScoped<RegistroVehiculoService>();

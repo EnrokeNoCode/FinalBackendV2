@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.DTO.Compras.Compra;
 using Service.Compra;
 
-namespace Controller
+namespace Controller.Compras
 {
     [ApiController]
     [Route("api/compras")]

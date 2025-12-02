@@ -2,7 +2,7 @@
 using Model.DTO.Compras.NotaCreditoCompra;
 using Service.Compra;
 
-namespace Controller
+namespace Controller.Compras
 {
     [ApiController]
     [Route("api/notacreditocompra")]

@@ -3,7 +3,7 @@ using Model.DTO;
 using Model.DTO.Ventas.Venta;
 using Service.Venta;
 
-namespace Controller
+namespace Controller.Venta
 {
 
     [ApiController]
@@ -48,20 +48,6 @@ namespace Controller
             {
                 int newVentaId = await _data.InsertarVentas(venta);
                 return Ok(new { mensaje = "Venta insertada correctamente", id = newVentaId });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { error = ex.Message });
-            }
-        }
-
-        [HttpPost("insertarcobros")]
-        public async Task<IActionResult> InsertarCobros([FromBody] CobroVentaContadoDTO venta)
-        {
-            try
-            {
-                string newVentaId = await _data.InsertarCobros(venta);
-                return Ok(new { mensaje = newVentaId });
             }
             catch (Exception ex)
             {

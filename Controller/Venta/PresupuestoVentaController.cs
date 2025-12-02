@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model.DTO.Ventas.PresupuestoVenta;
 using Service.Venta;
 
-namespace Controller
+namespace Controller.Venta
 {
     [ApiController]
     [Route("api/presupuestoventa")]
