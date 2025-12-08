@@ -41,6 +41,17 @@ namespace Controller.Venta
             return Ok(pedidoventa);
         }
 
+        [HttpGet("recpedventa/{codpedidov}")]
+        public async Task<ActionResult<PedidoVentaDTO>> Get(int codpedidov)
+        {
+            var pedido = await _data.PedidoVentaConDet(codpedidov);
+
+            if (pedido == null)
+                return NotFound(pedido);
+
+            return Ok(pedido);
+        }
+
         [HttpPut]
         [Route("anularpedidoventa/{codpedidov}/{codestado}")]
         public async Task<ActionResult> PutActualizarEstado(int codpedidov, int codestado)
@@ -79,6 +90,31 @@ namespace Controller.Venta
             catch (Exception ex)
             {
                 return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+        [HttpPut("actualizarpedidodet")]
+        public async Task<ActionResult> ActualizarPedVentaDet([FromBody] PedidoVentaUpdateDTO pedido)
+        {
+            try
+            {
+                string updateDatos = await _data.ActualizarPedidoVentaDet(pedido);
+                if (updateDatos.StartsWith("OK"))
+                {
+                    return Ok(new { message = updateDatos });
+                }
+                else if (updateDatos.StartsWith("ERROR"))
+                {
+                    return BadRequest(new { message = updateDatos });
+                }
+                else
+                {
+                    return StatusCode(500, new { message = "Respuesta inesperada: " + updateDatos });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error interno: " + ex.Message });
             }
         }
     }

@@ -137,58 +137,7 @@ namespace Service.Venta
                     }
                 }
             }
-        }
-
-        public async Task<int> ActualizarEstado(int codpedventa, int codestado)
-        {
-            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
-            {
-                await npgsql.OpenAsync();
-                using (var transaction = await npgsql.BeginTransactionAsync())
-                {
-                    try
-                    {
-                        string consultaEstado = _query.SelectStatus();
-
-                        using (var cmdValidar = new NpgsqlCommand(consultaEstado, npgsql))
-                        {
-                            cmdValidar.Parameters.AddWithValue("@codpedventa", codpedventa);
-                            cmdValidar.Transaction = transaction;
-                            var estadoActual = await cmdValidar.ExecuteScalarAsync();
-
-                            switch ((int)estadoActual)
-                            {
-                                case 2:
-                                    throw new Exception("El pedido de venta ya fue utilizado.");
-                                case 3:
-                                    throw new Exception("El pedido de venta no se puede utilizar ya supero los dias.");
-                                case 4:
-                                    throw new Exception("El pedido de centa ya se encuentra anulado.");
-                            }
-                        }
-                        string actulizarestado = _query.Update(1);
-
-                        using (var cmd = new NpgsqlCommand(actulizarestado, npgsql))
-                        {
-                            cmd.CommandType = CommandType.Text;
-                            cmd.Parameters.AddWithValue("@codpedventa", codpedventa);
-                            cmd.Parameters.AddWithValue("@codestado", codestado);
-                            cmd.Transaction = transaction;
-                            int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                            await transaction.CommitAsync();
-                            return filasAfectadas;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        await transaction.RollbackAsync();
-                        Console.WriteLine($"Error: {ex.Message}");
-                        throw;
-                    }
-                }
-            }
-        }
-        
+        }     
         public async Task<int> InsertarPedidoVenta(PedidoVentaInsertDTO pedido)
         {
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
@@ -236,5 +185,107 @@ namespace Service.Venta
                 }
             }
         }
+    
+        public async Task<PedidoVentaDTO?> PedidoVentaConDet(int codpedidov)
+        {
+            PedidoVentaDTO? pedido = null;
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                string consultapedidocab_ = _query.Select();
+                using (var cmdPedidoVenta = new NpgsqlCommand(consultapedidocab_, npgsql))
+                {
+                    cmdPedidoVenta.Parameters.AddWithValue("@codpedidov", codpedidov);
+                    using (var reader = await cmdPedidoVenta.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            pedido = new PedidoVentaDTO
+                            {
+                                codpedidov = reader.GetInt32(reader.GetOrdinal("codpedidov")),
+                                fechapedventa = reader.GetDateTime(reader.GetOrdinal("fechapedidov")),
+                                numtipocomprobante = reader.GetString(reader.GetOrdinal("numtipocomprobante")),
+                                numpedventa = reader.GetString(reader.GetOrdinal("numpedventa")),
+                                nrodoc = reader.GetString(reader.GetOrdinal("nrodoc")),
+                                cliente = reader.GetString(reader.GetOrdinal("cliente")),
+                                vendedor = reader.GetString(reader.GetOrdinal("vendedor")),
+                                desestmov = reader.GetString(reader.GetOrdinal("desestmov")),
+                                nummoneda = reader.GetString(reader.GetOrdinal("nummoneda")),
+                                dessucursal = reader.GetString(reader.GetOrdinal("dessucursal")),
+                                totalpedidov = reader.GetDecimal(reader.GetOrdinal("totalpedidov")),
+                                pedventadet = new List<PedidoVentaDetDTO>()
+                            };
+                        }
+                    }
+                }
+
+                if (pedido == null)
+                    return null;
+
+                string consultaDetalle_ = _query.SelectWithDetails();
+                using (var cmdDetalle = new NpgsqlCommand(consultaDetalle_, npgsql))
+                {
+                    cmdDetalle.Parameters.AddWithValue("@codpedidov", codpedidov);
+                    using (var readerDet = await cmdDetalle.ExecuteReaderAsync())
+                    {
+                        while (await readerDet.ReadAsync())
+                        {
+                            var detalle = new PedidoVentaDetDTO
+                            {
+                                codpedidov = readerDet.GetInt32(readerDet.GetOrdinal("codpedidov")),
+                                codproducto = readerDet.GetInt32(readerDet.GetOrdinal("codproducto")),
+                                datoproducto = readerDet.GetString(readerDet.GetOrdinal("datoproducto")),
+                                cantidad = readerDet.GetDecimal(readerDet.GetOrdinal("cantidad")),
+                                precioventa = readerDet.GetDecimal(readerDet.GetOrdinal("precioventa")),
+                                codiva = readerDet.GetInt32(readerDet.GetOrdinal("codiva")),
+                                desiva = readerDet.GetString(readerDet.GetOrdinal("desiva"))
+                            };
+                            pedido.pedventadet?.Add(detalle);
+                        }
+                    }
+                }
+            }
+
+            return pedido;
+        }
+
+        public async Task<string> ActualizarPedidoVentaDet(PedidoVentaUpdateDTO pedido)
+        {
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+
+                using (var transaction = await npgsql.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        string actualizaDet = _query.Update(2);
+                        using (var cmd = new NpgsqlCommand(actualizaDet, npgsql))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
+
+                            cmd.Parameters.AddWithValue("@codpedidov", pedido.codpedidov);
+                            cmd.Parameters.AddWithValue("@totalpedidov", pedido.totalpedidov);
+
+                            var detallesJson = JsonSerializer.Serialize(pedido.pedventadet);
+                            cmd.Parameters.AddWithValue("@detalles", NpgsqlTypes.NpgsqlDbType.Json, detallesJson);
+
+                            string updateMsg = (string)await cmd.ExecuteScalarAsync();
+                            await transaction.CommitAsync();
+                            return updateMsg;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        Console.WriteLine("Error al actualizar PedidoVenta: " + ex.Message);
+                        throw;
+                    }
+                }
+
+            }
+        }
+    
     }
 }

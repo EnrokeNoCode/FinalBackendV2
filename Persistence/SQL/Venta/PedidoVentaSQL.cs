@@ -42,13 +42,31 @@ namespace Persistence.SQL.Venta
             ";
         }
 
-
-        public string SelectStatus()
+        public string Select()
         {
-            return @"
-                    SELECT codestmov 
-                    FROM sales.pedidoventa
-                    WHERE codpedidov  = @codpedventa";
+            return @"select pv.codpedidov, tc.numtipocomprobante, pv.numpedventa, pv.fechapedidov,
+                    c.nrodoc , c.nombre || ', ' || c.apellido as cliente, ven.numvendedor || '- ' || emp.nombre_emp as vendedor,
+                    suc.dessucursal ,mon.nummoneda , pv.totalpedidov , em.desestmov 
+                    from sales.pedidoventa pv
+                    inner join referential.cliente c on pv.codcliente = c.codcliente 
+                    inner join referential.tipocomprobante tc on pv.codtipocomprobante = tc.codtipocomprobante 
+                    inner join referential.vendedor ven on pv.codvendedor = ven.codvendedor 
+                    inner join referential.empleado emp on ven.codempleado = emp.codempleado 
+                    inner join referential.sucursal suc on pv.codsucursal = suc.codsucursal 
+                    inner join referential.moneda mon on pv.codmoneda = mon.codmoneda 
+                    inner join referential.estadomovimiento em on pv.codestmov = em.codestmov 
+                    where pv.codpedidov = @codpedidov";
+        }
+
+        public string SelectWithDetails()
+        {
+            return @"select pvd.codpedidov, pvd.codproducto, prd.codigobarra || ' ' || prd.desproducto as datoproducto,
+                    pvd.cantidad , pvd.precioventa ,
+                    prd.codiva, ti.desiva
+                    from sales.pedidoventadet pvd
+                    inner join referential.producto prd on pvd.codproducto = prd.codproducto 
+                    inner join referential.tipoiva ti on prd.codiva = ti.codiva
+                    where pvd.codpedidov = @codpedidov ";
         }
 
         public string Insert()
@@ -80,7 +98,7 @@ namespace Persistence.SQL.Venta
             }
             else if (option == 2)
             {
-                sentece = @"";
+                sentece = @"select sales.fn_update_pedidoventadet(@codpedidov, @totalpedidov, @detalles)";
             }
             else if (option == 3)
             {
