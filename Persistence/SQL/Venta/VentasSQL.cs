@@ -69,6 +69,9 @@ namespace Persistence.SQL.Venta
                 case 2:
                     sentence = @"SELECT * FROM shared.fn_notacredito_list_detalle('VENTA', @codventa);";
                     break;
+                case 3:
+                    sentence = @"select * from sales .fn_remisionventa_list_detalle(@codventa);";
+                    break;
             }
             return sentence;
         }

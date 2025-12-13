@@ -205,6 +205,28 @@ namespace Service.Venta
             return detalles;
         }
 
+        //--> Para la Remision calcular disponible en base a los detalles
+        public async Task<List<VentasREMDetListDTO>> VentasRemListDetalle(int codventa)
+        {
+            var detalles = new List<VentasREMDetListDTO>();
+
+            using var npgsql = new NpgsqlConnection(_cn.cadenaSQL());
+            await npgsql.OpenAsync();
+
+            using (var cmd = new NpgsqlCommand(_query.SelectDetails(3), npgsql))
+            {
+                cmd.Parameters.AddWithValue("@codventa", codventa);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    detalles.Add(reader.MapToObject<VentasREMDetListDTO>());
+                }
+            }
+
+            return detalles;
+        }
+
         public async Task<string> ActualizarEstadoV2(int codventa, int codestado)
         {
 

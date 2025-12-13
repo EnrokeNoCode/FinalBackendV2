@@ -87,12 +87,14 @@ namespace Utils
             services.AddScoped<VentasService>();
             services.AddScoped<NotaCreditoVentaService>();
             services.AddScoped<CobrosVentaService>();
+            services.AddScoped<RemisionVentaService>();
 
             services.AddScoped<Ventas_sql>();
             services.AddScoped<PedidoVenta_sql>();
             services.AddScoped<PresupuestoVenta_sql>();
             services.AddScoped<NotaCreditoVenta_Sql>();
             services.AddScoped<CobroContado_sql>();
+            services.AddScoped<RemisionVenta_Sql>();
 
             //Servicios
             services.AddScoped<RegistroVehiculoService>();

@@ -102,5 +102,16 @@ namespace Controller.Venta
 
             return Ok(detalles);
         }
+
+        [HttpGet("recventadetalle/remision/{codventa}")]
+        public async Task<ActionResult<List<VentasREMDetListDTO>>> GetDetalleRemision(int codventa)
+        {
+            var detalles = await _data.VentasRemListDetalle(codventa);
+
+            if (detalles == null || detalles.Count == 0)
+                return NotFound(detalles);
+
+            return Ok(detalles);
+        }
     }
 }

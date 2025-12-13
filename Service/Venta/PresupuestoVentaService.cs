@@ -207,9 +207,9 @@ namespace Service.Venta
             }
         }
 
-        public async Task<List<PresupuestoVentaDTO>> PresupuestoVentaxCliente(int codcliente)
+        public async Task<List<PresupuestoVentaListPorClienteDTO>> PresupuestoVentaxCliente(int codcliente)
         {
-            var lista = new List<PresupuestoVentaDTO>();
+            var lista = new List<PresupuestoVentaListPorClienteDTO>();
 
             using var npgsql = new NpgsqlConnection(_cn.cadenaSQL());
             await npgsql.OpenAsync();
@@ -221,11 +221,47 @@ namespace Service.Venta
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    lista.Add(reader.MapToObject<PresupuestoVentaDTO>());
+                    lista.Add(reader.MapToObject<PresupuestoVentaListPorClienteDTO>());
                 }
             }
 
             return lista;
+        }
+
+        public async Task<PresupuestoVentaDTO?> PresupuestoVentaVer(int codpresupuestoventa)
+        {
+            PresupuestoVentaDTO? prstVenta = null;
+
+            using var npgsql = new NpgsqlConnection(_cn.cadenaSQL());
+            await npgsql.OpenAsync();
+
+            using (var cmd = new NpgsqlCommand(_query.Select(3), npgsql))
+            {
+                cmd.Parameters.AddWithValue("@codpresupuestoventa", codpresupuestoventa);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
+                {
+                    prstVenta = reader.MapToObject<PresupuestoVentaDTO>();
+                    prstVenta.detalle = new List<PresupuestoVentaDetDTO>();
+                }
+            }
+            
+            if (prstVenta == null) return null;
+
+            // --- Detalles ---
+            using (var cmdDet = new NpgsqlCommand(_query.SelectWithDetails(1), npgsql))
+            {
+                cmdDet.Parameters.AddWithValue("@codpresupuestoventa", codpresupuestoventa);
+
+                using var readerDet = await cmdDet.ExecuteReaderAsync();
+                while (await readerDet.ReadAsync())
+                {
+                    prstVenta.detalle!.Add(readerDet.MapToObject<PresupuestoVentaDetDTO>());
+                }
+            }
+
+            return prstVenta;
         }
     }
 }

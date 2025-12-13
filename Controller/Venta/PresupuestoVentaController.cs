@@ -17,7 +17,7 @@ namespace Controller.Venta
 
         [HttpGet]
         [Route("lista")]
-        public async Task<ActionResult<List<PresupuestoVentaListDTO>>> GetList(int page = 1, int pageSize = 10)
+        public async Task<ActionResult<List<PresupuestoVentaListDTO>>> GetListaPresupuestoVenta(int page = 1, int pageSize = 10)
         {
             var prstVenta = await _data.PresupuestoVentaLista(page, pageSize);
 
@@ -29,13 +29,13 @@ namespace Controller.Venta
         }
 
         [HttpGet("listapresupuestoxcliente/{codcliente}")]
-        public async Task<ActionResult<List<PresupuestoVentaDTO>>> Get(int codcliente)
+        public async Task<ActionResult<List<PresupuestoVentaListPorClienteDTO>>> GetPresupuestoVentaPorCliente(int codcliente)
         {
             try
             {
                 var presupuestos = await _data.PresupuestoVentaxCliente(codcliente);
                 if (presupuestos == null)
-                    presupuestos = new List<PresupuestoVentaDTO>();
+                    presupuestos = new List<PresupuestoVentaListPorClienteDTO>();
 
                 return Ok(presupuestos);
             }
@@ -70,6 +70,17 @@ namespace Controller.Venta
             {
                 return BadRequest(new { Error = ex.Message });
             }
+        }
+
+        [HttpGet("recprstventa/{codprstventa}")]
+        public async Task<ActionResult<PresupuestoVentaDTO>> Get(int codprstventa)
+        {
+            var presupuesto = await _data.PresupuestoVentaVer(codprstventa);
+
+            if (presupuesto == null)
+                return NotFound();
+
+            return Ok(presupuesto);
         }
 
         [HttpPost("insertar")]
