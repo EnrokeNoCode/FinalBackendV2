@@ -4,6 +4,17 @@
     {
         private string query;
 
+        public string CajaInfoCobros()
+        {
+            query = @"select s.dessucursal as sucursal, c.numcaja || '- ' || c.descaja as caja, 
+                        cbr.numcobrador || '- ' || emp.nombre_emp as cobrador from referential.cajagestion cg
+                        inner join referential.caja c on cg.codcaja = c.codcaja 
+                        inner join referential.cobrador cbr on cg.codcobrador = cbr.codcobrador 
+                        inner join referential.empleado emp on cbr.codempleado = emp.codempleado 
+                        inner join referential.sucursal s on c.codsucursal = s.codsucursal 
+                        where cg.codgestion = @codgestion;";
+            return query;
+        }
         public string CajaReporteCobros()
         {
             query = @"select fc.desformacobro as formacobro,

@@ -7,60 +7,87 @@ namespace Reports.CajaReports
 {
     public class CajaReports : IDocument
     {
-        private readonly List<CajaFormaCobroDTO> _data;
-        private readonly int _codGestion;
+        private readonly CajaCobroDTO _data;
 
-        public CajaReports(List<CajaFormaCobroDTO> data, int codGestion)
+        public CajaReports(CajaCobroDTO data)
         {
             _data = data;
-            _codGestion = codGestion;
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
 
         public void Compose(IDocumentContainer container)
         {
+            var grupos = _data.cajaformacobro
+                .GroupBy(x => x.formacobro)
+                .ToList();
+
+            var totalGeneral = _data.cajaformacobro.Sum(x => x.montocobro);
+
             container.Page(page =>
             {
                 page.Margin(30);
                 page.Size(PageSizes.A4);
+                page.Header().Column(col =>
+                {
+                    col.Item().Text("REPORTE DE COBROS DE CAJA")
+                        .FontSize(18)
+                        .Bold();
 
-                page.Header().Text($"Detalle de Cobros - Gestión {_codGestion}")
-                    .FontSize(18).Bold();
-
+                    col.Item().Text($"Sucursal: {_data.sucursal}");
+                    col.Item().Text($"Caja: {_data.caja}");
+                    col.Item().Text($"Cobrador: {_data.cobrador}");
+                });
                 page.Content().Column(col =>
                 {
-                    col.Spacing(10);
+                    col.Spacing(15);
 
-                    col.Item().Table(table =>
+                    foreach (var grupo in grupos)
                     {
-                        table.ColumnsDefinition(columns =>
+                        var subtotal = grupo.Sum(x => x.montocobro);
+                        col.Item().Text(grupo.Key.ToUpper())
+                            .Bold()
+                            .FontSize(14)
+                            .FontColor(Colors.Blue.Darken2);
+                        col.Item().Table(table =>
                         {
-                            columns.RelativeColumn();
-                            columns.RelativeColumn(2);
-                            columns.ConstantColumn(100);
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.RelativeColumn(2);
+                                columns.RelativeColumn(3);
+                                columns.ConstantColumn(100);
+                            });
+
+                            table.Header(header =>
+                            {
+                                header.Cell().Text("Forma").Bold();
+                                header.Cell().Text("Detalle").Bold();
+                                header.Cell().AlignRight().Text("Monto").Bold();
+                            });
+
+                            foreach (var item in grupo)
+                            {
+                                table.Cell().Text(item.formacobro);
+                                table.Cell().Text(item.datoformacobro ?? "-");
+                                table.Cell().AlignRight().Text(item.montocobro.ToString("N0"));
+                            }
+                            table.Cell().ColumnSpan(2)
+                                .AlignRight()
+                                .Text("SUBTOTAL")
+                                .Bold();
+
+                            table.Cell()
+                                .AlignRight()
+                                .Text(subtotal.ToString("N0"))
+                                .Bold();
                         });
-
-                        table.Header(header =>
-                        {
-                            header.Cell().Text("Forma de Cobro").Bold();
-                            header.Cell().Text("Detalle").Bold();
-                            header.Cell().AlignRight().Text("Monto").Bold();
-                        });
-
-                        foreach (var item in _data)
-                        {
-                            table.Cell().Text(item.formacobro);
-                            table.Cell().Text(item.datoformacobro);
-                            table.Cell().AlignRight().Text(item.montocobro.ToString("N0"));
-                        }
-                    });
-
-                    col.Item()
-                       .AlignRight()
-                       .Text($"TOTAL COBRADO: {_data.Sum(x => x.montocobro):N0}")
-                       .Bold()
-                       .FontSize(14);
+                    }
+                    col.Item().PaddingTop(10)
+                        .AlignRight()
+                        .Text($"TOTAL COBRADO: {totalGeneral:N0}")
+                        .Bold()
+                        .FontSize(16)
+                        .FontColor(Colors.Green.Darken2);
                 });
             });
         }

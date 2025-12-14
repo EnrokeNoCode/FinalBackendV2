@@ -22,19 +22,16 @@ namespace Controllers.Reportes.Caja
             if (codGestion <= 0)
                 return BadRequest("El código de gestión no es válido.");
 
-            var data = await _service.ObtenerCobrosPorGestion(codGestion);
+            var reporte = await _service.ObtenerReporteCaja(codGestion);
 
-            if (data == null || data.Count == 0)
+            if (reporte == null || reporte.cajaformacobro.Count == 0)
                 return NotFound("No existen cobros para la gestión indicada.");
 
-            var pdf = new CajaReports(data, codGestion);
+            var pdf = new CajaReports(reporte);
             var bytes = pdf.GeneratePdf();
 
-            return File(
-                bytes,
-                "application/pdf",
-                $"cobros_caja_{codGestion}.pdf"
-            );
+            return File(bytes, "application/pdf", $"cobros_caja_{codGestion}.pdf");
         }
+
     }
 }

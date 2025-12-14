@@ -16,31 +16,49 @@ public class CajaReporteService
     }
 
 
-    public async Task<List<CajaFormaCobroDTO>> ObtenerCobrosPorGestion(int codGestion)
+    public async Task<CajaCobroDTO?> ObtenerReporteCaja(int codGestion)
     {
-        var lista = new List<CajaFormaCobroDTO>();
-
         using var conn = new NpgsqlConnection(_cn.cadenaSQL());
         await conn.OpenAsync();
+        CajaCobroDTO? caja = null;
 
-        string consultaReporte = _query.CajaReporteCobros();
-
-        using var cmd = new NpgsqlCommand(consultaReporte, conn);
-        cmd.Parameters.AddWithValue("@codgestion", codGestion);
-
-        using var reader = await cmd.ExecuteReaderAsync();
-
-        while (await reader.ReadAsync())
+        using (var cmd = new NpgsqlCommand(_query.CajaInfoCobros(), conn))
         {
-            lista.Add(new CajaFormaCobroDTO
+            cmd.Parameters.AddWithValue("@codgestion", codGestion);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+            if (await reader.ReadAsync())
             {
-                formacobro = reader.GetString(0),
-                datoformacobro = reader.GetString(1),
-                montocobro = reader.GetDecimal(2)
-            });
+                caja = new CajaCobroDTO
+                {
+                    sucursal = reader.GetString(0),
+                    caja = reader.GetString(1),
+                    cobrador = reader.GetString(2),
+                    cajaformacobro = new List<CajaFormaCobroDTO>()
+                };
+            }
         }
 
-        return lista;
+        if (caja == null)
+            return null;
+        using (var cmd = new NpgsqlCommand(_query.CajaReporteCobros(), conn))
+        {
+            cmd.Parameters.AddWithValue("@codgestion", codGestion);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                caja.cajaformacobro.Add(new CajaFormaCobroDTO
+                {
+                    formacobro = reader.GetString(0),
+                    datoformacobro = reader.GetString(1),
+                    montocobro = reader.GetDecimal(2)
+                });
+            }
+        }
+
+        return caja;
     }
+
 
 }
