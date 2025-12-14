@@ -5,11 +5,13 @@ using Persistence.SQL;
 using Persistence.SQL.Acceso;
 using Persistence.SQL.Compra;
 using Persistence.SQL.Referencial;
+using Persistence.SQL.Reporte;
 using Persistence.SQL.Servicio;
 using Persistence.SQL.Venta;
 using Service.Acceso;
 using Service.Compra;
 using Service.Referencial;
+using Service.Reportes;
 using Service.Servicio;
 using Service.Venta;
 
@@ -102,6 +104,11 @@ namespace Utils
 
             services.AddScoped<RegistroVehiculo_sql>();
             services.AddScoped<DiagnosticoTecnico_sql>();
+
+            //Reportes
+            services.AddScoped<CajaReporteService>();
+
+            services.AddScoped<CajaReporteSQL>();
 
             return services;
         }

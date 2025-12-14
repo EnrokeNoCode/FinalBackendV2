@@ -1,7 +1,9 @@
 using Microsoft.OpenApi.Models;
 using Utils;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
