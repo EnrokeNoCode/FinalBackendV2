@@ -1,6 +1,5 @@
 ﻿using Persistence.SQL.Referencial;
 using Persistence;
-using Api.POS.Persistence.SQL.Referencial;
 using Model.DTO;
 using Npgsql;
 

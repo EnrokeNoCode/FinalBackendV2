@@ -1,4 +1,4 @@
-﻿namespace Api.POS.Persistence.SQL.Referencial
+﻿namespace Persistence.SQL.Referencial
 {
     public class TerminalSQL
     {

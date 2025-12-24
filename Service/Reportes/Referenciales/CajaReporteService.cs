@@ -1,9 +1,9 @@
-﻿using Model.Reportes.Caja;
+﻿using Persistence.SQL.Reporte.Referenciales;
+using Model.Reportes.Caja;
 using Npgsql;
 using Persistence;
-using Persistence.SQL.Reporte;
 
-namespace Service.Reportes;
+namespace Service.Reportes.Referenciales;
 public class CajaReporteService
 {
     private readonly DBConnector _cn;
@@ -59,6 +59,4 @@ public class CajaReporteService
 
         return caja;
     }
-
-
 }

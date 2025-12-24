@@ -1,4 +1,4 @@
-﻿namespace Persistence.SQL.Reporte
+﻿namespace Persistence.SQL.Reporte.Referenciales
 {
     public class CajaReporteSQL
     {

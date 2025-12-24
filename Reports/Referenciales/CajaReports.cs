@@ -8,14 +8,11 @@ namespace Reports.CajaReports
     public class CajaReports : IDocument
     {
         private readonly CajaCobroDTO _data;
-
         public CajaReports(CajaCobroDTO data)
         {
             _data = data;
         }
-
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
-
         public void Compose(IDocumentContainer container)
         {
             var grupos = _data.cajaformacobro

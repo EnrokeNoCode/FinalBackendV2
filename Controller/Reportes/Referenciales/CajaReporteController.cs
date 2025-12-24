@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Service.Reportes;
 using Reports.CajaReports;
 using QuestPDF.Fluent;
+using Service.Reportes.Referenciales;
 
 namespace Controllers.Reportes.Caja
 {

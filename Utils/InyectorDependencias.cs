@@ -1,19 +1,21 @@
-using Api.POS.Persistence.SQL.Referencial;
-using Model.DTO;
+using Persistence.SQL.Referencial;
+using Persistence.SQL.Reporte.Referenciales;
+using Service.Reportes.Referenciales;
 using Persistence;
-using Persistence.SQL;
 using Persistence.SQL.Acceso;
 using Persistence.SQL.Compra;
-using Persistence.SQL.Referencial;
-using Persistence.SQL.Reporte;
 using Persistence.SQL.Servicio;
 using Persistence.SQL.Venta;
 using Service.Acceso;
 using Service.Compra;
 using Service.Referencial;
-using Service.Reportes;
 using Service.Servicio;
 using Service.Venta;
+using Service.Reportes.Compras;
+using Persistence.SQL.Reporte.Compras;
+using Service.Reportes.Ventas;
+using Persistence.SQL.Reporte.Ventas;
+using Persistence.SQL;
 
 namespace Utils
 {
@@ -107,8 +109,12 @@ namespace Utils
 
             //Reportes
             services.AddScoped<CajaReporteService>();
+            services.AddScoped<CompraReporteService>();
+            services.AddScoped<VentaReporteService>();
 
             services.AddScoped<CajaReporteSQL>();
+            services.AddScoped<CompraReporteSQL>();
+            services.AddScoped<VentaReporteSQL>();
 
             return services;
         }
