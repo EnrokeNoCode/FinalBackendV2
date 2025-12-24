@@ -29,7 +29,7 @@ namespace Service.Compra
             using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
             {
                 await npgsql.OpenAsync();
-                using (var cmdCount = new NpgsqlCommand("SELECT COUNT(*) FROM shared.ajustes ", npgsql))
+                using (var cmdCount = new NpgsqlCommand($"SELECT COUNT(*) FROM shared.ajustes where codsucursal = {codsucursal} ;", npgsql))
                 {
                     totalItems = Convert.ToInt32(await cmdCount.ExecuteScalarAsync());
                 }

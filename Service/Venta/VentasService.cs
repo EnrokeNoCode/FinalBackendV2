@@ -1,5 +1,6 @@
 ﻿using Model.DTO;
 using Model.DTO.Ventas.Venta;
+using Model.DTO.Ventas.Ventas;
 using Npgsql;
 using Persistence;
 using Persistence.SQL.Venta;
@@ -257,6 +258,42 @@ namespace Service.Venta
                     }
                 }
             }
+        }
+
+        public async Task<VentasDTO?> ComprasVer(int codventa)
+        {
+            VentasDTO? ventas = null;
+
+            using var npgsql = new NpgsqlConnection(_cn.cadenaSQL());
+            await npgsql.OpenAsync();
+
+            using (var cmd = new NpgsqlCommand(_query.Select(2), npgsql))
+            {
+                cmd.Parameters.AddWithValue("@codventa", codventa);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
+                {
+                    ventas = reader.MapToObject<VentasDTO>();
+                    ventas.detalle = new List<VentasDetDTO>();
+                }
+            }
+
+            if (ventas == null) return null;
+
+            // --- Detalles ---
+            using (var cmdDet = new NpgsqlCommand(_query.SelectDetails(1), npgsql))
+            {
+                cmdDet.Parameters.AddWithValue("@codventa", codventa);
+
+                using var readerDet = await cmdDet.ExecuteReaderAsync();
+                while (await readerDet.ReadAsync())
+                {
+                    ventas.detalle!.Add(readerDet.MapToObject<VentasDetDTO>());
+                }
+            }
+
+            return ventas;
         }
     }
 }

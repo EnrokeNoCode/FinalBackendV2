@@ -35,7 +35,20 @@ namespace Persistence.SQL.Venta
                     break;
                 case 2:
                     //para el ver
-                    sentence = @"";
+                    sentence = @"select 
+                                v.codventa , tc.numtipocomprobante || '-' || v.numventa  as numventa, v.fechaventa  , 
+                                c.nrodoc || '- ' || c.nombre || ', ' || c.apellido as datocliente,
+                                case when v.codpresupuestoventa is null then 'NO HAY PRES. ASIGNADO' 
+                                else 'Fecha Presp: ' || pv.fechapresupuestoventa  || '  Nro Presp.: ' || pv.numpresupuestoventa  
+                                end as datopresupuesto,
+                                v.totaliva, v.totalexento , v.totalventa  , 
+                                case when v.condicionpago  = 0 then 'CONTADO' else 'CREDITO' end as condicion, m.nummoneda as moneda, v.cotizacion 
+                                from sales.ventas v 
+                                left join sales.presupuestoventa pv on v.codpresupuestoventa  = pv.codpresupuestoventa 
+                                inner join referential.cliente c  on v.codcliente = c.codcliente 
+                                inner join referential.tipocomprobante tc on v.codtipocomprobante = tc.codtipocomprobante 
+                                inner join referential.moneda m on v.codmoneda = m.codmoneda 
+                                where v.codventa = @codventa;";
                     break;
                 case 3:
                     sentence = @"select v.codventa, 'Fecha Venta: ' || v.fechaventa || ' Nro. Fac: ' || tc.numtipocomprobante || '- ' || v.numventa as datoventa,
@@ -64,7 +77,11 @@ namespace Persistence.SQL.Venta
             {
                 case 1:
                     // este es para el ver
-                    sentence = @"";
+                    sentence = @"select vd.codventa , vd.codproducto, pr.codigobarra || ' - ' || pr.desproducto as datoproducto, vd.codiva , t.desiva as datoiva,
+		                        vd.cantidad, vd.preciobruto, (vd.cantidad* vd.preciobruto) as totallinea
+		                        from sales.ventasdet vd
+		                        inner join referential.producto pr on vd.codproducto = pr.codproducto
+		                        inner join referential.tipoiva t on vd.codiva = t.codiva where vd.codventa = @codventa";
                     break;
                 case 2:
                     sentence = @"SELECT * FROM shared.fn_notacredito_list_detalle('VENTA', @codventa);";

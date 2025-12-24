@@ -7,7 +7,8 @@ namespace Persistence.SQL.Venta
             return $@"select nc.codnotacredito, nc.codventa , nc.fechanotacredito , 
                         tnc.numtipocomprobante || '- ' || nc.numnotacredito as nronotacredito,
                         tc.numtipocomprobante || '- ' || v.numventa as datoventa, s.dessucursal ,
-                        cl.nrodoc  || '- ' || cl.nombre || ', ' || cl.apellido as datocliente, nc.totaldevolucion , m.nummoneda 
+                        cl.nrodoc  || '- ' || cl.nombre || ', ' || cl.apellido as datocliente,
+                        nc.totaldevolucion , m.nummoneda  , em.numestmov , em.desestmov
                         from shared.notacredito nc 
                         inner join sales.ventas v on nc.codventa = v.codventa 
                         inner join referential.tipocomprobante tnc on nc.codtipocomprobante = tnc.codtipocomprobante 
@@ -15,6 +16,7 @@ namespace Persistence.SQL.Venta
                         inner join referential.moneda m on nc.codmoneda = m.codmoneda 
                         inner join referential.cliente cl on nc.codcliente = cl.codcliente 
                         inner join referential.sucursal s on nc.codsucursal = s.codsucursal 
+                        inner join referential.estadomovimiento em on nc.codestmov = em.codestmov
                         where nc.movimiento = 'VENTAS'
                         order by nc.codnotacredito , nc.fechanotacredito desc
                         limit {pageSize} offset {offset}; ";
@@ -86,6 +88,11 @@ namespace Persistence.SQL.Venta
             }
 
             return sentence;
+        }
+
+        public string Update()
+        {
+            return @"SELECT shared.fn_update_notacreditoestado(@codnotacredito, @codestado, 'VENTA')";
         }
     }
 }

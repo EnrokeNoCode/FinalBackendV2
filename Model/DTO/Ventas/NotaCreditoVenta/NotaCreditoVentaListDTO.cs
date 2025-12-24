@@ -10,6 +10,7 @@ namespace Model.DTO.Ventas.NotaCreditoVenta
         public string datocliente { get; set; } 
         public string nummoneda { get; set; }   
         public string dessucursal { get; set; }
+        public string desestmov { get;set; }
         public decimal totaldevolucion { get; set; }
     }
 }

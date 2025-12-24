@@ -50,7 +50,8 @@ namespace Service.Venta
                                 datoventa = (string)readerVentas["datoventa"],
                                 totaldevolucion = (decimal)readerVentas["totaldevolucion"],
                                 datocliente = (string)readerVentas["datocliente"],
-                                nummoneda = (string)readerVentas["nummoneda"]
+                                nummoneda = (string)readerVentas["nummoneda"],
+                                desestmov = (string)readerVentas["desestmov"]
                             };
                             lista.Add(ventas_);
                         }
@@ -157,6 +158,38 @@ namespace Service.Venta
             }
 
             return notaCredito;
+        }
+
+        public async Task<string> ActualizarEstadoV2(int codnotacredito, int codestado)
+        {
+
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                using (var transaction = await npgsql.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        string actulizarestado = _query.Update();
+                        using (var cmd = new NpgsqlCommand(actulizarestado, npgsql))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Parameters.AddWithValue("@codnotacredito", codnotacredito);
+                            cmd.Parameters.AddWithValue("@codestado", codestado);
+                            cmd.Transaction = transaction;
+                            string filasAfectadas = (string)await cmd.ExecuteScalarAsync();
+                            await transaction.CommitAsync();
+                            return filasAfectadas;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        Console.WriteLine($"Error: {ex.Message}");
+                        throw;
+                    }
+                }
+            }
         }
 
     }

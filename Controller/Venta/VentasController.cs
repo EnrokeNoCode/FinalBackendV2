@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Model.DTO;
 using Model.DTO.Ventas.Venta;
+using Model.DTO.Ventas.Ventas;
 using Service.Venta;
 
 namespace Controller.Venta
@@ -112,6 +112,17 @@ namespace Controller.Venta
                 return NotFound(detalles);
 
             return Ok(detalles);
+        }
+
+        [HttpGet("recventa/{codventa}")]
+        public async Task<ActionResult<VentasDTO>> Get(int codventa)
+        {
+            var ventas = await _data.ComprasVer(codventa);
+
+            if (ventas == null)
+                return NotFound();
+
+            return Ok(ventas);
         }
     }
 }
