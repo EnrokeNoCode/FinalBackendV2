@@ -49,6 +49,7 @@ namespace Utils
             services.AddScoped<FormaCobroService>();
             services.AddScoped<BancoService>();
             services.AddScoped<TipoTarjetaService>();
+            services.AddScoped<TemporalService>();
 
             services.AddScoped<CajaSQL>();
             services.AddScoped<SucursalSQL>();
@@ -67,6 +68,7 @@ namespace Utils
             services.AddScoped<FormaCobroSQL>();
             services.AddScoped<BancoSQL>();
             services.AddScoped<TipoTarjetaSQL>();
+            services.AddScoped<TemporalSQL>();
 
             //Compras
             services.AddScoped<PedidoCompraService>();

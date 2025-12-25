@@ -1,17 +1,16 @@
-namespace Model.DTO
+﻿namespace Model.DTO.Referencial
 {
-    public class ClienteInsertDTO
+    public class ClienteUpdateDTO
     {
-        public string nrodoc { get; set; }
-        public string nombre { get; set; }
+        public int codcliente { get; set; }
+        public string nombre { get; set; }  
         public string apellido { get; set; }
-        public bool activo { get; set; }
-        public int codtipoidnt { get; set; }
         public string? direccion { get; set; }
         public string? nrotelef { get; set; }
         public int codciudad { get; set; }
         public int codlista { get; set; }
         public bool clientecredito { get; set; }
         public decimal? limitecredito { get; set; }
+
     }
 }

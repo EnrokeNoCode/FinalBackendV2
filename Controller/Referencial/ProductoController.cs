@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Model.DTO;
+using Model.DTO.Referencial;
 using Service.Referencial;
 using Utils;
 
@@ -64,6 +65,75 @@ namespace Controller.Referencial
                 return NotFound();
             }
             return Ok(listaProductoVenta);
+        }
+
+        [HttpPost("insert")]
+        public async Task<IActionResult> InsertarProducto([FromBody] ProductoInsertDTO producto)
+        {
+            if (producto == null)
+                return BadRequest("Datos del producto inválidos");
+
+            try
+            {
+                string resultado = await service_.InsertarNuevoProducto(producto);
+                if (resultado.StartsWith("OK"))
+                    return Ok(new { mensaje = resultado });
+                else
+                    return BadRequest(new { error = resultado });
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new { error = "Error al procesar la solicitud: " + ex.Message });
+            }
+        }
+
+        [HttpPut("actualizarregistro/{cod}")]
+        public async Task<ActionResult> PutActualizarRegistro(int cod)
+        {
+            try
+            {
+                string filasAfectadas = await service_.ActulizarEliminarRegistro(cod);
+
+                if (filasAfectadas.StartsWith("OK"))
+                {
+                    return Ok(new { message = filasAfectadas });
+                }
+                else if (filasAfectadas.StartsWith("ERROR"))
+                {
+                    return BadRequest(new { message = filasAfectadas });
+                }
+                else
+                {
+                    return StatusCode(500, new { message = "Respuesta inesperada: " + filasAfectadas });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+        [HttpGet("recproducto/{codproducto}")]
+        public async Task<IActionResult> GetProducto(int codproducto)
+        {
+            var producto = await service_.ObtenerProducto(codproducto);
+            if (producto == null)
+                return NotFound(new { error = "Producto no encontrado" });
+
+            return Ok(producto);
+        }
+
+        [HttpPut("actualizarproducto")]
+        public async Task<IActionResult> UpdateProducto([FromBody] ProductoUpdateDTO dto)
+        {
+            try
+            {
+                var mensaje = await service_.ActualizarProducto(dto);
+                return Ok(new { mensaje });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }

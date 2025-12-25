@@ -48,5 +48,46 @@
             
             return query; 
         }
+
+        public string SelectClienteMod()
+        {
+            query = @"select c.codcliente, c.nrodoc, c.nombre, c.apellido, coalesce(c.activo, false) as activo, c.codtipoidnt, 
+                        ti.numtipoidnt || '- ' || ti.desctipoidnt as datotipoidnt,
+                        coalesce(c.direccion, '') as direccion , coalesce(c.nrotelef,'') as nrotelef, c.codciudad,  
+                        cd.numciudad || '- ' || cd.descciudad as datociudad,
+                        c.codlista , tl.numlista  || '- ' || tl.deslista  as datolista, coalesce(c.clientecredito, false) as clientecredito, c.limitecredito 
+                        from referential.cliente c 
+                        inner join referential.tipo_identificacion ti on c.codtipoidnt = ti.codtipoidnt 
+                        inner join referential.tipolistaprecio tl on c.codlista = tl.codlista 
+                        inner join referential.ciudad cd on c.codciudad = cd.codciudad 
+                        where c.codcliente = @codcliente ;";
+            return query;
+        }
+
+        public string UpdateCliente()
+        {
+            query = @"UPDATE referential.cliente
+                        SET nombre = @nombre,
+                            apellido = @apellido,
+                            codciudad = @codciudad,
+                            direccion = @direccion,
+                            nrotelef = @nrotelef,
+                            codlista = @codlista,
+                            clientecredito = @clientecredito,
+                            limitecredito = @limitecredito
+                        WHERE codcliente = @codcliente; ";
+            return query;
+        }
+
+        public string Insert()
+        {
+            query = @"select referential.fn_insert_cliente(@nrodoc, @nombre, @apellido, @activo, @codtipoidnt, @direccion, @nrotelef, @codciudad, @codlista, @clientecredito, @limitecredito) ;";
+            return query;
+        }
+        public string UpdateDeleteStatus()
+        {
+            query = @"select referential.fn_inactivar_eliminar_registro(@cod, 'cliente')";
+            return query;
+        }
     }
 }

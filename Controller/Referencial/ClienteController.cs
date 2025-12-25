@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.DTO;
+using Model.DTO.Referencial;
 using Service.Referencial;
 using Utils;
 
@@ -9,10 +10,10 @@ namespace Controller.Referencial
     [Route("api/cliente")]
     public class ClienteController : ControllerBase
     {
-        private readonly ClienteService clienteService_;
-        public ClienteController(ClienteService clienteService)
+        private readonly ClienteService service_;
+        public ClienteController(ClienteService service)
         {
-            clienteService_ = clienteService;
+            service_ = service;
         }
 
         [HttpGet("listacliente")]
@@ -20,7 +21,7 @@ namespace Controller.Referencial
         {
             try
             {
-                var result = await clienteService_.GetListaCliente(page, pageSize);
+                var result = await service_.GetListaCliente(page, pageSize);
                 if (result.TotalItems == 0)
                 {
                     return NotFound(new { Message = "No se encontraron clientes." });
@@ -46,7 +47,7 @@ namespace Controller.Referencial
         {
             try
             {
-                var vehiculos = await clienteService_.GetListaClienteVehiculo(codcliente);
+                var vehiculos = await service_.GetListaClienteVehiculo(codcliente);
                 if (vehiculos == null || vehiculos.Count == 0)
                 {
                     return NotFound(new { message = "El cliente no tiene ningún vehículo registrado." });
@@ -64,7 +65,7 @@ namespace Controller.Referencial
         {
             try
             {
-                var listaClienteMov = await clienteService_.GetListaClienteMov();
+                var listaClienteMov = await service_.GetListaClienteMov();
 
                 if (listaClienteMov == null || !listaClienteMov.Any())
                 {
@@ -75,6 +76,76 @@ namespace Controller.Referencial
             catch (Exception ex)
             {
                 return StatusCode(500, ApiRespuestaDTO.Error(Mensajes.RecuperarMensaje(CodigoMensajes.InternalServerError)));
+            }
+        }
+
+        [HttpPost("insert")]
+        public async Task<IActionResult> InsertarCliente([FromBody] ClienteInsertDTO cliente)
+        {
+            if (cliente == null)
+                return BadRequest("Datos del cliente inválidos");
+
+            try
+            {
+                string resultado = await service_.InsertarNuevoCliente(cliente);
+                if (resultado.StartsWith("OK"))
+                    return Ok(new { mensaje = resultado });
+                else
+                    return BadRequest(new { error = resultado });
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new { error = "Error al procesar la solicitud: " + ex.Message });
+            }
+        }
+
+        [HttpPut("actualizarregistro/{cod}")]
+        public async Task<ActionResult> PutActualizarRegistro(int cod)
+        {
+            try
+            {
+                string filasAfectadas = await service_.ActulizarEliminarRegistro(cod);
+
+                if (filasAfectadas.StartsWith("OK"))
+                {
+                    return Ok(new { message = filasAfectadas });
+                }
+                else if (filasAfectadas.StartsWith("ERROR"))
+                {
+                    return BadRequest(new { message = filasAfectadas });
+                }
+                else
+                {
+                    return StatusCode(500, new { message = "Respuesta inesperada: " + filasAfectadas });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+
+        [HttpGet("reccliente/{codcliente}")]
+        public async Task<IActionResult> GetCliente(int codcliente)
+        {
+            var cliente = await service_.ObtenerCliente(codcliente);
+            if (cliente == null)
+                return NotFound(new { error = "Cliente no encontrado" });
+
+            return Ok(cliente);
+        }
+
+        [HttpPut("actualizarcliente")]
+        public async Task<IActionResult> UpdateCliente([FromBody] ClienteUpdateDTO dto)
+        {
+            try
+            {
+                var mensaje = await service_.ActualizarCliente(dto);
+                return Ok(new { mensaje });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
             }
         }
     }

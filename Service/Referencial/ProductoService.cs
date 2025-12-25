@@ -2,6 +2,8 @@
 using Persistence;
 using Model.DTO;
 using Npgsql;
+using System.Data;
+using Model.DTO.Referencial;
 
 namespace Service.Referencial
 {
@@ -60,7 +62,7 @@ namespace Service.Referencial
                                 datoiva = (string)reader["datoiva"],
                                 afectastock = (string)reader["afectastock"],
                                 estado = (string)reader["estado"],
-                                datoseccion = "Se enlaza la BD recuperar los datos",
+                                datoseccion = (string)reader["datoseccion"],
                                 costoultimo = (decimal)reader["costoultimo"]
                             };
                             lista.Add(listaProducto);
@@ -148,6 +150,139 @@ namespace Service.Referencial
                 await npgsql.CloseAsync();
             }
             return lista;
+        }
+
+        public async Task<ProductoGetDTO> ObtenerProducto(int codproducto)
+        {
+            using var cn = new NpgsqlConnection(_cn.cadenaSQL());
+            await cn.OpenAsync();
+
+            string selectProducto = _query.SelectProductoMod();
+
+            using var cmd = new NpgsqlCommand(selectProducto, cn);
+            cmd.Parameters.AddWithValue("@codproducto", codproducto);
+
+            using var dr = await cmd.ExecuteReaderAsync();
+            if (!await dr.ReadAsync()) return null;
+
+            return new ProductoGetDTO
+            {
+                codproducto = dr.GetInt32(0),
+                codigobarra = dr.GetString(1),
+                desproducto = dr.GetString(2),
+                codproveedor = dr.GetInt32(3),
+                datoproveedor = dr.GetString(4),
+                codiva = dr.GetInt32(5),
+                desiva = dr.GetString(6),
+                afectastock = dr.GetBoolean(7),
+                activo = dr.GetBoolean(8),
+                codmarca = dr.GetInt32(9),
+                desmarca = dr.GetString(10),
+                codfamilia = dr.GetInt32(11),
+                desfamilia = dr.GetString(12),
+                codrubro = dr.GetInt32(13),
+                desrubro = dr.GetString(14),
+                costoultimo = dr.GetDecimal(15)
+            };
+        }
+
+        public async Task<string> ActualizarProducto(ProductoUpdateDTO dto)
+        {
+            using var cn = new NpgsqlConnection(_cn.cadenaSQL());
+            await cn.OpenAsync();
+
+            string actualizarProducto = _query.UpdateProducto();
+
+            using var cmd = new NpgsqlCommand(actualizarProducto, cn);
+
+            cmd.Parameters.AddWithValue("@codproducto", dto.codproducto);
+            cmd.Parameters.AddWithValue("@codigobarra", dto.codigobarra);
+            cmd.Parameters.AddWithValue("@desproducto", dto.desproducto);
+            cmd.Parameters.AddWithValue("@codproveedor", dto.codproveedor);
+            cmd.Parameters.AddWithValue("@codmarca", dto.codmarca);
+            cmd.Parameters.AddWithValue("@codfamilia", dto.codfamilia);
+            cmd.Parameters.AddWithValue("@codrubro", dto.codrubro);
+            cmd.Parameters.AddWithValue("@codiva", dto.codiva);
+            cmd.Parameters.AddWithValue("@afectastock", dto.afectastock);
+            cmd.Parameters.AddWithValue("@costoultimo", dto.costoultimo);
+
+            int filas = await cmd.ExecuteNonQueryAsync();
+            if (filas == 0)
+                throw new Exception("No se pudo actualizar el producto");
+
+            return "Producto actualizado correctamente";
+        }
+
+        public async Task<string> InsertarNuevoProducto(ProductoInsertDTO producto)
+        {
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                using (var transaction = await npgsql.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        string insertarProducto = _query.Insert();
+                        using (var cmd = new NpgsqlCommand(insertarProducto, npgsql))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
+
+                            cmd.Parameters.AddWithValue("@codigobarra", producto.codigobarra);
+                            cmd.Parameters.AddWithValue("@desproducto", producto.desproducto);
+                            cmd.Parameters.AddWithValue("@codfamilia", producto.codfamilia);
+                            cmd.Parameters.AddWithValue("@codmarca", producto.codmarca);
+                            cmd.Parameters.AddWithValue("@codrubro", producto.codrubro);
+                            cmd.Parameters.AddWithValue("@codunidadmedida", producto.codunidadmedida);
+                            cmd.Parameters.AddWithValue("@codiva", producto.codiva);
+                            cmd.Parameters.AddWithValue("@codproveedor", producto.codproveedor);
+                            cmd.Parameters.AddWithValue("@costoultimo", producto.costoultimo);
+                            cmd.Parameters.AddWithValue("@activo", producto.activo);
+                            cmd.Parameters.AddWithValue("@afectastock", producto.afectastock);
+                            string resultado = (string)await cmd.ExecuteScalarAsync();
+                            await transaction.CommitAsync();
+                            return resultado;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        Console.WriteLine("Error al insertar el Producto: " + ex.Message);
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public async Task<string> ActulizarEliminarRegistro(int cod)
+        {
+
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                using (var transaction = await npgsql.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        string actulizarestado = _query.UpdateDeleteStatus();
+                        using (var cmd = new NpgsqlCommand(actulizarestado, npgsql))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Parameters.AddWithValue("@cod", cod);
+                            cmd.Transaction = transaction;
+                            string filasAfectadas = (string)await cmd.ExecuteScalarAsync();
+                            await transaction.CommitAsync();
+                            return filasAfectadas;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        Console.WriteLine($"Error: {ex.Message}");
+                        throw;
+                    }
+                }
+            }
         }
     }
 }

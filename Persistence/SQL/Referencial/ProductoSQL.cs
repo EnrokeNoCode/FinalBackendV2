@@ -18,9 +18,13 @@
                             WHEN prd.activo = false THEN 'Inactivo'
                             ELSE 'Inactivo'
                         END AS estado,
-                        prd.costoultimo 
+                        prd.costoultimo ,
+                        'Marca: ' || m.desmarca || ' |Familia: ' || f.desfamilia || ' |Rubro: ' || r.desrubro as datoseccion
                         from referential.producto prd
                         inner join referential.proveedor prv on prd.codproveedor = prv.codproveedor
+                        inner join referential.marca m on prd.codmarca = m.codmarca 
+                        inner join referential.rubro r on prd.codrubro = r.codrubro 
+                        inner join referential.familia f on prd.codfamilia = f.codfamilia 
                         inner join referential.tipoiva ti on prd.codiva = ti.codiva LIMIT {pageSize} OFFSET {offset};";
             return query;
         }
@@ -43,6 +47,53 @@
                         from referential.producto prd
                         inner join referential.proveedor prv on prd.codproveedor = prv.codproveedor
                         inner join referential.tipoiva ti on prd.codiva = ti.codiva ;";
+            return query;
+        }
+
+        public string SelectProductoMod()
+        {
+            query = @"select prd.codproducto, prd.codigobarra ,prd.desproducto , prd.codproveedor ,
+                        prv.nrodocprv || '- ' || prv.razonsocial  as datoproveedor, prd.codiva, ti.desiva ,
+                        coalesce(prd.afectastock,false) as afectastock,
+                        coalesce(prd.activo,false) as activo,
+                        prd.codmarca, m.desmarca ,prd.codfamilia ,f.desfamilia, prd.codrubro , r.desrubro ,
+                        prd.costoultimo 
+                        from referential.producto prd
+                        inner join referential.proveedor prv on prd.codproveedor = prv.codproveedor
+                        inner join referential.marca m on prd.codmarca = m.codmarca 
+                        inner join referential.rubro r on prd.codrubro = r.codrubro 
+                        inner join referential.familia f on prd.codfamilia = f.codfamilia 
+                        inner join referential.tipoiva ti on prd.codiva = ti.codiva where prd.codproducto = @codproducto ;";
+            return query;
+        }
+
+        public string UpdateProducto()
+        {
+            query = @"
+                    update referential.producto
+                    set codigobarra = @codigobarra,
+                        desproducto = @desproducto,
+                        codproveedor = @codproveedor,
+                        codmarca = @codmarca,
+                        codfamilia = @codfamilia,
+                        codrubro = @codrubro,
+                        codiva = @codiva,
+                        afectastock = @afectastock,
+                        costoultimo = @costoultimo
+                    where codproducto = @codproducto
+                ";
+            return query;
+        }
+
+        public string Insert()
+        {
+            query = @"select referential.fn_insert_producto(@codigobarra, @desproducto, @codfamilia, @codmarca, @codrubro, @codunidadmedida, @codiva, @codproveedor, @costoultimo, @activo, @afectastock) ;";
+            return query;
+        }
+
+        public string UpdateDeleteStatus()
+        {
+            query = @"select referential.fn_inactivar_eliminar_registro(@cod, 'producto')";
             return query;
         }
     }
