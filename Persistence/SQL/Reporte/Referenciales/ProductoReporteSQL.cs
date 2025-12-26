@@ -5,7 +5,7 @@
         private string _query = "";
         public string ProductoListado()
         {
-            _query = @"select prd.codproducto, prd.codigobarra || '- ' || prd.desproducto as datoproducto,
+            _query = @"select prd.codigobarra || '- ' || prd.desproducto as datoproducto,
                         prv.nrodocprv || '- ' || prv.razonsocial  as datoproveedor, ti.desiva as datoiva,
                         CASE 
                             WHEN prd.afectastock = TRUE THEN 'Si Actualiza'

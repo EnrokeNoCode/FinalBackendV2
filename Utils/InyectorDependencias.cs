@@ -113,10 +113,12 @@ namespace Utils
             services.AddScoped<CajaReporteService>();
             services.AddScoped<CompraReporteService>();
             services.AddScoped<VentaReporteService>();
+            services.AddScoped<ProductoReporteService>();
 
             services.AddScoped<CajaReporteSQL>();
             services.AddScoped<CompraReporteSQL>();
             services.AddScoped<VentaReporteSQL>();
+            services.AddScoped<ProductoReporteSQL>();
 
             return services;
         }
