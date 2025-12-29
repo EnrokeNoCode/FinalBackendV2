@@ -47,6 +47,21 @@ namespace Persistence.SQL.Referencial
             return query;
         }
 
+        public string SelectGestionDetalle()
+        {
+            query = @"select cg.codgestion, s.numsucursal, s.dessucursal, c.numcaja, c.descaja, 
+                        cbr.numcobrador || '- ' || emp.nombre_emp || ', ' || emp.apellido_emp as cobrador,
+                        cg.fechaapertura , cg.fechacierre , cg.montoapertura , cg.montocierre 
+                        from referential.caja c
+                        inner join referential.cajagestion cg on c.codcaja = cg.codcaja 
+                        inner join referential.sucursal s on c.codsucursal = s.codsucursal 
+                        inner join referential.cobrador cbr on cg.codcobrador = cbr.codcobrador 
+                        inner join referential.empleado emp on cbr.codempleado = emp.codempleado 
+                        where c.codcaja = @codcaja 
+                        order by cg.codgestion ,s.numsucursal , c.numcaja , cbr.numcobrador , cg.fechaapertura , cg.fechacierre ;";
+            return query;
+        }
+
         public string InsertApertura()
         {
             query = @"SELECT referential.fn_apertura_caja(@codcaja, @codcobrador, @fechaapertura, @montoapertura, @codterminal);";

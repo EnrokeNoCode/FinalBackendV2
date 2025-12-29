@@ -48,6 +48,38 @@
                     where fc.tipo = 'TAR' and ci.codgestion = @codgestion;";
             return query;
         }
+        public string CajaGestionDetalleCobrosReporte()
+        {
+            query = @"SELECT
+                        ci.codgestion,
+                        tc.numtipocomprobante,
+                        v.numventa,
+                        cl.nrodoc,
+                        cl.nombre,
+                        cl.apellido,
+                        STRING_AGG(
+                            fc.numformacobro || ' |' || fc.desformacobro || ': ' || ci.montocobrado,
+                            ' | '
+                            ORDER BY fc.desformacobro
+                        ) AS detallecobros,
+                        SUM(ci.montocobrado) AS totalcobrado
+                    FROM sales.cajafacturaventacobradas cvc
+                    INNER JOIN sales.cajaingreso ci ON cvc.codingreso = ci.codingreso
+                    INNER JOIN sales.ventas v ON cvc.codventa = v.codventa
+                    INNER JOIN referential.cliente cl ON v.codcliente = cl.codcliente
+                    INNER JOIN referential.tipocomprobante tc ON tc.codtipocomprobante = v.codtipocomprobante
+                    INNER JOIN referential.formacobro fc ON ci.codformacobro = fc.codformacobro
+                    where ci.codgestion = @codgestion
+                    GROUP BY
+                        ci.codgestion,
+                        tc.numtipocomprobante,
+                        v.numventa,
+                        cl.nrodoc,
+                        cl.nombre,
+                        cl.apellido
+                    ORDER BY v.numventa ;";
+            return query;
+        }
 
 
     }

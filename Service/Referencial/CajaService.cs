@@ -1,4 +1,5 @@
 using Model.DTO;
+using Model.DTO.Referencial;
 using Npgsql;
 using Persistence;
 using Persistence.SQL.Referencial;
@@ -101,6 +102,42 @@ namespace Service.Referencial
 
             }
             return gestionCobro;
+        }
+
+        public async Task<List<CajaGestionDetalleListDTO>> GetListGestionDetalle(int codcaja)
+        {
+            var lista = new List<CajaGestionDetalleListDTO>();
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                string consultaLista = _query.SelectGestionDetalle();
+                using (var cmdLista = new NpgsqlCommand(consultaLista, npgsql))
+                {
+                    cmdLista.Parameters.AddWithValue("@codcaja", codcaja);
+                    using (var readerLista = await cmdLista.ExecuteReaderAsync())
+                    {
+                        while (await readerLista.ReadAsync())
+                        {
+                            var listaCGD = new CajaGestionDetalleListDTO
+                            {
+                                codgestion = (int)readerLista["codgestion"],
+                                numsucursal = (string)readerLista["numsucursal"],
+                                dessucursal = (string)readerLista["dessucursal"],
+                                numcaja = (string)readerLista["numcaja"],
+                                descaja = (string)readerLista["descaja"],
+                                cobrador = (string)readerLista["cobrador"],
+                                fechaapertura = (DateTime)readerLista["fechaapertura"],
+                                fechacierre = (DateTime)readerLista["fechacierre"],
+                                montoapertura = (decimal)readerLista["montoapertura"],
+                                montocierre = (decimal)readerLista["montocierre"],
+                            };
+                            lista.Add(listaCGD);
+                        }
+                    }
+                }
+                await npgsql.CloseAsync();
+            }
+            return lista;
         }
 
         public async Task<object> InsertAperturaCaja(CajaGestionAperturaDTO request)

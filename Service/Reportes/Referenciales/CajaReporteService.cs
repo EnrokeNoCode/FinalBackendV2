@@ -59,4 +59,34 @@ public class CajaReporteService
 
         return caja;
     }
+
+    public async Task<List<CajaGestionCobrosDetalleDTO>> ObtenerReporteCajaGestionCobroDetalle(int codgestion)
+    {
+        var lista = new List<CajaGestionCobrosDetalleDTO>();
+
+        using var conn = new NpgsqlConnection(_cn.cadenaSQL());
+        await conn.OpenAsync();
+
+        using var cmd = new NpgsqlCommand(_query.CajaGestionDetalleCobrosReporte(), conn);
+        cmd.Parameters.AddWithValue("@codgestion", codgestion);
+
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            lista.Add(new CajaGestionCobrosDetalleDTO
+            {
+                codgestion = reader.GetInt32(0),
+                numtipocomprobante = reader.GetString(1),
+                numventa = reader.GetString(2),
+                nrodoc = reader.GetString(3),
+                nombre = reader.GetString(4),
+                apellido = reader.GetString(5),
+                detallecobros = reader.GetString(6),
+                totalcobrado = reader.GetDecimal(7),
+            });
+        }
+
+        return lista;
+    }
+
 }

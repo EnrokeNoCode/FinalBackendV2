@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Model.DTO;
+using Model.DTO.Referencial;
 using Service.Referencial;
 using Utils;
 
@@ -58,6 +59,18 @@ namespace Controller.Referencial
             {
                 return StatusCode(500, ApiRespuestaDTO.Error(Mensajes.RecuperarMensaje(CodigoMensajes.InternalServerError)));
             }
+        }
+
+        [HttpGet("listagestiondetalle/{codcaja}")]
+        public async Task<ActionResult<List<CajaGestionDetalleListDTO>>> ListGestionDetalle(int codcaja)
+        {
+            var listaDatos = await cajaServices_.GetListGestionDetalle(codcaja);
+
+            if (listaDatos == null || !listaDatos.Any())
+            {
+                return NotFound();
+            }
+            return Ok(listaDatos);
         }
 
         [HttpPost("apertura")]
