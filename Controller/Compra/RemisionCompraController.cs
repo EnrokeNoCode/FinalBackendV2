@@ -30,6 +30,17 @@ namespace Controller.Compras
             return Ok(comprasList);
         }
 
+        [HttpGet("recremisioncompra/{codremisioncompra}")]
+        public async Task<ActionResult<RemisionCompraDTO>> Get(int codremisioncompra)
+        {
+            var compras = await _data.RemisionCompraVer(codremisioncompra);
+
+            if (compras == null)
+                return NotFound();
+
+            return Ok(compras);
+        }
+
         [HttpPost("insertar")]
         public async Task<IActionResult> InsertarRemisonCompra([FromBody] RemisionCompraInsertDTO nccompra)
         {
@@ -42,17 +53,6 @@ namespace Controller.Compras
             {
                 return StatusCode(500, new { error = ex.Message });
             }
-        }
-
-        [HttpGet("recremisioncompra/{codremisioncompra}")]
-        public async Task<ActionResult<RemisionCompraDTO>> Get(int codremisioncompra)
-        {
-            var compras = await _data.RemisionCompraVer(codremisioncompra);
-
-            if (compras == null)
-                return NotFound();
-
-            return Ok(compras);
         }
 
         [HttpPut("cancelar/{codremisioncompra}")]

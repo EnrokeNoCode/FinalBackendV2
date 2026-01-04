@@ -37,48 +37,7 @@ namespace Controller.Venta
             {
                 return NotFound();
             }
-
             return Ok(lista);
-        }
-
-        [HttpPost("insertar")]
-        public async Task<IActionResult> InsertVentas([FromBody] VentasInsertDTO venta)
-        {
-            try
-            {
-                int newVentaId = await _data.InsertarVentas(venta);
-                return Ok(new { mensaje = "Venta insertada correctamente", id = newVentaId });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { error = ex.Message });
-            }
-        }
-
-        [HttpPut("anularventa/{codventa}/{codestado}")]
-        public async Task<ActionResult> PutActualizarEstado(int codventa, int codestado)
-        {
-            try
-            {
-                string filasAfectadas = await _data.ActualizarEstadoV2(codventa, codestado);
-
-                if (filasAfectadas.StartsWith("OK"))
-                {
-                    return Ok(new { message = filasAfectadas });
-                }
-                else if (filasAfectadas.StartsWith("ERROR"))
-                {
-                    return BadRequest(new { message = filasAfectadas });
-                }
-                else
-                {
-                    return StatusCode(500, new { message = "Respuesta inesperada: " + filasAfectadas });
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
         }
 
         [HttpGet("recventacab/{codcliente}")]
@@ -123,6 +82,46 @@ namespace Controller.Venta
                 return NotFound();
 
             return Ok(ventas);
+        }
+
+        [HttpPost("insertar")]
+        public async Task<IActionResult> InsertVentas([FromBody] VentasInsertDTO venta)
+        {
+            try
+            {
+                int newVentaId = await _data.InsertarVentas(venta);
+                return Ok(new { mensaje = "Venta insertada correctamente", id = newVentaId });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+        [HttpPut("anularventa/{codventa}/{codestado}")]
+        public async Task<ActionResult> PutActualizarEstado(int codventa, int codestado)
+        {
+            try
+            {
+                string filasAfectadas = await _data.ActualizarEstadoV2(codventa, codestado);
+
+                if (filasAfectadas.StartsWith("OK"))
+                {
+                    return Ok(new { message = filasAfectadas });
+                }
+                else if (filasAfectadas.StartsWith("ERROR"))
+                {
+                    return BadRequest(new { message = filasAfectadas });
+                }
+                else
+                {
+                    return StatusCode(500, new { message = "Respuesta inesperada: " + filasAfectadas });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
         }
     }
 }

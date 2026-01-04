@@ -97,5 +97,17 @@ namespace Controller.Referencial
             }
             return Ok(listaDatos);
         }
+
+        [HttpGet("tiposervicio")]
+        public async Task<ActionResult<List<TemporalDTO>>> ListTipoServicio()
+        {
+            var listaDatos = await service_.GetListTemporal("tiposervicio");
+
+            if (listaDatos == null || !listaDatos.Any())
+            {
+                return NotFound();
+            }
+            return Ok(listaDatos);
+        }
     }
 }

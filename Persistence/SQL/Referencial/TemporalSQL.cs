@@ -28,6 +28,9 @@
                 case "tipoiva":
                     _query = "select t.codiva as Codigo, t.numiva as Numero, t.desiva as Descripcion from referential.tipoiva t  ;";
                     break;
+                case "tiposervicio":
+                    _query = "select codtiposervicio as Codigo, codigotiposervicio as Numero, destiposervicio as Descripcion from referential.tiposervicio t ;";
+                    break;
             }
 
             return _query;

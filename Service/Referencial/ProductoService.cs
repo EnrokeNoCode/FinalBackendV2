@@ -152,6 +152,40 @@ namespace Service.Referencial
             return lista;
         }
 
+        public async Task<List<ProductoVentaListDTO>> GetProductoRepuesto(int codsucursal)
+        {
+            var lista = new List<ProductoVentaListDTO>();
+            using (var npgsql = new NpgsqlConnection(_cn.cadenaSQL()))
+            {
+                await npgsql.OpenAsync();
+                string consultaLista = _query.SelectProductoRepuesto();
+                using (var cmdLista = new NpgsqlCommand(consultaLista, npgsql))
+                {
+                    cmdLista.Parameters.AddWithValue("codsucursal", codsucursal);
+                    using (var readerLista = await cmdLista.ExecuteReaderAsync())
+                    {
+                        while (await readerLista.ReadAsync())
+                        {
+                            var listaProducto = new ProductoVentaListDTO
+                            {
+                                codproducto = (int)readerLista["codproducto"],
+                                datoproducto = (string)readerLista["datoproducto"],
+                                preciobruto = CalcularPrecioBruto((decimal)readerLista["precioventa"], (int)readerLista["codiva"]),
+                                precioneto = (decimal)readerLista["precioventa"],
+                                cantidad = (decimal)readerLista["cantidad"],
+                                desiva = (string)readerLista["desiva"],
+                                codiva = (int)readerLista["codiva"]
+                            };
+                            lista.Add(listaProducto);
+                        }
+                    }
+                }
+
+                await npgsql.CloseAsync();
+            }
+            return lista;
+        }
+
         public async Task<ProductoGetDTO> ObtenerProducto(int codproducto)
         {
             using var cn = new NpgsqlConnection(_cn.cadenaSQL());

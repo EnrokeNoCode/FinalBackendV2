@@ -40,6 +40,18 @@
             return query;
         }
 
+        public string SelectProductoRepuesto()
+        {
+            query = @"select p.codproducto, p.codigobarra || '- ' || p.desproducto as datoproducto, pvp.precioventa, 
+                      (select coalesce(ps.cantidad, 0) from referential.productosucursal ps where ps.codproducto = pvp.codproducto and ps.codsucursal = pvp.codsucursal) as cantidad,
+                      p.codiva , ti.desiva , ti.coheficiente 
+                      from referential.precioventaproducto pvp
+                      inner join referential.producto p on pvp.codproducto = p.codproducto 
+                      inner join referential.tipoiva ti on p.codproducto = ti.codiva 
+                      where pvp.codsucursal  = @codsucursal and p.soloservicio = true ;";
+            return query;
+        }
+
         public string SelectProductoCompra()
         {
             query = @"select prd.codproducto, prd.codigobarra , prd.desproducto,

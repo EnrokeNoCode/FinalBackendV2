@@ -62,8 +62,7 @@ namespace Controller.Compras
             }
         }
 
-        [HttpPut]
-        [Route("anularpresupuestocompra/{codpresupuestocompra}/{codestado}")]
+        [HttpPut("anularpresupuestocompra/{codpresupuestocompra}/{codestado}")]
         public async Task<ActionResult> PutActualizarEstado(int codpresupuestocompra, int codestado)
         {
             try

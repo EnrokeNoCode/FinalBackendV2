@@ -27,6 +27,18 @@ namespace Controller.Compras
             return Ok(ajustesList);
         }
 
+        [HttpGet("recajuste/{codajuste}")]
+        public async Task<ActionResult<AjustesDTO>> Get(int codajuste)
+        {
+            var ajustes = await _data.AjusteVer(codajuste);
+
+            if (ajustes == null)
+                return NotFound(ajustes);
+
+            return Ok(ajustes);
+        }
+
+
         [HttpPost("insertar")]
         public async Task<IActionResult> InsertAjuste([FromBody] AjustesInsertDTO pedido)
         {
@@ -40,17 +52,7 @@ namespace Controller.Compras
                 return StatusCode(500, new { error = ex.Message });
             }
         }
-        [HttpGet("recajuste/{codajuste}")]
-        public async Task<ActionResult<AjustesDTO>> Get(int codajuste)
-        {
-            var ajustes = await _data.AjusteVer(codajuste);
-
-            if (ajustes == null)
-                return NotFound(ajustes);
-
-            return Ok(ajustes);
-        }
-
+       
         [HttpPut("actualizarajustedet")]
         public async Task<ActionResult> ActualizarPedCompraDet([FromBody] AjusteUpdateDTO ajuste)
         {

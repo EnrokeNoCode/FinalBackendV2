@@ -15,8 +15,7 @@ namespace Controller.Venta
             _data = data;
         }
 
-        [HttpGet]
-        [Route("lista")]
+        [HttpGet("lista")]
         public async Task<ActionResult<List<PedidoVentaListDTO>>> GetList(int page = 1, int pageSize = 10)
         {
             var pedidoventa = await _data.PedidoVentaLista(page, pageSize);
@@ -28,8 +27,7 @@ namespace Controller.Venta
             return Ok(pedidoventa);
         }
 
-        [HttpGet]
-        [Route("lista/{codcliente}")]
+        [HttpGet("lista/{codcliente}")]
         public async Task<ActionResult<PedidoVentaListDTO>> GetList(int codcliente)
         {
             var pedidoventa = await _data.PedidoVentaLista(codcliente);
@@ -52,8 +50,7 @@ namespace Controller.Venta
             return Ok(pedido);
         }
 
-        [HttpPut]
-        [Route("anularpedidoventa/{codpedidov}/{codestado}")]
+        [HttpPut("anularpedidoventa/{codpedidov}/{codestado}")]
         public async Task<ActionResult> PutActualizarEstado(int codpedidov, int codestado)
         {
             try

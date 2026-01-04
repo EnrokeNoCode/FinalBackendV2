@@ -30,6 +30,17 @@ namespace Controller.Venta
             return Ok(comprasList);
         }
 
+        [HttpGet("recremisionventa/{codremisionventa}")]
+        public async Task<ActionResult<RemisionVentaDTO>> Get(int codremisionventa)
+        {
+            var compras = await _data.RemisionVentaVer(codremisionventa);
+
+            if (compras == null)
+                return NotFound();
+
+            return Ok(compras);
+        }
+
         [HttpPost("insertar")]
         public async Task<IActionResult> InsertarRemisonVenta([FromBody] RemisionVentaInsertDTO nrventa)
         {
@@ -42,17 +53,6 @@ namespace Controller.Venta
             {
                 return StatusCode(500, new { error = ex.Message });
             }
-        }
-
-        [HttpGet("recremisionventa/{codremisionventa}")]
-        public async Task<ActionResult<RemisionVentaDTO>> Get(int codremisionventa)
-        {
-            var compras = await _data.RemisionVentaVer(codremisionventa);
-
-            if (compras == null)
-                return NotFound();
-
-            return Ok(compras);
         }
 
         [HttpPut("cancelar/{codremisionventa}")]

@@ -79,6 +79,16 @@ namespace Controller.Referencial
             }
         }
 
+        [HttpGet("reccliente/{codcliente}")]
+        public async Task<IActionResult> GetCliente(int codcliente)
+        {
+            var cliente = await service_.ObtenerCliente(codcliente);
+            if (cliente == null)
+                return NotFound(new { error = "Cliente no encontrado" });
+
+            return Ok(cliente);
+        }
+
         [HttpPost("insert")]
         public async Task<IActionResult> InsertarCliente([FromBody] ClienteInsertDTO cliente)
         {
@@ -123,16 +133,6 @@ namespace Controller.Referencial
             {
                 return BadRequest(new { Error = ex.Message });
             }
-        }
-
-        [HttpGet("reccliente/{codcliente}")]
-        public async Task<IActionResult> GetCliente(int codcliente)
-        {
-            var cliente = await service_.ObtenerCliente(codcliente);
-            if (cliente == null)
-                return NotFound(new { error = "Cliente no encontrado" });
-
-            return Ok(cliente);
         }
 
         [HttpPut("actualizarcliente")]

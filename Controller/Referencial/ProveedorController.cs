@@ -54,6 +54,16 @@ namespace Controller.Referencial
             return Ok(listaProveedorCompra);
         }
 
+        [HttpGet("recproveedor/{codproveedor}")]
+        public async Task<IActionResult> GetProveedor(int codproveedor)
+        {
+            var proveedor = await service_.ObtenerProveedor(codproveedor);
+            if (proveedor == null)
+                return NotFound(new { error = "Proveedor no encontrado" });
+
+            return Ok(proveedor);
+        }
+
         [HttpPost("insert")]
         public async Task<IActionResult> PostInsertarProveedor([FromBody] ProveedorInsertDTO proveedor)
         {
@@ -98,16 +108,6 @@ namespace Controller.Referencial
             {
                 return BadRequest(new { Error = ex.Message });
             }
-        }
-
-        [HttpGet("recproveedor/{codproveedor}")]
-        public async Task<IActionResult> GetProveedor(int codproveedor)
-        {
-            var proveedor = await service_.ObtenerProveedor(codproveedor);
-            if (proveedor == null)
-                return NotFound(new { error = "Proveedor no encontrado" });
-
-            return Ok(proveedor);
         }
 
         [HttpPut("actualizarproveedor")]

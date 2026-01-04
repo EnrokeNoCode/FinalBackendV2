@@ -27,6 +27,17 @@ namespace Controller.Compras
             return Ok(comprasList);
         }
 
+        [HttpGet("recnotacredito/{codnotacredito}")]
+        public async Task<ActionResult<NotaCreditoDTO>> Get(int codnotacredito)
+        {
+            var notaCredito = await _data.NotaCreditoVer(codnotacredito);
+
+            if (notaCredito == null)
+                return NotFound();
+
+            return Ok(notaCredito);
+        }
+
         [HttpPost("insertar")]
         public async Task<IActionResult> InsertarNotaCreditoCompra([FromBody] NotaCreditoInsertDTO nccompra)
         {
@@ -41,16 +52,7 @@ namespace Controller.Compras
             }
         }
 
-        [HttpGet("recnotacredito/{codnotacredito}")]
-        public async Task<ActionResult<NotaCreditoDTO>> Get(int codnotacredito)
-        {
-            var notaCredito = await _data.NotaCreditoVer(codnotacredito);
-
-            if (notaCredito == null)
-                return NotFound();
-
-            return Ok(notaCredito);
-        }
+        
 
         [HttpPut("anular/{codnotacredito}/{codestado}")]
         public async Task<ActionResult> PutActualizarEstado(int codnotacredito, int codestado)

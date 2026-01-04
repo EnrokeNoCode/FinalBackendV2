@@ -15,8 +15,7 @@ namespace Controller.Venta
             _data = data;
         }
 
-        [HttpGet]
-        [Route("lista")]
+        [HttpGet("lista")]
         public async Task<ActionResult<List<PresupuestoVentaListDTO>>> GetListaPresupuestoVenta(int page = 1, int pageSize = 10)
         {
             var prstVenta = await _data.PresupuestoVentaLista(page, pageSize);
@@ -45,8 +44,18 @@ namespace Controller.Venta
             }
         }
 
-        [HttpPut]
-        [Route("anularpresupuestoventa/{codpresupuestoventa}/{codestado}")]
+        [HttpGet("recprstventa/{codprstventa}")]
+        public async Task<ActionResult<PresupuestoVentaDTO>> Get(int codprstventa)
+        {
+            var presupuesto = await _data.PresupuestoVentaVer(codprstventa);
+
+            if (presupuesto == null)
+                return NotFound();
+
+            return Ok(presupuesto);
+        }
+
+        [HttpPut("anularpresupuestoventa/{codpresupuestoventa}/{codestado}")]
         public async Task<ActionResult> PutActualizarEstado(int codpresupuestoventa, int codestado)
         {
             try
@@ -70,17 +79,6 @@ namespace Controller.Venta
             {
                 return BadRequest(new { Error = ex.Message });
             }
-        }
-
-        [HttpGet("recprstventa/{codprstventa}")]
-        public async Task<ActionResult<PresupuestoVentaDTO>> Get(int codprstventa)
-        {
-            var presupuesto = await _data.PresupuestoVentaVer(codprstventa);
-
-            if (presupuesto == null)
-                return NotFound();
-
-            return Ok(presupuesto);
         }
 
         [HttpPost("insertar")]

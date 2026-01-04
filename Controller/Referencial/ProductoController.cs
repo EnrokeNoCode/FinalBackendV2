@@ -67,6 +67,29 @@ namespace Controller.Referencial
             return Ok(listaProductoVenta);
         }
 
+        [HttpGet("listaproductorepuesto/{codsucursal}")]
+        public async Task<ActionResult<List<ProductoVentaListDTO>>> ListaProductoRepuesto(int codsucursal)
+        {
+            var listaProductoVenta = await service_.GetProductoRepuesto(codsucursal);
+
+            if (listaProductoVenta == null || !listaProductoVenta.Any())
+            {
+                return NotFound();
+            }
+            return Ok(listaProductoVenta);
+        }
+
+        [HttpGet("recproducto/{codproducto}")]
+        public async Task<IActionResult> GetProducto(int codproducto)
+        {
+            var producto = await service_.ObtenerProducto(codproducto);
+            if (producto == null)
+                return NotFound(new { error = "Producto no encontrado" });
+
+            return Ok(producto);
+        }
+
+
         [HttpPost("insert")]
         public async Task<IActionResult> InsertarProducto([FromBody] ProductoInsertDTO producto)
         {
@@ -111,15 +134,6 @@ namespace Controller.Referencial
             {
                 return BadRequest(new { Error = ex.Message });
             }
-        }
-        [HttpGet("recproducto/{codproducto}")]
-        public async Task<IActionResult> GetProducto(int codproducto)
-        {
-            var producto = await service_.ObtenerProducto(codproducto);
-            if (producto == null)
-                return NotFound(new { error = "Producto no encontrado" });
-
-            return Ok(producto);
         }
 
         [HttpPut("actualizarproducto")]

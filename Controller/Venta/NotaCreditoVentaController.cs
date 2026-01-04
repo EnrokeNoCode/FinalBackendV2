@@ -15,8 +15,7 @@ namespace Controller.Venta
             _data = data;
         }
 
-        [HttpGet]
-        [Route("lista")]
+        [HttpGet("lista")]
         public async Task<ActionResult<List<NotaCreditoVentaListDTO>>> GetList(int page = 1, int pageSize = 10)
         {
             var comprasList = await _data.NotaCreditoVentaList(page, pageSize);
@@ -26,6 +25,17 @@ namespace Controller.Venta
                 return NotFound();
             }
             return Ok(comprasList);
+        }
+
+        [HttpGet("recnotacredito/{codnotacredito}")]
+        public async Task<ActionResult<NotaCreditoVentaDTO>> Get(int codnotacredito)
+        {
+            var notaCredito = await _data.NotaCreditoVer(codnotacredito);
+
+            if (notaCredito == null)
+                return NotFound();
+
+            return Ok(notaCredito);
         }
 
         [HttpPost("insertar")]
@@ -40,17 +50,6 @@ namespace Controller.Venta
             {
                 return StatusCode(500, new { error = ex.Message });
             }
-        }
-
-        [HttpGet("recnotacredito/{codnotacredito}")]
-        public async Task<ActionResult<NotaCreditoVentaDTO>> Get(int codnotacredito)
-        {
-            var notaCredito = await _data.NotaCreditoVer(codnotacredito);
-
-            if (notaCredito == null)
-                return NotFound();
-
-            return Ok(notaCredito);
         }
 
         [HttpPut("anular/{codnotacredito}/{codestado}")]

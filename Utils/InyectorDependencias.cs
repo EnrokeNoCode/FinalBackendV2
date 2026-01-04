@@ -16,6 +16,8 @@ using Persistence.SQL.Reporte.Compras;
 using Service.Reportes.Ventas;
 using Persistence.SQL.Reporte.Ventas;
 using Persistence.SQL;
+using Service.Reportes.Servicios;
+using Persistence.SQL.Reporte.Servicios;
 
 namespace Utils
 {
@@ -105,20 +107,24 @@ namespace Utils
             //Servicios
             services.AddScoped<RegistroVehiculoService>();
             services.AddScoped<DiagnosticoTecnicoService>();
+            services.AddScoped<PresupuestoServicioService>();
 
             services.AddScoped<RegistroVehiculo_sql>();
             services.AddScoped<DiagnosticoTecnico_sql>();
+            services.AddScoped<PresupuestoServicioSQL>();
 
             //Reportes
             services.AddScoped<CajaReporteService>();
             services.AddScoped<CompraReporteService>();
             services.AddScoped<VentaReporteService>();
             services.AddScoped<ProductoReporteService>();
+            services.AddScoped<PresupuestoServicioReporteService>();
 
             services.AddScoped<CajaReporteSQL>();
             services.AddScoped<CompraReporteSQL>();
             services.AddScoped<VentaReporteSQL>();
             services.AddScoped<ProductoReporteSQL>();
+            services.AddScoped<PresupuestoServicioReporteSQL>();
 
             return services;
         }
