@@ -73,7 +73,7 @@ namespace Persistence.SQL.Compra
                                 c.codcompra , tc.numtipocomprobante || '-' || c.numcompra  as numcompra, c.fechacompra  , prv.nrodocprv || '- ' || prv.razonsocial as datoproveedor ,
                                 case when c.codordenc is null then 'NO HAY ORDEN' else 'Fecha OrdenC: ' || oc.fechaorden    || '  Nro OrdenC: ' || oc.numordencompra  end as datoordenc,
                                 c.totaliva, c.totalexento , c.totalcompra  , 
-                                case when oc.condicionpago  = 0 then 'CONTADO' else 'CREDITO' end as condicion, m.nummoneda as moneda, oc.cotizacion 
+                                case when c.condicionpago  = 0 then 'CONTADO' else 'CREDITO' end as condicion, m.nummoneda as moneda, oc.cotizacion 
                                 from purchase.compras c 
                                 left join purchase.ordencompra oc on oc.codordenc  = c.codordenc 
                                 inner join referential.proveedor prv on c.codproveedor = prv.codproveedor 
